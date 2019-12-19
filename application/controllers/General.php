@@ -10,41 +10,19 @@ class General extends CI_Controller
   function __construct()
   {
     parent::__construct();
+    $this->load->model('general_model');
     error_reporting(1);
   }
 
   public function index()
   {
-//    $this->load->view('general/home');
-    $this->login();
+//    var_dump($this->general_model->ContentHome());die;
+    $this->load->view('general/home', $this->general_model->ContentHome());
   }
 
   public function login()
   {
-    require_once 'vendor/autoload.php';
-  //  $redirect_uri = 'https://google.com';
-    $client = new Google_Client();
-    $client->setAuthConfig('assets/client_credentials.json');
-    //$client->setRedirectUri($redirect_uri);
-    $client->addScope("email");
-    $client->addScope("profile");
 
-    if (isset($_GET['code']))
-    {
-//      var_dump(isset($_GET['code']));die;
-      $token = $client->fetchAccessTokenWithAuthCode($this->input->get('code'));
-      $client->setAccessToken($token['access_token']);
-
-      $google_oauth = new Google_Service_Oauth2($client);
-      $google_account_info = $google_oauth->userinfo->get();
-      $email = $google_account_info->email;
-      $name = $google_account_info->name;
-      echo $name.' -- '.$email;
-    }
-    else
-    {
-      echo '<a href="'.$client->createAuthUrl().'">Google Login </a>';
-    }
   }
 }
 

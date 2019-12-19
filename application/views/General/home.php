@@ -78,7 +78,7 @@
 							</li>
 
 							<li>
-								<a href="<?php echo base_url('/assets/template/cozastore/'); ?>contact.html">Contact</a>
+								<a href="<?php echo $this->session->userdata['link']; ?>">Contact</a>
 							</li>
 						</ul>
 					</div>
