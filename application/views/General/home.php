@@ -78,7 +78,7 @@
 							</li>
 
 							<li>
-								<a href="<?php echo $this->session->userdata['link']; ?>">Contact</a>
+								<a href="<?php //echo $this->session->userdata['link']; ?>">Contact</a>
 							</li>
 						</ul>
 					</div>
@@ -86,8 +86,8 @@
 					<!-- Icon header -->
 					<div class="wrap-icon-header flex-w flex-r-m h-full">
 						<div class="flex-c-m h-full p-r-25 bor6">
-							<div class="icon-header-item cl0 hov-cl1 trans-04 p-lr-11 icon-header-noti js-show-cart" data-notify="2">
-								<i class="zmdi zmdi-shopping-cart"></i>
+							<div class="icon-header-item cl0 hov-cl1 trans-04 p-lr-11 js-show-cart" >
+								<i class="zmdi zmdi-account-circle"></i>
 							</div>
 						</div>
 
@@ -111,8 +111,8 @@
 			<!-- Icon header -->
 			<div class="wrap-icon-header flex-w flex-r-m h-full m-r-15">
 				<div class="flex-c-m h-full p-r-5">
-					<div class="icon-header-item cl2 hov-cl1 trans-04 p-lr-11 icon-header-noti js-show-cart" data-notify="2">
-						<i class="zmdi zmdi-shopping-cart"></i>
+					<div class="icon-header-item cl2 hov-cl1 trans-04 p-lr-11 js-show-cart">
+						<i class="zmdi zmdi-account-circle"></i>
 					</div>
 				</div>
 			</div>
@@ -315,7 +315,7 @@
 		<div class="header-cart flex-col-l p-l-65 p-r-25">
 			<div class="header-cart-title flex-w flex-sb-m p-b-8">
 				<span class="mtext-103 cl2">
-					Your Cart
+					Account
 				</span>
 
 				<div class="fs-35 lh-10 cl2 p-lr-5 pointer hov-cl1 trans-04 js-hide-cart">
@@ -324,7 +324,9 @@
 			</div>
 
 			<div class="header-cart-content flex-w js-pscroll">
-				<ul class="header-cart-wrapitem w-full">
+
+
+				<ul class="header-cart-wrapitem w-full" hidden>
 					<li class="header-cart-item flex-w flex-t m-b-12">
 						<div class="header-cart-item-img">
 							<img src="<?php echo base_url('/assets/template/cozastore/'); ?>images/item-cart-01.jpg" alt="IMG">
@@ -375,13 +377,10 @@
 				</ul>
 
 				<div class="w-full">
-					<div class="header-cart-total w-full p-tb-40">
-						Total: $75.00
-					</div>
-
+					<img src="<?php echo $this->session->userdata['Image']; ?>" alt="">
 					<div class="header-cart-buttons flex-w w-full">
-						<a href="<?php echo base_url('/assets/template/cozastore/'); ?>shoping-cart.html" class="flex-c-m stext-101 cl0 size-107 bg3 bor2 hov-btn3 p-lr-15 trans-04 m-r-8 m-b-10">
-							View Cart
+						<a href="<?php echo $this->session->flashdata('link'); ?>" class="flex-c-m stext-101 cl0 size-107 bg3 bor2 hov-btn3 p-lr-15 trans-04 m-r-8 m-b-10">
+							Login
 						</a>
 
 						<a href="<?php echo base_url('/assets/template/cozastore/'); ?>shoping-cart.html" class="flex-c-m stext-101 cl0 size-107 bg3 bor2 hov-btn3 p-lr-15 trans-04 m-b-10">

@@ -18,7 +18,7 @@ class General_model extends CI_Model
   public function ContentHome()
   {
     $data['account'] = $this->account();
-    $data['webConf'] = $this->db->query('CALL GetWebConf()')->row();
+    //$data['webConf'] = $this->db->query('CALL GetWebConf()')->row();
     return $data;
   }
 
@@ -26,6 +26,7 @@ class General_model extends CI_Model
   {
     if ((!isset($this->session->userdata['login'])) || ((!isset($this->session->userdata['login'])) && (!$this->session->userdata['login'])))
     {
+      $user['status'] = 0;
       require_once 'vendor/autoload.php';
       $client = new Google_Client();
       $client->setAuthConfig('assets/client_credentials.json');
@@ -35,12 +36,24 @@ class General_model extends CI_Model
       {
         $token = $client->fetchAccessTokenWithAuthCode($this->input->get('code'));
         $client->setAccessToken($token['access_token']);
-        $user = (new Google_Service_Oauth2($client))->userinfo->get();
-        
+        $validUser = (new Google_Service_Oauth2($client))->userinfo->get();
+        $user = $this->db->query('CALL GetAccount("'.$validUser->email.'","'.$validUser->name.'","'.$validUser->picture.'")')->row();
+
+        $userdata = array(
+          'isLogin' => true,
+          'Role' => $user->Role,
+          'Id' => $user->Id,
+          'Fullname' => $user->Fullname,
+          'Image' => $user->Image,
+          'Email' => $user->Email,
+          'Phone' => $user->Phone,
+          'Privilleges' => $user->Privilleges
+         );
+         $this->session->set_userdata($userdata);
       }
       else
       {
-        $this->session->set_userdata('link', $client->createAuthUrl());
+        $this->session->set_flashdata('link', $client->createAuthUrl());
       }
     }
   }
