@@ -376,15 +376,20 @@
 					</li>
 				</ul>
 
-				<div class="w-full">
-					<img src="<?php echo $this->session->userdata['Image']; ?>" alt="">
+				<div class="w-full" <?php if(isset($this->session->userdata['login']) && ($this->session->userdata['login'])){echo 'hidden';} ?>>
+					<img src="<?php echo $this->session->userdata['Image']; ?>" alt="IMG" style="width: 250px;">
+					<div class="header-cart-buttons flex-w w-full">
+						<a href="<?php echo base_url('logout'); ?>" class="flex-c-m stext-101 cl0 size-107 bg3 bor2 hov-btn3 p-lr-15 trans-04 m-r-8 m-b-10">
+							Logout
+						</a>
+					</div>
+				</div>
+
+				<div class="w-full" <?php if((!isset($this->session->userdata['login'])) || ((!$this->session->userdata['login']))){echo 'hidden';} ?>>
+					<p>Anda belum login, silahkan klik tombol dibawah ini untuk masuk</p>
 					<div class="header-cart-buttons flex-w w-full">
 						<a href="<?php echo $this->session->flashdata('link'); ?>" class="flex-c-m stext-101 cl0 size-107 bg3 bor2 hov-btn3 p-lr-15 trans-04 m-r-8 m-b-10">
-							Login
-						</a>
-
-						<a href="<?php echo base_url('/assets/template/cozastore/'); ?>shoping-cart.html" class="flex-c-m stext-101 cl0 size-107 bg3 bor2 hov-btn3 p-lr-15 trans-04 m-b-10">
-							Check Out
+							Login dengan Google
 						</a>
 					</div>
 				</div>

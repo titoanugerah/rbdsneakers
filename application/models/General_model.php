@@ -18,13 +18,13 @@ class General_model extends CI_Model
   public function ContentHome()
   {
     $data['account'] = $this->account();
-    //$data['webConf'] = $this->db->query('CALL GetWebConf()')->row();
+    $data['webConf'] = $this->db->query('CALL GetWebConf()')->row();
     return $data;
   }
 
   public function Account()
   {
-    if ((!isset($this->session->userdata['login'])) || ((!isset($this->session->userdata['login'])) && (!$this->session->userdata['login'])))
+    if ((!isset($this->session->userdata['isLogin'])) || ((!isset($this->session->userdata['isLogin'])) && (!$this->session->userdata['isLogin'])))
     {
       $user['status'] = 0;
       require_once 'vendor/autoload.php';
@@ -38,7 +38,6 @@ class General_model extends CI_Model
         $client->setAccessToken($token['access_token']);
         $validUser = (new Google_Service_Oauth2($client))->userinfo->get();
         $user = $this->db->query('CALL GetAccount("'.$validUser->email.'","'.$validUser->name.'","'.$validUser->picture.'")')->row();
-
         $userdata = array(
           'isLogin' => true,
           'Role' => $user->Role,
