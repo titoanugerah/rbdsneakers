@@ -20,14 +20,8 @@ class General extends CI_Controller
     $this->load->view('general/home', $this->general_model->ContentHome());
   }
 
-  public function login()
-  {
-
-  }
-
   public function logout()
   {
-  //  var_dump($this->session->userdata['login']);die;
     $this->session->sess_destroy();
     redirect(base_url());
   }

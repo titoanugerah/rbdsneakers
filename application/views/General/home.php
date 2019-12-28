@@ -78,7 +78,7 @@
 							</li>
 
 							<li>
-								<a href="<?php //echo $this->session->userdata['link']; ?>">Contact</a>
+								<a href="<?php echo base_url('dashboard') ?>" <?php if($this->session->userdata['Role'] != 'Employee'){echo 'hidden';} ?>>Dashboard</a>
 							</li>
 						</ul>
 					</div>
@@ -385,8 +385,11 @@
 				</div>
 				<div class="w-full" <?php if(!$this->session->userdata['isLogin'] || $this->session->userdata['isLogin']==null){echo 'hidden';} ?>>
 					<img src="<?php echo $this->session->userdata['Image']; ?>" alt="IMG" style="width: 250px;">
+					<br>
 					<div class="header-cart-buttons flex-w w-full">
-						<a href="<?php echo base_url('logout'); ?>" class="flex-c-m stext-101 cl0 size-107 bg3 bor2 hov-btn3 p-lr-15 trans-04 m-r-8 m-b-10">
+						<p><?php echo $this->session->userdata['Fullname']; ?></p>
+						<br> |
+						<a href="<?php echo base_url('logout'); ?>" class="flex-c-m stext-101">
 							Logout
 						</a>
 					</div>
