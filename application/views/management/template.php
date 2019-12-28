@@ -153,14 +153,14 @@
 						</div>
 					</div>
 					<ul class="nav nav-<?php echo $webConf->theme_color;?>">
-						<?php $this->load->view('management/menu'); ?>
+						<?php $this->load->view($this->session->userdata['Role'].'/Menu'); ?>
 					</ul>
 				</div>
 			</div>
 		</div>
 		<div class="main-panel">
 			<div class="content">
-        <?php $this->load->view('management/'.$viewName); ?>
+        <?php $this->load->view($this->session->userdata['Role'].'/'.$viewName); ?>
 			</div>
 			<footer class="footer">
 				<div class="container-fluid">

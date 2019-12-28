@@ -16,7 +16,7 @@ class General extends CI_Controller
 
   public function Index()
   {
-    $this->load->view('general/home', $this->general_model->ContentHome());
+    $this->load->view('General/Home', $this->general_model->ContentHome());
   }
 
   public function Logout()

@@ -16,12 +16,18 @@ class management extends CI_Controller
 
   public function Dashboard()
   {
+//    var_dump($this->session->userdata);die;
     $this->load->view('management/template', $this->management_model->ContentDashboard());
   }
 
   public function Profile()
   {
-    $this->load->view('management/template', $this->management_model->ContentProfile());    
+    $this->load->view('management/template', $this->management_model->ContentProfile());
+  }
+
+  public function AccountManagement()
+  {
+      $this->load->view('management/template', $this->management_model->ContentAccountManagement());
   }
 }
 

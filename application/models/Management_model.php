@@ -18,14 +18,21 @@ class Management_model extends CI_Model
   public function ContentDashboard()
   {
     $data['webConf'] = $this->core_model->GetWebConf();
-    $data['viewName'] = 'blank';
+    $data['viewName'] = 'Blank';
     return $data;
   }
 
   public function ContentProfile()
   {
     $data['webConf'] = $this->core_model->GetWebConf();
-    $data['viewName'] = 'profile';
+    $data['viewName'] = 'Profile';
+    return $data;
+  }
+
+  public function ContentAccountManagement()
+  {
+    $data['webConf'] = $this->core_model->GetWebConf();
+    $data['viewName'] = 'AccountManagement';
     return $data;
   }
 }
