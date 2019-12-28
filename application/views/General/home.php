@@ -78,7 +78,7 @@
 							</li>
 
 							<li>
-								<a href="<?php echo base_url('dashboard') ?>" <?php if($this->session->userdata['Role'] != 'Employee'){echo 'hidden';} ?>>Dashboard</a>
+								<a href="<?php echo base_url('dashboard') ?>" <?php if($this->session->userdata['Role'] != 'Management'){echo 'hidden';} ?>>Dashboard</a>
 							</li>
 						</ul>
 					</div>

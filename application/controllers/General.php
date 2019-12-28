@@ -16,7 +16,6 @@ class General extends CI_Controller
 
   public function index()
   {
-    // var_dump($this->session->userdata);die;
     $this->load->view('general/home', $this->general_model->ContentHome());
   }
 
