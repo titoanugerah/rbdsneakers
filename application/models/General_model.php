@@ -1,4 +1,5 @@
 <?php
+defined('BASEPATH') OR exit('No direct script access allowed');
 
 /**
  * General Model are open for all
@@ -9,20 +10,14 @@ class General_model extends CI_Model
   function __construct()
   {
     parent::__construct();
+    $this->load->model('core_model');
   }
-
-  //CORE
-  public function GetSingleData($table, $whereVar, $whereVal)
-  {
-    $query = $this->db->get_where($table, $where = array($whereVar => $whereVal ))->row();
-  }
-
 
   //APPLICATION
   public function ContentHome()
   {
+    $data['webConf'] = $this->core_model->GetWebConf();
     $data['account'] = $this->account();
-//    $data['webConf'] = $this->GetSingleData('webConf', 'id', 1);
     return $data;
   }
 

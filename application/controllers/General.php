@@ -14,12 +14,12 @@ class General extends CI_Controller
     error_reporting(1);
   }
 
-  public function index()
+  public function Index()
   {
     $this->load->view('general/home', $this->general_model->ContentHome());
   }
 
-  public function logout()
+  public function Logout()
   {
     $this->session->sess_destroy();
     redirect(base_url());
