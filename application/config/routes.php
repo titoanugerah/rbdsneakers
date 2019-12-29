@@ -8,8 +8,11 @@ $route['logout'] = 'general/Logout';
 #MANAGEMENT
 $route['profile'] = 'management/Profile';
 $route['dashboard'] = 'management/Dashboard';
-$route['accountManagement'] = 'management/AccountManagement';
+$route['accountManagement/(:any)'] = 'management/AccountManagement/$1';
+$route['accountManagement'] = 'management/AccountManagement/0';
 
+#javascript
+$route['getDetailAccount'] = 'management/GetDetailAccount';
 
 #SYSTEM
 $route['404_override'] = '';

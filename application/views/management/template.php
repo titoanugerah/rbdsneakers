@@ -15,6 +15,7 @@
 		}
 	});
 	</script>
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
 	<link rel="stylesheet" href="<?php echo base_url('./assets/template/AtlantisLite/'); ?>assets/css/bootstrap.min.css">
 	<link rel="stylesheet" href="<?php echo base_url('./assets/template/AtlantisLite/'); ?>assets/css/atlantis.min.css">
 	<link rel="stylesheet" href="<?php echo base_url('./assets/template/AtlantisLite/'); ?>assets/css/demo.css">
@@ -50,7 +51,7 @@
 										<i class="fa fa-search search-icon"></i>
 									</button>
 								</div>
-								<input type="text" placeholder="Search ..." class="form-control" name="keyword">
+								<input type="text" placeholder="Search ..." class="form-control" id="search" name="search">
 							</div>
 						</form>
 					</div>
@@ -177,6 +178,24 @@
 			</footer>
 		</div>
 	</div>
+
+	<div class="modal fade" id="loading" role="dialog">
+	  <div class="modal-dialog">
+	    <!-- Modal content-->
+	    <div class="modal-content">
+	      <div class="modal-header">
+	        <div class="spinner-border text-secondary" role="status">
+	          <span class="sr-only">Loading...</span>
+	        </div>
+	        &nbsp;
+	        <h4>Loading Data</h4>
+	        <button type="button" id="closeLoading" class="close" data-dismiss="modal">&times;</button>
+	      </div>
+	    </div>
+	  </div>
+	</div>
+
+
 	<script src="<?php echo base_url('./assets/template/AtlantisLite/'); ?>assets/js/core/jquery.3.2.1.min.js"></script>
 	<script src="<?php echo base_url('./assets/template/AtlantisLite/'); ?>assets/js/core/popper.min.js"></script>
 	<script src="<?php echo base_url('./assets/template/AtlantisLite/'); ?>assets/js/core/bootstrap.min.js"></script>

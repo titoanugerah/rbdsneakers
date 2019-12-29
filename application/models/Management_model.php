@@ -29,8 +29,18 @@ class Management_model extends CI_Model
     return $data;
   }
 
-  public function ContentAccountManagement()
+  public function ContentAccountManagement($keyword, $page)
   {
+    if ($keyword!=null)
+    {
+      $data['customer'] = $this->core_model->GetSearchData('Customer', $keyword, $page);
+      $data['management'] = $this->core_model->GetSearchData('Management', $keyword, $page);
+    }
+    else
+    {
+      $data['customer'] = $this->core_model->GetAllData('Customer', $page);
+      $data['management'] = $this->core_model->GetAllData('Management', $page);
+    }
     $data['webConf'] = $this->core_model->GetWebConf();
     $data['viewName'] = 'AccountManagement';
     return $data;
