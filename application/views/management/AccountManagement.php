@@ -71,7 +71,7 @@
     <div class="modal-content">
       <div class="modal-header">
         <center>
-          <h4>Detail Account</h4>
+          <h4>Detail Akun</h4>
         </center>
         <button type="button" class="close" data-dismiss="modal">&times;</button>
       </div>
@@ -133,7 +133,7 @@
     <div class="modal-content">
       <div class="modal-header">
         <center>
-          <h4>Detail Account</h4>
+          <h4>Detail Akun</h4>
         </center>
         <button type="button" class="close" data-dismiss="modal">&times;</button>
       </div>
@@ -165,34 +165,27 @@
             </div>
           </div>
           <div class="tab-pane" id="privilegesList">
+            <br><br>
             <div class="selectgroup selectgroup-pills">
 							<label class="selectgroup-item">
-								<input type="checkbox" name="value" value="HTML" class="selectgroup-input" checked="">
-								<span class="selectgroup-button">HTML</span>
+								<input type="checkbox" id="home"  value="1" class="selectgroup-input" checked>
+								<span class="selectgroup-button">Halaman Depan</span>
 							</label>
 							<label class="selectgroup-item">
-								<input type="checkbox" name="value" value="CSS" class="selectgroup-input">
-								<span class="selectgroup-button">CSS</span>
+								<input type="checkbox" id="accountManagement" value="1" class="selectgroup-input">
+								<span class="selectgroup-button">Manajemen Akun</span>
 							</label>
 							<label class="selectgroup-item">
-								<input type="checkbox" name="value" value="PHP" class="selectgroup-input">
-								<span class="selectgroup-button">PHP</span>
+								<input type="checkbox" id="stockManagement" value="1" class="selectgroup-input">
+								<span class="selectgroup-button">Manajemen Stok</span>
 							</label>
 							<label class="selectgroup-item">
-								<input type="checkbox" name="value" value="JavaScript" class="selectgroup-input">
-								<span class="selectgroup-button">JavaScript</span>
+								<input type="checkbox" id="salesManagement" value="1" class="selectgroup-input">
+								<span class="selectgroup-button">Manajemen Penjualan</span>
 							</label>
 							<label class="selectgroup-item">
-								<input type="checkbox" name="value" value="Ruby" class="selectgroup-input">
-								<span class="selectgroup-button">Ruby</span>
-							</label>
-							<label class="selectgroup-item">
-								<input type="checkbox" name="value" value="Ruby" class="selectgroup-input">
-								<span class="selectgroup-button">Ruby</span>
-							</label>
-							<label class="selectgroup-item">
-								<input type="checkbox" name="value" value="C++" class="selectgroup-input">
-								<span class="selectgroup-button">C++</span>
+								<input type="checkbox" id="reporting" value="1" class="selectgroup-input">
+								<span class="selectgroup-button">Laporan </span>
 							</label>
 						</div>
           </div>
@@ -239,16 +232,25 @@
         dataType : "JSON",
         url: "<?php echo base_url() ?>/GetDetailManagement?Id="+id,
         success: function(result) {
+          var privilegesList = convertNumberToBinary(result.detail.Privilleges);
           $("#detailAccountManagement").modal('show');
           $('#fullnameManagement').val(result.detail.Fullname);
           $('#emailManagement').val(result.detail.Email);
           $('#ManagementImage').attr('src', result.detail.Image);
-
+          $('#home').prop('checked', parseInt(privilegesList[0]));
+          $('#accountManagement').prop('checked', parseInt(privilegesList[1]));
+          $('#stockManagement').prop('checked', parseInt(privilegesList[2]));
+          $('#salesManagement').prop('checked', parseInt(privilegesList[3]));
+          $('#reporting').prop('checked', parseInt(privilegesList[4]));
         },
         error: function(result) {
             alert('error');
         }
     });
+  }
+
+  const convertNumberToBinary = number => {
+    return (number >>> 0).toString(2);
   }
 
 </script>
