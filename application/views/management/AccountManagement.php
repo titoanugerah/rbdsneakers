@@ -34,8 +34,7 @@
                 <h4 class="mb-1 fw-bold"><?php echo $customer->Fullname; ?></h4>
                 <br>
                 <center>
-                  <!-- <a href="<?php echo base_url('detailAccount/'.$customer->Role.'/'.$customer->Id); ?>" class="btn btn-secondary btn-round">Detail Akun</a> -->
-                  <button type="button" class="btn btn-secondary btn-round" onclick="GetDetailAccount(<?php echo $customer->Id; ?>)">Detail</button>
+                  <button type="button" class="btn btn-secondary btn-round" onclick="GetDetailCustomer(<?php echo $customer->Id; ?>)">Detail</button>
                 </center>
               </div>
             </div>
@@ -69,7 +68,7 @@
 
 
 <div class="modal fade" id="detailAccount" role="dialog">
-  <div class="modal-dialog">
+  <div class="modal-dialog modal-lg">
     <!-- Modal content-->
     <div class="modal-content">
       <div class="modal-header">
@@ -79,39 +78,76 @@
         <button type="button" class="close" data-dismiss="modal">&times;</button>
       </div>
       <form role="form" method="post">
-        <div class="modal-body row">
-          <div class="form-group col-6 col-md-6">
-            <label>Nama Promo</label>
-            <input type="text" class="form-control" placeholder="Masukan nama promo" name="name" required>
+        <div class="modal-body">
+          <ul class="wizard-menu nav nav-pills nav-primary">
+            <li class="step" style="width: 50%;">
+              <a class="nav-link active" href="#about" data-toggle="tab" aria-expanded="true"><i class="fa fa-user mr-0"></i> Detail Pelanggan</a>
+            </li>
+            <li class="step" style="width: 50%;">
+              <a class="nav-link" href="#order" data-toggle="tab"><i class="fa fa-file mr-2"></i> Detail Order</a>
+            </li>
+          </ul>
+          <div class="tab-content">
+            <div class="tab-pane active" id="about">
+              <div class="row">
+                <div class="avatar-xl col-md-2">
+                  <br>
+                  <img src="" id="customerImage" class="avatar-img rounded">
+                </div>
+                <div class="form-group col-6 col-md-4">
+                  <label>Nama Pelanggan</label>
+                  <input type="text" class="form-control" id="fullname" required>
+                </div>
+                <div class="form-group col-6 col-md-6">
+                  <label>Email</label>
+                  <input type="email" class="form-control" id="email" required>
+                </div>
+            </div>
           </div>
-          <div class="form-group col-6 col-md-6">
-            <label>Kode Promo</label>
-            <input type="text" class="form-control" placeholder="Masukan kode promo" name="promo_code" required>
-          </div>
-          <div class="form-group col-6 col-md-12">
-            <label>Deskripsi</label>
-            <textarea name="description" rows="3" cols="80" placeholder="Masukan keterangan promo" class="form-control" required></textarea>
-          </div>
+          <div class="tab-pane" id="order">
+            <table id="table1" class="display">
+    <thead>
+        <tr>
+            <th>Nama Produk</th>
+            <th>Qty</th>
+            <th>Status</th>
+        </tr>
+    </thead>
+    <tbody id="orderTable">
+
+    </tbody>
+</table>
         </div>
+        </div>
+      </div>
         <div class="modal-footer">
-          <button type="submit" class="btn btn-success" name="createPromo" value="createPromo">Tambah Promo</button>
-          <button type="button" class="btn btn-grey" data-dismiss="modal">Kembali</button>
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Kembali</button>
         </div>
       </form>
     </div>
   </div>
 </div>
 <script type="text/javascript">
-  function GetDetailAccount(id) {
-//    $("#loading").modal('show');
+  function GetDetailCustomer(id) {
     $.ajax({
         type: "POST",
-        url: "<?php echo base_url() ?>/getDetailAccount?Id="+id,
+        dataType : "JSON",
+        url: "<?php echo base_url() ?>/getDetailCustomer?Id="+id,
         success: function(result) {
           $("#detailAccount").modal('show');
-          $("#closeLoading").click();
-//          console.log(result);
-//            alert(result);
+          $('#fullname').val(result.detail.Fullname);
+          $('#email').val(result.detail.Email);
+          $('#customerImage').attr('src', result.detail.Image);
+          var html;
+          for(i=0; i<result.order.length; i++){
+            html +=
+            '<tr>'+
+            '<td>'+result.order[i].ProductName+'</td>'+
+            '<td>'+result.order[i].Qty+'</td>'+
+            '<td>'+result.order[i].Status+'</td>'+
+            '</tr>';
+          }
+          $('#orderTable').html(html);
         },
         error: function(result) {
             alert('error');

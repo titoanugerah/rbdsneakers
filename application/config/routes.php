@@ -12,7 +12,7 @@ $route['accountManagement/(:any)'] = 'management/AccountManagement/$1';
 $route['accountManagement'] = 'management/AccountManagement/0';
 
 #javascript
-$route['getDetailAccount'] = 'management/GetDetailAccount';
+$route['getDetailCustomer'] = 'management/GetDetailCustomer';
 
 #SYSTEM
 $route['404_override'] = '';

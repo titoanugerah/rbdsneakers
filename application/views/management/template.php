@@ -19,6 +19,8 @@
 	<link rel="stylesheet" href="<?php echo base_url('./assets/template/AtlantisLite/'); ?>assets/css/bootstrap.min.css">
 	<link rel="stylesheet" href="<?php echo base_url('./assets/template/AtlantisLite/'); ?>assets/css/atlantis.min.css">
 	<link rel="stylesheet" href="<?php echo base_url('./assets/template/AtlantisLite/'); ?>assets/css/demo.css">
+	<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.20/css/jquery.dataTables.css">
+	  
 </head>
 <body>
 	<div class="wrapper">
@@ -228,7 +230,7 @@
 		<script type="text/javascript">
 			$(document).ready(function() {
 				$('.select2basic').select2();
-
+				$('#table1').DataTable();
 			});
 		</script>
 

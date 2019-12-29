@@ -35,9 +35,9 @@ class management extends CI_Controller
     $this->load->view('Management/Template', $this->management_model->ContentAccountManagement($keyword, $page));
   }
 
-  public function GetDetailAccount()
+  public function GetDetailCustomer()
   {
-    echo json_encode($this->input->get('Id'));
+    echo $this->management_model->GetDetailCustomer($this->input->get('Id'));
   }
 }
 

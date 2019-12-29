@@ -45,6 +45,13 @@ class Management_model extends CI_Model
     $data['viewName'] = 'AccountManagement';
     return $data;
   }
+
+  public function GetDetailCustomer($id)
+  {
+    $data['detail'] = $this->core_model->GetSingleData('Customer', 'Id', $id);
+    $data['order'] = ($this->db->query('CALL GetDetailOrderByCustomer('.$id.')'))->result();
+    return json_encode($data);
+  }
 }
 
 
