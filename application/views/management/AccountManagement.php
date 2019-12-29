@@ -54,7 +54,7 @@
                 <h4 class="mb-1 fw-bold"><?php echo $management->Fullname; ?></h4>
                 <br>
                 <center>
-                  <a href="<?php echo base_url('detailAccount/'.$management->Role.'/'.$management->Id); ?>" class="btn btn-secondary btn-round">Detail Akun</a>
+                  <button type="button" class="btn btn-secondary btn-round" onclick="GetDetailManagement(<?php echo $customer->Id; ?>)">Detail</button>
                 </center>
               </div>
             </div>
@@ -64,8 +64,6 @@
     </div>
   </div>
 </div>
-
-
 
 <div class="modal fade" id="detailAccount" role="dialog">
   <div class="modal-dialog modal-lg">
@@ -106,18 +104,98 @@
           </div>
           <div class="tab-pane" id="order">
             <table id="table1" class="display">
-    <thead>
-        <tr>
-            <th>Nama Produk</th>
-            <th>Qty</th>
-            <th>Status</th>
-        </tr>
-    </thead>
-    <tbody id="orderTable">
+              <thead>
+                  <tr>
+                      <th>Nama Produk</th>
+                      <th>Qty</th>
+                      <th>Status</th>
+                  </tr>
+              </thead>
+              <tbody id="orderTable">
 
-    </tbody>
-</table>
+              </tbody>
+            </table>
+          </div>
         </div>
+      </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Kembali</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+
+
+<div class="modal fade" id="detailAccountManagement" role="dialog">
+  <div class="modal-dialog modal-lg">
+    <!-- Modal content-->
+    <div class="modal-content">
+      <div class="modal-header">
+        <center>
+          <h4>Detail Account</h4>
+        </center>
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+      </div>
+      <form role="form" method="post">
+        <div class="modal-body">
+          <ul class="wizard-menu nav nav-pills nav-primary">
+            <li class="step" style="width: 50%;">
+              <a class="nav-link active" href="#aboutManagement" data-toggle="tab" aria-expanded="true"><i class="fa fa-user mr-0"></i> Detail Karyawan</a>
+            </li>
+            <li class="step" style="width: 50%;">
+              <a class="nav-link" href="#privilegesList" data-toggle="tab"><i class="fa fa-file mr-2"></i> Daftar Hak Akses</a>
+            </li>
+          </ul>
+          <div class="tab-content">
+            <div class="tab-pane active" id="aboutManagement">
+              <div class="row">
+                <div class="avatar-xl col-md-2">
+                  <br>
+                  <img src="" id="ManagementImage" class="avatar-img rounded">
+                </div>
+                <div class="form-group col-6 col-md-4">
+                  <label>Nama Karyawan</label>
+                  <input type="text" class="form-control" id="fullnameManagement" required>
+                </div>
+                <div class="form-group col-6 col-md-6">
+                  <label>Email</label>
+                  <input type="email" class="form-control" id="emailManagement" required>
+                </div>
+            </div>
+          </div>
+          <div class="tab-pane" id="privilegesList">
+            <div class="selectgroup selectgroup-pills">
+							<label class="selectgroup-item">
+								<input type="checkbox" name="value" value="HTML" class="selectgroup-input" checked="">
+								<span class="selectgroup-button">HTML</span>
+							</label>
+							<label class="selectgroup-item">
+								<input type="checkbox" name="value" value="CSS" class="selectgroup-input">
+								<span class="selectgroup-button">CSS</span>
+							</label>
+							<label class="selectgroup-item">
+								<input type="checkbox" name="value" value="PHP" class="selectgroup-input">
+								<span class="selectgroup-button">PHP</span>
+							</label>
+							<label class="selectgroup-item">
+								<input type="checkbox" name="value" value="JavaScript" class="selectgroup-input">
+								<span class="selectgroup-button">JavaScript</span>
+							</label>
+							<label class="selectgroup-item">
+								<input type="checkbox" name="value" value="Ruby" class="selectgroup-input">
+								<span class="selectgroup-button">Ruby</span>
+							</label>
+							<label class="selectgroup-item">
+								<input type="checkbox" name="value" value="Ruby" class="selectgroup-input">
+								<span class="selectgroup-button">Ruby</span>
+							</label>
+							<label class="selectgroup-item">
+								<input type="checkbox" name="value" value="C++" class="selectgroup-input">
+								<span class="selectgroup-button">C++</span>
+							</label>
+						</div>
+          </div>
         </div>
       </div>
         <div class="modal-footer">
@@ -154,4 +232,23 @@
         }
     });
   }
+
+  function GetDetailManagement(id) {
+    $.ajax({
+        type: "POST",
+        dataType : "JSON",
+        url: "<?php echo base_url() ?>/GetDetailManagement?Id="+id,
+        success: function(result) {
+          $("#detailAccountManagement").modal('show');
+          $('#fullnameManagement').val(result.detail.Fullname);
+          $('#emailManagement').val(result.detail.Email);
+          $('#ManagementImage').attr('src', result.detail.Image);
+
+        },
+        error: function(result) {
+            alert('error');
+        }
+    });
+  }
+
 </script>

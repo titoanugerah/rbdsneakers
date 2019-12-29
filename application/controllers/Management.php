@@ -39,6 +39,12 @@ class management extends CI_Controller
   {
     echo $this->management_model->GetDetailCustomer($this->input->get('Id'));
   }
+
+  public function GetDetailManagement()
+  {
+    echo $this->management_model->GetDetailManagement($this->input->get('Id'));
+  }
+
 }
 
  ?>

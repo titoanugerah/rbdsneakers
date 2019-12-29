@@ -11,8 +11,9 @@ $route['dashboard'] = 'management/Dashboard';
 $route['accountManagement/(:any)'] = 'management/AccountManagement/$1';
 $route['accountManagement'] = 'management/AccountManagement/0';
 
-#javascript
+#Ajax
 $route['getDetailCustomer'] = 'management/GetDetailCustomer';
+$route['GetDetailManagement'] = 'management/GetDetailManagement';
 
 #SYSTEM
 $route['404_override'] = '';

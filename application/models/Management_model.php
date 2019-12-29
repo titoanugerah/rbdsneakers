@@ -52,6 +52,12 @@ class Management_model extends CI_Model
     $data['order'] = ($this->db->query('CALL GetDetailOrderByCustomer('.$id.')'))->result();
     return json_encode($data);
   }
+
+  public function GetDetailManagement($id)
+  {
+    $data['detail'] = $this->core_model->GetSingleData('Management', 'Id', $id);
+    return json_encode($data);
+  }
 }
 
 
