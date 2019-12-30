@@ -58,6 +58,24 @@ class Management_model extends CI_Model
     $data['detail'] = $this->core_model->GetSingleData('Management', 'Id', $id);
     return json_encode($data);
   }
+
+  public function UpdateAccountManagement($id, $privilleges)
+  {
+     if ($this->session->userdata['AccountManagement'])
+     {
+      $this->db->query('CALL UpdateAccountManagement('.$id.','.$privilleges.')');
+      $data['title'] = 'Berhasil';
+      $data['type'] = 'success';
+      $data['message'] = 'Update berhasil akun berhasil dilakukan';
+     }
+      else
+    {
+      $data['title'] = 'Gagal';
+      $data['type'] = 'danger';
+      $data['message'] = 'Anda tidak memiliki hak akses untuk aksi ini';
+    }
+   return json_encode($data);
+  }
 }
 
 

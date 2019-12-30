@@ -227,6 +227,20 @@
 				type: '".$this->session->userdata['type']."',
 				placement : { from: 'bottom', align: 'right'}, time: 1000 });";
 			} ?>
+
+			function notify(icons, titles, messages, types) {
+				$.notify({
+					icon: icons,
+					title: titles,
+					message: messages
+				},
+				{
+					type: types,
+					placement : {
+						from: 'bottom', align: 'right'
+					}, time: 1000 });
+			}
+
 		</script>
 
 		<script type="text/javascript">

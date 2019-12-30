@@ -152,11 +152,12 @@
               <div class="row">
                 <div class="avatar-xl col-md-2">
                   <br>
-                  <img src="" id="ManagementImage" class="avatar-img rounded">
+                  <img src="" id="managementImage" class="avatar-img rounded" >
                 </div>
                 <div class="form-group col-6 col-md-4">
                   <label>Nama Karyawan</label>
                   <input type="text" class="form-control" id="fullnameManagement" required>
+                  <input type="text" class="form-control" id="idManagement" hidden>
                 </div>
                 <div class="form-group col-6 col-md-6">
                   <label>Email</label>
@@ -192,6 +193,7 @@
         </div>
       </div>
         <div class="modal-footer">
+          <button type="button" class="btn btn-primary" onclick="UpdateAccountManagement()">Simpan</button>
           <button type="button" class="btn btn-secondary" data-dismiss="modal">Kembali</button>
         </div>
       </form>
@@ -230,13 +232,14 @@
     $.ajax({
         type: "POST",
         dataType : "JSON",
-        url: "<?php echo base_url() ?>/GetDetailManagement?Id="+id,
+        url: "<?php echo base_url() ?>/getDetailManagement?Id="+id,
         success: function(result) {
           var privilegesList = convertNumberToBinary(result.detail.Privilleges);
           $("#detailAccountManagement").modal('show');
           $('#fullnameManagement').val(result.detail.Fullname);
           $('#emailManagement').val(result.detail.Email);
-          $('#ManagementImage').attr('src', result.detail.Image);
+          $('#managementImage').attr('src', result.detail.Image);
+          $('#idManagement').val(result.detail.Id);
           $('#home').prop('checked', parseInt(privilegesList[0]));
           $('#accountManagement').prop('checked', parseInt(privilegesList[1]));
           $('#stockManagement').prop('checked', parseInt(privilegesList[2]));
@@ -245,6 +248,34 @@
         },
         error: function(result) {
             alert('error');
+        }
+    });
+  }
+
+  function checker(element){
+    var result;
+    if($("#"+element).is(':checked')){
+      result = 1;
+    } else{
+      result = 0;
+    }
+    return result.toString();
+  }
+
+  function UpdateAccountManagement() {
+  var summary =  parseInt((checker('reporting') + checker('salesManagement') + checker('stockManagement') + checker('accountManagement') + checker('home')),2);
+  var urls = "<?php echo base_url() ?>updateAccountManagement?Id="+$("#idManagement").val()+"&Privilleges="+summary
+  $("#detailAccountManagement").modal('hide');
+    $.ajax({
+        type: "POST",
+        dataType : "JSON",
+        url: urls ,
+        success: function(result) {
+         notify('fa fa-user', result.title, result.message, result.type);
+        },
+        error: function(result) {
+            console.log(result);
+          alert('err');
         }
     });
   }

@@ -13,7 +13,8 @@ $route['accountManagement'] = 'management/AccountManagement/0';
 
 #Ajax
 $route['getDetailCustomer'] = 'management/GetDetailCustomer';
-$route['GetDetailManagement'] = 'management/GetDetailManagement';
+$route['getDetailManagement'] = 'management/GetDetailManagement';
+$route['updateAccountManagement'] = 'management/UpdateAccountManagement';
 
 #SYSTEM
 $route['404_override'] = '';
