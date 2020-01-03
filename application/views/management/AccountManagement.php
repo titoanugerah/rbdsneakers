@@ -55,7 +55,7 @@
                 <h4 class="mb-1 fw-bold"><?php echo $management->Fullname; ?></h4>
                 <br>
                 <center>
-                  <button type="button" class="btn btn-secondary btn-round" onclick="GetDetailManagement(<?php echo $customer->Id; ?>)">Detail</button>
+                  <button type="button" class="btn btn-secondary btn-round" onclick="GetDetailManagement(<?php echo $management->Id; ?>)">Detail</button>
                 </center>
               </div>
             </div>
@@ -259,7 +259,7 @@
         </div>
       </div>
         <div class="modal-footer">
-          <button type="button" class="btn btn-primary" onclick="addManagement()">Simpan</button>
+          <button type="button" class="btn btn-primary" onclick="insertAccountManagement()">Simpan</button>
           <button type="button" class="btn btn-secondary" data-dismiss="modal">Kembali</button>
         </div>
       </form>
@@ -301,6 +301,7 @@
         dataType : "JSON",
         url: "<?php echo base_url() ?>/getDetailManagement?Id="+id,
         success: function(result) {
+          console.log(result);
           var privilegesList = convertNumberToBinary(result.detail.Privilleges);
           $("#detailAccountManagement").modal('show');
           $('#fullnameManagement').val(result.detail.Fullname);
@@ -348,13 +349,19 @@
     });
   }
 
-  function addAccountManagement() {
+  function insertAccountManagement() {
+    var urls = '<?php echo base_url("addAccountManagement"); ?>';
+    var summary = parseInt((checker('addReporting') + checker('addSalesManagement') + checker('addStockManagement') + checker('addAccountManagement') + checker('addHome')),2);
     $.ajax({
         type: "POST",
         dataType : "JSON",
-        url: urls ,
+        url: urls,
+        data : {
+          Email : $("#addEmailManagement").val(),
+          Privilleges : summary
+        },
         success: function(result) {
-         notify('fa fa-user', result.title, result.message, result.type);
+         notify('fa fa-user', result.title, result.message, result.status);
         },
         error: function(result) {
             console.log(result);

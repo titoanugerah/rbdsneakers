@@ -15,6 +15,7 @@ $route['accountManagement'] = 'management/AccountManagement/0';
 $route['getDetailCustomer'] = 'management/GetDetailCustomer';
 $route['getDetailManagement'] = 'management/GetDetailManagement';
 $route['updateAccountManagement'] = 'management/UpdateAccountManagement';
+$route['addAccountManagement'] = 'management/AddAccountManagement';
 
 #SYSTEM
 $route['404_override'] = '';

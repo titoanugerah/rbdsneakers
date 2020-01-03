@@ -50,6 +50,11 @@ class management extends CI_Controller
     echo $this->management_model->UpdateAccountManagement($this->input->get('Id'), $this->input->get('Privilleges'));
   }
 
+  public function AddAccountManagement()
+  {
+    echo $this->management_model->AddAccountManagement($this->input->post('Email'), $this->input->post('Privilleges'));
+  }
+
 }
 
  ?>

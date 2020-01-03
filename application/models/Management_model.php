@@ -61,20 +61,40 @@ class Management_model extends CI_Model
 
   public function UpdateAccountManagement($id, $privilleges)
   {
-     if ($this->session->userdata['AccountManagement'])
-     {
+    if ($this->session->userdata['AccountManagement'])
+    {
       $this->db->query('CALL UpdateAccountManagement('.$id.','.$privilleges.')');
       $data['title'] = 'Berhasil';
       $data['type'] = 'success';
       $data['message'] = 'Update berhasil akun berhasil dilakukan';
-     }
-      else
+    }
+    else
     {
       $data['title'] = 'Gagal';
       $data['type'] = 'danger';
       $data['message'] = 'Anda tidak memiliki hak akses untuk aksi ini';
     }
-   return json_encode($data);
+
+    return json_encode($data);
+  }
+
+  public function AddAccountManagement($email, $privilleges)
+  {
+    if ($this->session->userdata['AccountManagement'])
+    {
+      $operation = ($this->db->query('CALL AddAccountManagement("'.$email.'",'.$privilleges.')'))->row();
+      $data['title'] = $operation->Title;
+      $data['type'] = $operation->Status;
+      $data['message'] = $operation->Message;
+
+    }
+    else
+    {
+      $data['title'] = 'Gagal';
+      $data['type'] = 'danger';
+      $data['message'] = 'Anda tidak memiliki hak akses untuk aksi ini';
+    }
+    return json_encode($data);
   }
 }
 
