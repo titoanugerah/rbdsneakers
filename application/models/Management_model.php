@@ -46,6 +46,21 @@ class Management_model extends CI_Model
     return $data;
   }
 
+  public function ContentCategoryMangement($keyword)
+  {
+    if ($keyword!=null)
+    {
+      $data['category'] = $this->core_model->GetSearchData('Category', $keyword, 0);
+    }
+    else
+    {
+      $data['category'] = $this->core_model->GetAllData('Category', 0);
+    }
+    $data['webConf'] = $this->core_model->GetWebConf();
+    $data['viewName'] = 'CategoryManagement';
+    return $data;
+  }
+
   public function GetDetailCustomer($id)
   {
     $data['detail'] = $this->core_model->GetSingleData('Customer', 'Id', $id);
@@ -86,7 +101,31 @@ class Management_model extends CI_Model
       $data['title'] = $operation->Title;
       $data['type'] = $operation->Status;
       $data['message'] = $operation->Message;
+    }
+    else
+    {
+      $data['title'] = 'Gagal';
+      $data['type'] = 'danger';
+      $data['message'] = 'Anda tidak memiliki hak akses untuk aksi ini';
+    }
+    return json_encode($data);
+  }
 
+  public function GetDetailCategory($id)
+  {
+    $data['detail'] = $this->core_model->GetSingleData('Category', 'Id', $id);
+    $data['product'] = $this->core_model->GetSomeData('Product', 'CategoryId', $id);
+    return json_encode($data);
+  }
+
+  public function UpdateCategory($id, $name, $description)
+  {
+    if ($this->session->userdata['StockManagement'])
+    {
+      $this->db->query('CALL UpdateCategory('.$id.',"'.$name.'","'.$description.'")');
+      $data['title'] = 'Berhasil';
+      $data['type'] = 'success';
+      $data['message'] = 'Update kategori berhasil dilakukan';
     }
     else
     {

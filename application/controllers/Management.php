@@ -35,6 +35,16 @@ class management extends CI_Controller
     $this->load->view('Management/Template', $this->management_model->ContentAccountManagement($keyword, $page));
   }
 
+  public function CategoryManagement()
+  {
+    $keyword = null;
+    if ($this->input->post('search'))
+    {
+      $keyword = $this->input->post('search');
+    }
+    $this->load->view('Management/Template', $this->management_model->ContentCategoryMangement($keyword));
+  }
+
   public function GetDetailCustomer()
   {
     echo $this->management_model->GetDetailCustomer($this->input->get('Id'));
@@ -53,6 +63,16 @@ class management extends CI_Controller
   public function AddAccountManagement()
   {
     echo $this->management_model->AddAccountManagement($this->input->post('Email'), $this->input->post('Privilleges'));
+  }
+
+  public function GetDetailCategory()
+  {
+    echo $this->management_model->GetDetailCategory($this->input->post('Id'));
+  }
+
+  public function UpdateCategory()
+  {
+    echo $this->management_model->UpdateCategory($this->input->post('Id'),$this->input->post('Name'),$this->input->post('Description'));
   }
 
 }

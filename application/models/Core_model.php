@@ -19,6 +19,11 @@ class Core_model extends CI_Model
     return $this->db->get_where($table, $where = array($whereVar => $whereVal ))->row();
   }
 
+  public function GetSomeData($table, $whereVar, $whereVal)
+  {
+    return $this->db->get_where($table, $where = array($whereVar => $whereVal ))->result();
+  }
+
   public function GetAllData($table, $page)
   {
     $this->db->limit(50, (50*$page));
