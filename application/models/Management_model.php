@@ -48,14 +48,14 @@ class Management_model extends CI_Model
 
   public function ContentCategoryMangement($keyword)
   {
-    if ($keyword!=null)
-    {
-      $data['category'] = $this->core_model->GetSearchData('Category', $keyword, 0);
-    }
-    else
-    {
-      $data['category'] = $this->core_model->GetAllData('Category', 0);
-    }
+    // if ($keyword!=null)
+    // {
+    //   $data['category'] = $this->core_model->GetSearchData('Category', $keyword, 0);
+    // }
+    // else
+    // {
+    //   $data['category'] = $this->core_model->GetAllData('Category', 0);
+    // }
     $data['webConf'] = $this->core_model->GetWebConf();
     $data['viewName'] = 'CategoryManagement';
     return $data;
@@ -111,6 +111,19 @@ class Management_model extends CI_Model
     return json_encode($data);
   }
 
+  public function GetCategory($keyword)
+  {
+    if ($keyword!=null && $keyword!='')
+    {
+      $data['category'] = $this->core_model->GetSearchData('Category', $keyword, 0);
+    }
+    else
+    {
+      $data['category'] = $this->core_model->GetAllData('Category', 0);
+    }
+    return json_encode($data);
+  }
+
   public function GetDetailCategory($id)
   {
     $data['detail'] = $this->core_model->GetSingleData('Category', 'Id', $id);
@@ -135,6 +148,25 @@ class Management_model extends CI_Model
     }
     return json_encode($data);
   }
+
+  public function DeleteCategory($id, $email)
+  {
+    if ($this->session->userdata['StockManagement'] && $this->session->userdata['Email']==$email)
+    {
+      $this->db->query('CALL DeleteCategory('.$id.')');
+      $data['title'] = 'Berhasil';
+      $data['type'] = 'success';
+      $data['message'] = 'Proses hapus kategori berhasil dilakukan';
+    }
+    else
+    {
+      $data['title'] = 'Gagal';
+      $data['type'] = 'danger';
+      $data['message'] = 'Anda tidak memiliki hak akses untuk aksi ini atau email yang anda masukan salah';
+    }
+    return json_encode($data);
+  }
+
 }
 
 

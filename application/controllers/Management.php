@@ -65,6 +65,11 @@ class management extends CI_Controller
     echo $this->management_model->AddAccountManagement($this->input->post('Email'), $this->input->post('Privilleges'));
   }
 
+  public function GetCategory()
+  {
+    echo $this->management_model->GetCategory($this->input->post('Keyword'));
+  }
+
   public function GetDetailCategory()
   {
     echo $this->management_model->GetDetailCategory($this->input->post('Id'));
@@ -75,6 +80,10 @@ class management extends CI_Controller
     echo $this->management_model->UpdateCategory($this->input->post('Id'),$this->input->post('Name'),$this->input->post('Description'));
   }
 
+  public function DeleteCategory()
+  {
+    echo $this->management_model->DeleteCategory($this->input->post('Id'),$this->input->post('Email'));
+  }
 }
 
  ?>

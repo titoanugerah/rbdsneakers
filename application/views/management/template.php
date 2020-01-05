@@ -47,16 +47,16 @@
 			<nav class="navbar navbar-header navbar-expand-lg" data-background-color="<?php echo $webConf->background_color; ?>">
 				<div class="container-fluid">
 					<div class="collapse" id="search-nav">
-						<form class="navbar-left navbar-form nav-search mr-md-3" method="post">
+						<div class="navbar-left navbar-form nav-search mr-md-3">
 							<div class="input-group">
 								<div class="input-group-prepend">
-									<button type="submit" class="btn btn-search pr-1">
+									<button type="button" class="btn btn-search pr-1">
 										<i class="fa fa-search search-icon"></i>
 									</button>
 								</div>
 								<input type="text" placeholder="Search ..." class="form-control" id="search" name="search">
 							</div>
-						</form>
+						</div>
 					</div>
 					<ul class="navbar-nav topbar-nav ml-md-auto align-items-center">
 						<li class="nav-item toggle-nav-search hidden-caret">
@@ -227,20 +227,6 @@
 				type: '".$this->session->userdata['type']."',
 				placement : { from: 'bottom', align: 'right'}, time: 1000 });";
 			} ?>
-
-			function notify(icons, titles, messages, types) {
-				$.notify({
-					icon: icons,
-					title: titles,
-					message: messages
-				},
-				{
-					type: types,
-					placement : {
-						from: 'bottom', align: 'right'
-					}, time: 1000 });
-			}
-
 		</script>
 
 		<script type="text/javascript">
@@ -249,6 +235,7 @@
 				$('#table1').DataTable();
 			});
 		</script>
+		<script src="<?php echo base_url('assets/script/'.$viewName.'.js'); ?>"></script>
 
 	</body>
 	</html>

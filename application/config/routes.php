@@ -18,7 +18,9 @@ $route['getDetailManagement'] = 'management/GetDetailManagement';
 $route['updateAccountManagement'] = 'management/UpdateAccountManagement';
 $route['addAccountManagement'] = 'management/AddAccountManagement';
 $route['getDetailCategory'] = 'management/GetDetailCategory';
+$route['getCategory'] = 'management/GetCategory';
 $route['updateCategory'] = 'management/UpdateCategory';
+$route['deleteCategory'] = 'management/DeleteCategory';
 
 #SYSTEM
 $route['404_override'] = '';
