@@ -45,6 +45,11 @@ class management extends CI_Controller
     $this->load->view('Management/Template', $this->management_model->ContentCategoryMangement($keyword));
   }
 
+  public function ProductManagement()
+  {
+    $this->load->view('Management/Template', $this->management_model->ContentProductManagement());
+  }
+
   public function GetDetailCustomer()
   {
     echo $this->management_model->GetDetailCustomer($this->input->get('Id'));

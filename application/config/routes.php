@@ -11,6 +11,7 @@ $route['dashboard'] = 'management/Dashboard';
 $route['accountManagement/(:any)'] = 'management/AccountManagement/$1';
 $route['accountManagement'] = 'management/AccountManagement/0';
 $route['categoryManagement'] = 'management/CategoryManagement';
+$route['productManagement'] = 'management/ProductManagement';
 
 #Ajax
 $route['getDetailCustomer'] = 'management/GetDetailCustomer';

@@ -61,6 +61,15 @@ class Management_model extends CI_Model
     return $data;
   }
 
+  public function ContentProductManagement()
+  {
+    $data['webConf'] = $this->core_model->GetWebConf();
+    $data['viewName'] = 'ProductManagement';
+    return $data;
+  }
+
+
+
   public function GetDetailCustomer($id)
   {
     $data['detail'] = $this->core_model->GetSingleData('Customer', 'Id', $id);
