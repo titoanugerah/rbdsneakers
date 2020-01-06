@@ -21,6 +21,7 @@ $route['getDetailCategory'] = 'management/GetDetailCategory';
 $route['getCategory'] = 'management/GetCategory';
 $route['updateCategory'] = 'management/UpdateCategory';
 $route['deleteCategory'] = 'management/DeleteCategory';
+$route['recoverCategory'] = 'management/RecoverCategory';
 
 #SYSTEM
 $route['404_override'] = '';

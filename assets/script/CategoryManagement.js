@@ -2,6 +2,7 @@
 $(document).ready(function() {
   $('.select2basic').select2();
   $('#table1').DataTable();
+  getDeletedCategory();
   getCategory();
 });
 
@@ -9,7 +10,37 @@ $( "#search" ).on('change', function() {
   getCategory();
 });
 
-function GetDetailCategory(id) {
+
+function getDeletedCategory() {
+  $.ajax({
+    type: "POST",
+    dataType : "JSON",
+    data: {
+      Keyword: ""
+    },
+    url: "getCategory",
+    success: function(result) {
+      console.log('deleted',result);
+      var html='<option value="0" selected>Silahkan Pilih</option>';
+      for(i=0; i<result.category.length; i++){
+        if (result.category[i].IsExist==0) {
+          html +=
+          '<option value="'+result.category[i].Id+'">'+result.category[i].Name+'</option>';
+        } else {
+          continue;
+        }
+
+      }
+      $('#idRecoverCategory').html(html);
+    },
+    error: function(result) {
+      alert('error');
+    }
+  });
+}
+
+
+function getDetailCategory(id) {
   $.ajax({
     type: "POST",
     dataType : "JSON",
@@ -49,6 +80,7 @@ function deleteCategory() {
     url: "deleteCategory",
     success: function(result) {
       getCategory();
+      getDeletedCategory();
       notify('fa fa-user', result.title, result.message, result.type);
     },
     error: function(result) {
@@ -58,7 +90,7 @@ function deleteCategory() {
   });
 }
 
-function UpdateCategory() {
+function updateCategory() {
   $("#detailCategory").modal('hide');
   $.ajax({
     type: "POST",
@@ -100,6 +132,27 @@ function proceedAddCategory() {
   });
 }
 
+function proceedRecoverCategory(){
+  $("#addCategory").modal('hide');
+  $.ajax({
+    type: "POST",
+    dataType : "JSON",
+    data : {
+      Id: $('#idRecoverCategory').val()
+    },
+    url: "recoverCategory",
+    success: function(result) {
+      getCategory();
+      getDeletedCategory();
+      notify('fa fa-user', result.title, result.message, result.type);
+    },
+    error: function(result) {
+      console.log(result);
+      alert('err');
+    }
+  });
+}
+
 function getCategory() {
   $.ajax({
     type: "POST",
@@ -122,7 +175,7 @@ function getCategory() {
           '</h4>' +
           '<br>' +
           '<center>' +
-          '<button type="button" class="btn btn-secondary btn-round" onclick="GetDetailCategory('+result.category[i].Id+')">Detail</button>'+
+          '<button type="button" class="btn btn-secondary btn-round" onclick="getDetailCategory('+result.category[i].Id+')">Detail</button>'+
           '</center>' +
           '</div>' +
           '</div>' +

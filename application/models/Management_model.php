@@ -167,6 +167,24 @@ class Management_model extends CI_Model
     return json_encode($data);
   }
 
+  public function RecoverCategory($id)
+  {
+    if ($this->session->userdata['StockManagement'])
+    {
+      $this->db->query('CALL RecoverCategory('.$id.')');
+      $data['title'] = 'Berhasil';
+      $data['type'] = 'success';
+      $data['message'] = 'Proses pemulihan kategori berhasil dilakukan';
+    }
+    else
+    {
+      $data['title'] = 'Gagal';
+      $data['type'] = 'danger';
+      $data['message'] = 'Anda tidak memiliki hak akses untuk aksi ini atau email yang anda masukan salah';
+    }
+    return json_encode($data);
+  }
+
 }
 
 

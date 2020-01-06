@@ -55,7 +55,7 @@
                 </div>
               </div>
               <div class="modal-footer">
-                <button type="button" class="btn btn-primary" onclick="UpdateCategory()">Simpan</button>
+                <button type="button" class="btn btn-primary" onclick="updateCategory()">Simpan</button>
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Kembali</button>
               </div>
             </div>
@@ -113,23 +113,48 @@
       </div>
       <form role="form" method="post">
         <div class="modal-body">
+          <ul class="wizard-menu nav nav-pills nav-primary">
+            <li class="step" style="width: 50%;">
+              <a class="nav-link active" href="#addNewCategory" data-toggle="tab" aria-expanded="true"><i class="fas fa-plus-circle mr-0"></i> Tambah Baru</a>
+            </li>
+            <li class="step" style="width: 50%;">
+              <a class="nav-link" href="#recoverCategory" data-toggle="tab"><i class="fa fa-history mr-2"></i>Pulihkan Kategori</a>
+            </li>
+          </ul>
+
           <div class="tab-content">
-            <div class="row">
-              <div class="form-group col-6 col-md-4">
-                <label>Nama Kategori</label>
-                <input type="text" class="form-control" id="addNameCategory"  >
+            <div class="tab-pane active" id="addNewCategory">
+              <div class="row">
+                <div class="form-group col-6 col-md-4">
+                  <label>Nama Kategori</label>
+                  <input type="text" class="form-control" id="addNameCategory"  >
+                </div>
+                <div class="form-group col-6 col-md-8">
+                  <label>Keterangan</label>
+                  <textarea id="addDescriptionCategory" rows="2" cols="80" class="form-control"></textarea>
+                </div>
               </div>
-              <div class="form-group col-6 col-md-8">
-                <label>Keterangan</label>
-                <textarea id="addDescriptionCategory" rows="2" cols="80" class="form-control"></textarea>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-primary" onclick="proceedAddCategory()">Simpan</button>
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Kembali</button>
+              </div>
+            </div>
+            <div class="tab-pane" id="recoverCategory">
+              <div class="form-group">
+                <label>Pilih Kategori Terhapus</label>
+                &nbsp;&nbsp;&nbsp;
+                <select class="select2basic" id="idRecoverCategory" style="width:250px;">
+
+                </select>
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-primary" onclick="proceedRecoverCategory()">Pulihkan</button>
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Kembali</button>
               </div>
             </div>
           </div>
         </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-primary" onclick="proceedAddCategory()">Simpan</button>
-          <button type="button" class="btn btn-secondary" data-dismiss="modal">Kembali</button>
-        </div>
+
       </form>
     </div>
   </div>

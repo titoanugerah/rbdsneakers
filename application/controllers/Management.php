@@ -84,6 +84,12 @@ class management extends CI_Controller
   {
     echo $this->management_model->DeleteCategory($this->input->post('Id'),$this->input->post('Email'));
   }
+
+  public function RecoverCategory()
+  {
+    echo $this->management_model->RecoverCategory($this->input->post('Id'));
+  }
+
 }
 
  ?>
