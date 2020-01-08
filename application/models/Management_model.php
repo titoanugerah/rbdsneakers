@@ -194,6 +194,20 @@ class Management_model extends CI_Model
     return json_encode($data);
   }
 
+  public function GetProduct($keyword, $order)
+  {
+    if ($keyword!=null && $keyword!='')
+    {
+      $data['product'] = $this->core_model->GetSearchData('Product', $keyword, $order);
+    }
+    else
+    {
+      $data['product'] = $this->core_model->GetAllData('Product', $order);
+    }
+    return json_encode($data);
+  }
+
+
 }
 
 

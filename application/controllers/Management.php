@@ -95,6 +95,11 @@ class management extends CI_Controller
     echo $this->management_model->RecoverCategory($this->input->post('Id'));
   }
 
+  public function GetProduct()
+  {
+    echo $this->management_model->GetProduct($this->input->post('Keyword'), $this->input->post('Order'));
+  }
+
 }
 
  ?>

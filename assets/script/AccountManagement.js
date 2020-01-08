@@ -1,43 +1,37 @@
 
 $(document).ready(function() {
-  var currentOrder = 0;
-  var nextOrder = 'getProduct('+1+')';
-  var previousOrder = 'getProduct('+0+')';
-  console.log(previousOrder);
   $('.select2basic').select2();
   $('#table1').DataTable();
-  $('#previousData').attr('onclick', previousOrder);
-  $('#nextData').attr('onclick', nextOrder);
-  getDeletedProduct();
-  getProduct();
+  getDeletedCategory();
+  getCategory();
 });
 
 $( "#search" ).on('change', function() {
-  getProduct(currentOrder);
+  getCategory();
 });
 
 
-function getDeletedProduct() {
+function getDeletedCategory() {
   $.ajax({
     type: "POST",
     dataType : "JSON",
     data: {
       Keyword: ""
     },
-    url: "getProduct",
+    url: "getCategory",
     success: function(result) {
       console.log('deleted',result);
       var html='<option value="0" selected>Silahkan Pilih</option>';
-      for(i=0; i<result.product.length; i++){
-        if (result.product[i].IsExist==0) {
+      for(i=0; i<result.category.length; i++){
+        if (result.category[i].IsExist==0) {
           html +=
-          '<option value="'+result.product[i].Id+'">'+result.product[i].Name+'</option>';
+          '<option value="'+result.category[i].Id+'">'+result.category[i].Name+'</option>';
         } else {
           continue;
         }
 
       }
-      $('#idRecoverProduct').html(html);
+      $('#idRecoverCategory').html(html);
     },
     error: function(result) {
       alert('error');
@@ -46,18 +40,18 @@ function getDeletedProduct() {
 }
 
 
-function getDetailProduct(id) {
+function getDetailCategory(id) {
   $.ajax({
     type: "POST",
     dataType : "JSON",
     data: {Id: id},
-    url: "getDetailProduct",
+    url: "getDetailCategory",
     success: function(result) {
       console.log(result);
-      $("#detailProduct").modal('show');
-      $('#nameProduct').val(result.detail.Name);
-      $('#idProduct').val(result.detail.Id);
-      $('#descriptionProduct').val(result.detail.Description);
+      $("#detailCategory").modal('show');
+      $('#nameCategory').val(result.detail.Name);
+      $('#idCategory').val(result.detail.Id);
+      $('#descriptionCategory').val(result.detail.Description);
       var html;
       for(i=0; i<result.product.length; i++){
         html +=
@@ -74,19 +68,19 @@ function getDetailProduct(id) {
 }
 
 
-function deleteProduct() {
-  $("#detailProduct").modal('hide');
+function deleteCategory() {
+  $("#detailCategory").modal('hide');
   $.ajax({
     type: "POST",
     dataType : "JSON",
     data : {
-      Id: $('#idProduct').val(),
+      Id: $('#idCategory').val(),
       Email : $('#emailUser').val()
     },
-    url: "deleteProduct",
+    url: "deleteCategory",
     success: function(result) {
-      getProduct();
-      getDeletedProduct();
+      getCategory();
+      getDeletedCategory();
       notify('fa fa-user', result.title, result.message, result.type);
     },
     error: function(result) {
@@ -96,19 +90,19 @@ function deleteProduct() {
   });
 }
 
-function updateProduct() {
-  $("#detailProduct").modal('hide');
+function updateCategory() {
+  $("#detailCategory").modal('hide');
   $.ajax({
     type: "POST",
     dataType : "JSON",
     data : {
-      Id: $('#idProduct').val(),
-      Name: $('#nameProduct').val(),
-      Description : $('#descriptionProduct').val()
+      Id: $('#idCategory').val(),
+      Name: $('#nameCategory').val(),
+      Description : $('#descriptionCategory').val()
     },
-    url: "updateProduct",
+    url: "updateCategory",
     success: function(result) {
-      getProduct();
+      getCategory();
       notify('fa fa-user', result.title, result.message, result.type);
     },
     error: function(result) {
@@ -118,15 +112,15 @@ function updateProduct() {
   });
 }
 
-function proceedAddProduct() {
-  var urls = 'addProduct';
+function proceedAddCategory() {
+  var urls = 'addCategory';
   $.ajax({
     type: "POST",
     dataType : "JSON",
     url: urls,
     data : {
-      Name : $("#addNameProduct").val(),
-      Description : $("#addDescriptionProduct").val()
+      Name : $("#addNameCategory").val(),
+      Description : $("#addDescriptionCategory").val()
     },
     success: function(result) {
       notify('fa fa-user', result.title, result.message, result.status);
@@ -138,18 +132,18 @@ function proceedAddProduct() {
   });
 }
 
-function proceedRecoverProduct(){
-  $("#addProduct").modal('hide');
+function proceedRecoverCategory(){
+  $("#addCategory").modal('hide');
   $.ajax({
     type: "POST",
     dataType : "JSON",
     data : {
-      Id: $('#idRecoverProduct').val()
+      Id: $('#idRecoverCategory').val()
     },
-    url: "recoverProduct",
+    url: "recoverCategory",
     success: function(result) {
-      getProduct();
-      getDeletedProduct();
+      getCategory();
+      getDeletedCategory();
       notify('fa fa-user', result.title, result.message, result.type);
     },
     error: function(result) {
@@ -159,32 +153,29 @@ function proceedRecoverProduct(){
   });
 }
 
-function getProduct(currentOrder) {
-  console.log(currentOrder);
+function getCategory() {
   $.ajax({
     type: "POST",
     dataType : "JSON",
     data: {
-      Keyword: $('#search').val(),
-      Order: currentOrder
+      Keyword: $('#search').val()
     },
-    url: "getProduct",
+    url: "getCategory",
     success: function(result) {
-      $('#nextData').attr('onclick', 'getProduct('+(currentOrder++)+')');
-      $('#previousData').attr('onclick', 'getProduct('+(currentOrder--)+')');
+      console.log(result);
       var html='';
-      for(i=0; i<result.product.length; i++){
-        if (result.product[i].IsExist==1) {
+      for(i=0; i<result.category.length; i++){
+        if (result.category[i].IsExist==1) {
           html +=
           '<div class="col-sm-6 col-lg-3">' +
           '<div class="card">' +
           '<div class="card-body pt-2">' +
           '<h4 class="mb-1 fw-bold">' +
-          result.product[i].Name +
+          result.category[i].Name +
           '</h4>' +
           '<br>' +
           '<center>' +
-          '<button type="button" class="btn btn-secondary btn-round" onclick="getDetailProduct('+result.product[i].Id+')">Detail</button>'+
+          '<button type="button" class="btn btn-secondary btn-round" onclick="getDetailCategory('+result.category[i].Id+')">Detail</button>'+
           '</center>' +
           '</div>' +
           '</div>' +
@@ -194,7 +185,7 @@ function getProduct(currentOrder) {
         }
 
       }
-      $('#productList').html(html);
+      $('#categoryList').html(html);
     },
     error: function(result) {
       alert('error');
