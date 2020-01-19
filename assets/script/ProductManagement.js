@@ -1,32 +1,45 @@
 
 $(document).ready(function() {
-  var currentOrder = 0;
-  var nextOrder = 'getProduct('+1+')';
-  var previousOrder = 'getProduct('+0+')';
-  console.log(previousOrder);
   $('.select2basic').select2();
   $('#table1').DataTable();
-  $('#previousData').attr('onclick', previousOrder);
-  $('#nextData').attr('onclick', nextOrder);
   getDeletedProduct();
-  getProduct();
+  GetProduct();
+  GetCategory();
 });
 
-$( "#search" ).on('change', function() {
-  getProduct(currentOrder);
+$("#search").on('change', function() {
+  $('#order').val(0);
+  GetProduct();
 });
 
+function NextPage(){
+  var currentPage = parseInt($('#order').val());
+  var newPage = currentPage + 1;
+  $('#order').val(newPage);
+  GetProduct();
+}
+
+function PreviousPage(){
+  var currentPage = parseInt($('#order').val());
+  var newPage = currentPage - 1;
+  if (newPage < 0) {
+    newPage = 0;
+  }
+  $('#order').val(newPage);
+  GetProduct();
+}
 
 function getDeletedProduct() {
   $.ajax({
     type: "POST",
     dataType : "JSON",
     data: {
-      Keyword: ""
+      Keyword: "",
+      Table : "Product",
+      Order : 0
     },
-    url: "getProduct",
+    url: "getAll",
     success: function(result) {
-      console.log('deleted',result);
       var html='<option value="0" selected>Silahkan Pilih</option>';
       for(i=0; i<result.product.length; i++){
         if (result.product[i].IsExist==0) {
@@ -35,7 +48,6 @@ function getDeletedProduct() {
         } else {
           continue;
         }
-
       }
       $('#idRecoverProduct').html(html);
     },
@@ -85,7 +97,7 @@ function deleteProduct() {
     },
     url: "deleteProduct",
     success: function(result) {
-      getProduct();
+      GetProduct();
       getDeletedProduct();
       notify('fa fa-user', result.title, result.message, result.type);
     },
@@ -108,7 +120,7 @@ function updateProduct() {
     },
     url: "updateProduct",
     success: function(result) {
-      getProduct();
+      GetProduct();
       notify('fa fa-user', result.title, result.message, result.type);
     },
     error: function(result) {
@@ -148,7 +160,7 @@ function proceedRecoverProduct(){
     },
     url: "recoverProduct",
     success: function(result) {
-      getProduct();
+      GetProduct();
       getDeletedProduct();
       notify('fa fa-user', result.title, result.message, result.type);
     },
@@ -159,25 +171,56 @@ function proceedRecoverProduct(){
   });
 }
 
-function getProduct(currentOrder) {
-  console.log(currentOrder);
+
+function GetCategory() {
+  $.ajax({
+    type: "POST",
+    dataType : "JSON",
+    data: {
+      Keyword: "",
+      Table : 'Category',
+      Order: 0
+    },
+    url: "getAll",
+    success: function(result) {
+      var html='<option value="0" selected>Silahkan Pilih</option>';
+      for(i=0; i<result.category.length; i++){
+        if (result.category[i].IsExist==1) {
+          html +=
+          '<option value="'+result.category[i].Id+'">'+result.category[i].Name+'</option>';
+        } else {
+          continue;
+        }
+      }
+      console.log('category',result);
+      $('#addIdCategoryProduct').html(html);
+    },
+    error: function(result) {
+      alert('error');
+    }
+  });
+}
+
+function GetProduct() {
   $.ajax({
     type: "POST",
     dataType : "JSON",
     data: {
       Keyword: $('#search').val(),
-      Order: currentOrder
+      Order: $('#order').val(),
+      Table : "Product"
     },
-    url: "getProduct",
+    url: "getAll",
     success: function(result) {
-      $('#nextData').attr('onclick', 'getProduct('+(currentOrder++)+')');
-      $('#previousData').attr('onclick', 'getProduct('+(currentOrder--)+')');
       var html='';
       for(i=0; i<result.product.length; i++){
         if (result.product[i].IsExist==1) {
           html +=
           '<div class="col-sm-6 col-lg-3">' +
           '<div class="card">' +
+          '<div class="p-2">' +
+          '<img class="card-img-top rounded" src="assets/upload/'+result.product[i].Image+'">' +
+          '</div>' +
           '<div class="card-body pt-2">' +
           '<h4 class="mb-1 fw-bold">' +
           result.product[i].Name +

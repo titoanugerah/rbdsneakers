@@ -4,6 +4,7 @@ $(document).ready(function() {
   getAccount();
 });
 $( "#search" ).on('change', function() {
+  $('#order').val(0);
   getAccount();
 });
 
@@ -23,6 +24,7 @@ function PreviousPage(){
   $('#order').val(newPage);
   getAccount();
 }
+
 function DeleteAccountManagement() {
   $.ajax({
     type: "POST",
@@ -186,6 +188,7 @@ function UpdateAccountManagement() {
     url: urls ,
     success: function(result) {
       notify('fa fa-user', result.title, result.message, result.type);
+      $('#order').val(0);
       getAccount();
     },
     error: function(result) {
@@ -208,6 +211,7 @@ function insertAccountManagement() {
     },
     success: function(result) {
       notify('fa fa-user', result.title, result.message, result.status);
+      $('#order').val(0);
       getAccount()
     },
     error: function(result) {

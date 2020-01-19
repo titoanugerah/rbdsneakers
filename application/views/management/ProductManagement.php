@@ -6,9 +6,10 @@
         <h5 class="text-white op-7 mb-2"> Halaman panel pengelolaan Produk</h5>
       </div>
       <div class="ml-md-auto py-2 py-md-0">
+        <input type="number" id="order" value="0" hidden>
         <button type="button" data-toggle="modal" data-target="#addProduct" class="btn btn-round btn-primary btn-border" >Tambah Produk</button>
-        <button type="button" class="btn btn-round btn-primary" id="previousData" >Sebelumnya</button>
-        <button type="button" class="btn btn-round btn-primary" id="nextData" >Selanjutnya</button>
+        <button type="button" class="btn btn-round btn-primary" onclick="PreviousPage()">Sebelumnya</button>
+        <button type="button" class="btn btn-round btn-primary" onclick="NextPage()">Selanjutnya</button>
 
       </div>
 
@@ -128,13 +129,36 @@
           <div class="tab-content">
             <div class="tab-pane active" id="addNewProduct">
               <div class="row">
-                <div class="form-group col-6 col-md-4">
+
+                <div class="form-group col-6 col-md-12">
                   <label>Nama Produk</label>
                   <input type="text" class="form-control" id="addNameProduct"  >
                 </div>
-                <div class="form-group col-6 col-md-8">
+                <div class="form-group col-6 col-md-5">
+                  <label>Harga</label>
+                  <input type="number" class="form-control" id="addPriceProduct"  >
+                </div>
+                <div class="form-group col-6 col-md-7">
+                  <label>Kategori</label>
+                  <br>
+                  <select class="select2basic" id="addIdCategoryProduct" style="width:250px"></select>
+                </div>
+                <div class="form-group col-md-7" >
                   <label>Keterangan</label>
-                  <textarea id="addDescriptionProduct" rows="2" cols="80" class="form-control"></textarea>
+                  <textarea id="addDescriptionProduct" rows="9" cols="80" class="form-control"></textarea>
+                </div>
+                <div class="form-group col-md-5">
+                  <div class="input-file input-file-image">
+                    <label>Gambar</label>
+                    <img class="img-upload-preview" width="150" src="http://placehold.it/150x150" alt="preview">
+                    <input type="file" class="form-control form-control-file" id="uploadImg2" name="uploadImg2" accept="image/*" required="">
+                    <label for="uploadImg2" class=" label-input-file btn btn-success">
+                      <span class="btn-label">
+                        <i class="fa fa-file-image"></i>
+                      </span>
+                      Upload Foto
+                    </label>
+                  </div>
                 </div>
               </div>
               <div class="modal-footer">
