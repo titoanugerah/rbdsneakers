@@ -5,10 +5,10 @@ $(document).ready(function() {
   getDeletedCategory();
   getCategory();
 });
-
 $( "#search" ).on('change', function() {
   getCategory();
 });
+
 
 
 function getDeletedCategory() {
@@ -16,9 +16,11 @@ function getDeletedCategory() {
     type: "POST",
     dataType : "JSON",
     data: {
-      Keyword: ""
+      Keyword: "",
+      Table : 'Category',
+      Order: 0
     },
-    url: "getCategory",
+    url: "getAll",
     success: function(result) {
       console.log('deleted',result);
       var html='<option value="0" selected>Silahkan Pilih</option>';
@@ -75,9 +77,9 @@ function deleteCategory() {
     dataType : "JSON",
     data : {
       Id: $('#idCategory').val(),
-      Email : $('#emailUser').val()
+      Table : 'Category'
     },
-    url: "deleteCategory",
+    url: "delete",
     success: function(result) {
       getCategory();
       getDeletedCategory();
@@ -138,9 +140,10 @@ function proceedRecoverCategory(){
     type: "POST",
     dataType : "JSON",
     data : {
-      Id: $('#idRecoverCategory').val()
+      Id: $('#idRecoverCategory').val(),
+      Table : "Category",
     },
-    url: "recoverCategory",
+    url: "recover",
     success: function(result) {
       getCategory();
       getDeletedCategory();
@@ -158,9 +161,11 @@ function getCategory() {
     type: "POST",
     dataType : "JSON",
     data: {
-      Keyword: $('#search').val()
+      Table: 'Category',
+      Keyword: $('#search').val(),
+      Order: 0
     },
-    url: "getCategory",
+    url: "getAll",
     success: function(result) {
       console.log(result);
       var html='';

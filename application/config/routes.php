@@ -14,15 +14,26 @@ $route['categoryManagement'] = 'management/CategoryManagement';
 $route['productManagement'] = 'management/ProductManagement';
 
 #Ajax
+$route['getAll'] = 'management/GetAll';
+$route['getAll2'] = 'management/GetAll2';
+$route['delete'] = 'management/Delete';
+$route['recover'] = 'management/Recover';
+
+$route['getAccount'] = 'management/GetAccount';
 $route['getDetailCustomer'] = 'management/GetDetailCustomer';
 $route['getDetailManagement'] = 'management/GetDetailManagement';
-$route['updateAccountManagement'] = 'management/UpdateAccountManagement';
 $route['addAccountManagement'] = 'management/AddAccountManagement';
+$route['updateAccountManagement'] = 'management/UpdateAccountManagement';
+
+
+//category
 $route['getDetailCategory'] = 'management/GetDetailCategory';
-$route['getCategory'] = 'management/GetCategory';
+#DEPRECATED $route['getCategory'] = 'management/GetCategory';
 $route['updateCategory'] = 'management/UpdateCategory';
 $route['deleteCategory'] = 'management/DeleteCategory';
 $route['recoverCategory'] = 'management/RecoverCategory';
+
+//product
 $route['getProduct'] = 'management/GetProduct';
 
 #SYSTEM

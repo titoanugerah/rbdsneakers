@@ -6,9 +6,10 @@
         <h5 class="text-white op-7 mb-2"> Halaman panel pengelolaan Akun</h5>
       </div>
       <div class="ml-md-auto py-2 py-md-0">
+        <input type="number" id="order" value="0" hidden>
         <button type="button" data-toggle="modal" data-target="#addManagement" class="btn btn-round btn-success btn-border" >Tambah Karyawan</button>
-        <a href="<?php echo base_url('accountManagement/'.((int)$this->session->userdata['page']-1)); ?>" class="btn btn-success btn-round" <?php if($this->session->userdata['page']==0){echo 'hidden';}?>>Sebelumnya</a>
-        <a href="<?php echo base_url('accountManagement/'.((int)$this->session->userdata['page']+1)); ?>" class="btn btn-success btn-round">Selanjutnya</a>
+        <button type="button" class="btn btn-round btn-primary" onclick="PreviousPage()">Sebelumnya</button>
+        <button type="button" class="btn btn-round btn-primary" onclick="NextPage()">Selanjutnya</button>
       </div>
     </div>
   </div>
@@ -24,7 +25,7 @@
 
   <div class="tab-content mt-2 mb-3" >
     <div class="tab-pane fade show active" id="tab1" role="tabpanel" >
-      <div class="card-body row">
+      <div class="card-body row" id="data1">
         <?php foreach ($customer as $customer) : ?>
           <div class="col-sm-6 col-lg-3">
             <div class="card">
@@ -44,7 +45,7 @@
       </div>
     </div>
     <div class="tab-pane fade show" id="tab2" role="tabpanel" >
-      <div class="card-body row">
+      <div class="card-body row" id="data2">
         <?php foreach ($management as $management) : ?>
           <div class="col-sm-6 col-lg-3">
             <div class="card">
@@ -140,11 +141,14 @@
       <form role="form" method="post">
         <div class="modal-body">
           <ul class="wizard-menu nav nav-pills nav-primary">
-            <li class="step" style="width: 50%;">
+            <li class="step" style="width: 33%;">
               <a class="nav-link active" href="#aboutManagement" data-toggle="tab" aria-expanded="true"><i class="fa fa-user mr-0"></i> Detail Karyawan</a>
             </li>
-            <li class="step" style="width: 50%;">
+            <li class="step" style="width: 33%;">
               <a class="nav-link" href="#privilegesList" data-toggle="tab"><i class="fa fa-file mr-2"></i> Daftar Hak Akses</a>
+            </li>
+            <li class="step" style="width: 33%;">
+              <a class="nav-link" href="#deleteFromManagement" data-toggle="tab"><i class="fa fa-file mr-2"></i> Hapus Akun Ini</a>
             </li>
           </ul>
           <div class="tab-content">
@@ -163,6 +167,9 @@
                   <label>Email</label>
                   <input type="email" class="form-control" id="emailManagement" required>
                 </div>
+            </div>
+            <div class="modal-footer">
+
             </div>
           </div>
           <div class="tab-pane" id="privilegesList">
@@ -189,13 +196,25 @@
 								<span class="selectgroup-button">Laporan </span>
 							</label>
 						</div>
+            <br><br>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-primary" onclick="UpdateAccountManagement()">Simpan</button>
+              <button type="button" class="btn btn-secondary" data-dismiss="modal">Kembali</button>
+            </div>
+          </div>
+          <div class="tab-pane" id="deleteFromManagement">
+            <br><br>
+            <div class="card-body card-primary">
+              <p>Dengan menghapus akun maka, akun akan dikembalikan ke akun pelanggan</p>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-danger" onclick="DeleteAccountManagement()">Hapus Akun</button>
+              <button type="button" class="btn btn-secondary" data-dismiss="modal">Kembali</button>
+            </div>
+
           </div>
         </div>
       </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-primary" onclick="UpdateAccountManagement()">Simpan</button>
-          <button type="button" class="btn btn-secondary" data-dismiss="modal">Kembali</button>
-        </div>
       </form>
     </div>
   </div>
@@ -266,112 +285,3 @@
     </div>
   </div>
 </div>
-
-<script type="text/javascript">
-  function GetDetailCustomer(id) {
-    $.ajax({
-        type: "POST",
-        dataType : "JSON",
-        url: "<?php echo base_url() ?>/getDetailCustomer?Id="+id,
-        success: function(result) {
-          $("#detailAccount").modal('show');
-          $('#fullname').val(result.detail.Fullname);
-          $('#email').val(result.detail.Email);
-          $('#customerImage').attr('src', result.detail.Image);
-          var html;
-          for(i=0; i<result.order.length; i++){
-            html +=
-            '<tr>'+
-            '<td>'+result.order[i].ProductName+'</td>'+
-            '<td>'+result.order[i].Qty+'</td>'+
-            '<td>'+result.order[i].Status+'</td>'+
-            '</tr>';
-          }
-          $('#orderTable').html(html);
-        },
-        error: function(result) {
-            alert('error');
-        }
-    });
-  }
-
-  function GetDetailManagement(id) {
-    $.ajax({
-        type: "POST",
-        dataType : "JSON",
-        url: "<?php echo base_url() ?>/getDetailManagement?Id="+id,
-        success: function(result) {
-          console.log(result);
-          var privilegesList = convertNumberToBinary(result.detail.Privilleges);
-          $("#detailAccountManagement").modal('show');
-          $('#fullnameManagement').val(result.detail.Fullname);
-          $('#emailManagement').val(result.detail.Email);
-          $('#managementImage').attr('src', result.detail.Image);
-          $('#idManagement').val(result.detail.Id);
-          $('#home').prop('checked', parseInt(privilegesList[0]));
-          $('#accountManagement').prop('checked', parseInt(privilegesList[1]));
-          $('#stockManagement').prop('checked', parseInt(privilegesList[2]));
-          $('#salesManagement').prop('checked', parseInt(privilegesList[3]));
-          $('#reporting').prop('checked', parseInt(privilegesList[4]));
-        },
-        error: function(result) {
-            alert('error');
-        }
-    });
-  }
-
-  function checker(element){
-    var result;
-    if($("#"+element).is(':checked')){
-      result = 1;
-    } else{
-      result = 0;
-    }
-    return result.toString();
-  }
-
-
-  function UpdateAccountManagement() {
-  var summary =  parseInt((checker('reporting') + checker('salesManagement') + checker('stockManagement') + checker('accountManagement') + checker('home')),2);
-  var urls = "<?php echo base_url() ?>updateAccountManagement?Id="+$("#idManagement").val()+"&Privilleges="+summary
-  $("#detailAccountManagement").modal('hide');
-    $.ajax({
-        type: "POST",
-        dataType : "JSON",
-        url: urls ,
-        success: function(result) {
-         notify('fa fa-user', result.title, result.message, result.type);
-        },
-        error: function(result) {
-            console.log(result);
-          alert('err');
-        }
-    });
-  }
-
-  function insertAccountManagement() {
-    var urls = '<?php echo base_url("addAccountManagement"); ?>';
-    var summary = parseInt((checker('addReporting') + checker('addSalesManagement') + checker('addStockManagement') + checker('addAccountManagement') + checker('addHome')),2);
-    $.ajax({
-        type: "POST",
-        dataType : "JSON",
-        url: urls,
-        data : {
-          Email : $("#addEmailManagement").val(),
-          Privilleges : summary
-        },
-        success: function(result) {
-         notify('fa fa-user', result.title, result.message, result.status);
-        },
-        error: function(result) {
-            console.log(result);
-          alert('err');
-        }
-    });
-  }
-
-  const convertNumberToBinary = number => {
-    return (number >>> 0).toString(2);
-  }
-
-</script>

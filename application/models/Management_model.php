@@ -31,6 +31,7 @@ class Management_model extends CI_Model
 
   public function ContentAccountManagement($keyword, $page)
   {
+    //will be deleted
     if ($keyword!=null)
     {
       $data['customer'] = $this->core_model->GetSearchData('Customer', $keyword, $page);
@@ -46,16 +47,8 @@ class Management_model extends CI_Model
     return $data;
   }
 
-  public function ContentCategoryMangement($keyword)
+  public function ContentCategoryMangement()
   {
-    // if ($keyword!=null)
-    // {
-    //   $data['category'] = $this->core_model->GetSearchData('Category', $keyword, 0);
-    // }
-    // else
-    // {
-    //   $data['category'] = $this->core_model->GetAllData('Category', 0);
-    // }
     $data['webConf'] = $this->core_model->GetWebConf();
     $data['viewName'] = 'CategoryManagement';
     return $data;
@@ -67,8 +60,6 @@ class Management_model extends CI_Model
     $data['viewName'] = 'ProductManagement';
     return $data;
   }
-
-
 
   public function GetDetailCustomer($id)
   {
@@ -119,7 +110,7 @@ class Management_model extends CI_Model
     }
     return json_encode($data);
   }
-
+  //deprecated
   public function GetCategory($keyword)
   {
     if ($keyword!=null && $keyword!='')
@@ -158,6 +149,7 @@ class Management_model extends CI_Model
     return json_encode($data);
   }
 
+  //will deprecated
   public function DeleteCategory($id, $email)
   {
     if ($this->session->userdata['StockManagement'] && $this->session->userdata['Email']==$email)
@@ -176,6 +168,8 @@ class Management_model extends CI_Model
     return json_encode($data);
   }
 
+
+  //will be deprecated
   public function RecoverCategory($id)
   {
     if ($this->session->userdata['StockManagement'])
@@ -194,6 +188,8 @@ class Management_model extends CI_Model
     return json_encode($data);
   }
 
+
+  //will deprecated
   public function GetProduct($keyword, $order)
   {
     if ($keyword!=null && $keyword!='')
@@ -207,7 +203,76 @@ class Management_model extends CI_Model
     return json_encode($data);
   }
 
+  public function GetAll2($table1, $table2, $keyword, $order)
+  {
+    if ($this->session->userdata['Role']=='Management')
+    {
+      if ($keyword!=null && $keyword!='')
+      {
+        $data[strtolower($table1)] = $this->core_model->GetSearchData($table1, $keyword, $order);
+        $data[strtolower($table2)] = $this->core_model->GetSearchData($table2, $keyword, $order);
+      }
+      else
+      {
+        $data[strtolower($table2)] = $this->core_model->GetAllData($table2, $order);
+        $data[strtolower($table1)] = $this->core_model->GetAllData($table1, $order);
+      }
+      return json_encode($data);
+    }
+  }
 
+
+  public function GetAll($table, $keyword, $order)
+  {
+    if ($this->session->userdata['Role']=='Management')
+    {
+      if ($keyword!=null && $keyword!='')
+      {
+        $data[strtolower($table)] = $this->core_model->GetSearchData($table, $keyword, $order);
+      }
+      else
+      {
+        $data[strtolower($table)] = $this->core_model->GetAllData($table, $order);
+      }
+      return json_encode($data);
+    }
+  }
+
+  public function Recover($table, $id)
+  {
+    if ((($table=='Category'|| $table=='Product') && $this->session->userdata['StockManagement']) || ($table=='Management' && $this->session->userdata['AccountManagement']))
+    {
+      $this->db->query('CALL DeleteOrRecover'.$table.'('.$id.',1)');
+      $data['title'] = 'Berhasil';
+      $data['type'] = 'success';
+      $data['message'] = 'Proses pemulihan data berhasil dilakukan';
+    }
+    else
+    {
+      $data['title'] = 'Gagal';
+      $data['type'] = 'danger';
+      $data['message'] = 'Anda tidak memiliki hak akses untuk aksi ini';
+    }
+    return json_encode($data);
+  }
+
+  public function Delete($table, $id)
+  {
+    if ((($table=='Category'|| $table=='Product') && $this->session->userdata['StockManagement']) || ($table=='Management' && $this->session->userdata['AccountManagement']))
+    {
+      $this->db->query('CALL DeleteOrRecover'.$table.'('.$id.',0)');
+      $data['title'] = 'Berhasil';
+      $data['type'] = 'success';
+      $data['message'] = 'Proses penghapusan data berhasil dilakukan';
+    }
+    else
+    {
+      $data['title'] = 'Gagal';
+      $data['type'] = 'danger';
+      $data['message'] = 'Anda tidak memiliki hak akses untuk aksi ini';
+    }
+    return json_encode($data);
+  }
 }
 
 

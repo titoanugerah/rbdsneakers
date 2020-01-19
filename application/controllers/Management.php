@@ -37,12 +37,7 @@ class management extends CI_Controller
 
   public function CategoryManagement()
   {
-    $keyword = null;
-    if ($this->input->post('search'))
-    {
-      $keyword = $this->input->post('search');
-    }
-    $this->load->view('Management/Template', $this->management_model->ContentCategoryMangement($keyword));
+    $this->load->view('Management/Template', $this->management_model->ContentCategoryMangement());
   }
 
   public function ProductManagement()
@@ -70,11 +65,6 @@ class management extends CI_Controller
     echo $this->management_model->AddAccountManagement($this->input->post('Email'), $this->input->post('Privilleges'));
   }
 
-  public function GetCategory()
-  {
-    echo $this->management_model->GetCategory($this->input->post('Keyword'));
-  }
-
   public function GetDetailCategory()
   {
     echo $this->management_model->GetDetailCategory($this->input->post('Id'));
@@ -85,19 +75,29 @@ class management extends CI_Controller
     echo $this->management_model->UpdateCategory($this->input->post('Id'),$this->input->post('Name'),$this->input->post('Description'));
   }
 
-  public function DeleteCategory()
-  {
-    echo $this->management_model->DeleteCategory($this->input->post('Id'),$this->input->post('Email'));
-  }
-
-  public function RecoverCategory()
-  {
-    echo $this->management_model->RecoverCategory($this->input->post('Id'));
-  }
-
   public function GetProduct()
   {
     echo $this->management_model->GetProduct($this->input->post('Keyword'), $this->input->post('Order'));
+  }
+
+  public function GetAll2()
+  {
+    echo $this->management_model->GetAll2($this->input->post('Table1'), $this->input->post('Table2'), $this->input->post('Keyword'), $this->input->post('Order'));
+  }
+
+  public function GetAll()
+  {
+    echo $this->management_model->GetAll($this->input->post('Table'), $this->input->post('Keyword'), $this->input->post('Order'));
+  }
+
+  public function Recover()
+  {
+    echo $this->management_model->Recover($this->input->post('Table'), $this->input->post('Id'));
+  }
+
+  public function Delete()
+  {
+    echo $this->management_model->Delete($this->input->post('Table'), $this->input->post('Id'));
   }
 
 }
