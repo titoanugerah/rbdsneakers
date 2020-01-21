@@ -19,6 +19,7 @@ $route['getAll2'] = 'management/GetAll2';
 $route['delete'] = 'management/Delete';
 $route['recover'] = 'management/Recover';
 
+//account
 $route['getAccount'] = 'management/GetAccount';
 $route['getDetailCustomer'] = 'management/GetDetailCustomer';
 $route['getDetailManagement'] = 'management/GetDetailManagement';
@@ -28,14 +29,12 @@ $route['updateAccountManagement'] = 'management/UpdateAccountManagement';
 
 //category
 $route['getDetailCategory'] = 'management/GetDetailCategory';
-#DEPRECATED $route['getCategory'] = 'management/GetCategory';
 $route['updateCategory'] = 'management/UpdateCategory';
-$route['deleteCategory'] = 'management/DeleteCategory';
-$route['recoverCategory'] = 'management/RecoverCategory';
 
 //product
-$route['getProduct'] = 'management/GetProduct';
-
+//$route['getProduct'] = 'management/GetProduct';
+$route['addProduct'] = 'management/AddProduct';
+$route['uploadFile/(:any)/(:any)'] = 'management/UploadFile/$1/$2';
 #SYSTEM
 $route['404_override'] = '';
 $route['translate_uri_dashes'] = FALSE;

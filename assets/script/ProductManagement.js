@@ -29,6 +29,8 @@ function PreviousPage(){
   GetProduct();
 }
 
+
+
 function getDeletedProduct() {
   $.ajax({
     type: "POST",
@@ -130,17 +132,48 @@ function updateProduct() {
   });
 }
 
-function proceedAddProduct() {
-  var urls = 'addProduct';
+function UploadFile(type, id) {
+  var fd = new FormData();
+  var files = $('#fileUpload')[0].files[0];
+  fd.append('file',files);
+  console.log(fd);
+
+  $.ajax({
+    url: 'uploadFile/'+type+'/'+id,
+    type: 'post',
+    data: fd,
+    contentType: false,
+    processData: false,
+    success: function(response){
+      console.log('success', response);
+        // if(response != 0){
+        //     $("#img").attr("src",response);
+        //     $(".preview img").show(); // Display image element
+        // }else{
+        //     alert('file not uploaded');
+        // }
+    },
+    error: function(result){
+      console.log('error', result);
+    }
+  });
+}
+
+function ProceedAddProduct() {
   $.ajax({
     type: "POST",
     dataType : "JSON",
-    url: urls,
+    url: 'addProduct',
     data : {
       Name : $("#addNameProduct").val(),
-      Description : $("#addDescriptionProduct").val()
+      Description : $("#addDescriptionProduct").val(),
+      CategoryId : $("#addCategoryIdProduct").val(),
+      Price : $("#addPriceProduct").val()
     },
     success: function(result) {
+      console.log(result);
+      UploadFile('Product',result.id);
+      GetProduct()
       notify('fa fa-user', result.title, result.message, result.status);
     },
     error: function(result) {
@@ -193,7 +226,7 @@ function GetCategory() {
         }
       }
       console.log('category',result);
-      $('#addIdCategoryProduct').html(html);
+      $('#addCategoryIdProduct').html(html);
     },
     error: function(result) {
       alert('error');

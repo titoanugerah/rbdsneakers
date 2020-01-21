@@ -100,6 +100,16 @@ class management extends CI_Controller
     echo $this->management_model->Delete($this->input->post('Table'), $this->input->post('Id'));
   }
 
+  public function AddProduct()
+  {
+    echo $this->management_model->AddProduct($this->input->post());
+  }
+
+  public function UploadFile($type, $id)
+  {
+    echo json_encode($type);
+  }
+
 }
 
  ?>

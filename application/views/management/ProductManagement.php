@@ -115,7 +115,7 @@
         </center>
         <button type="button" class="close" data-dismiss="modal">&times;</button>
       </div>
-      <form role="form" method="post">
+      <form role="form" method="post" enctype="multipart/form-data">
         <div class="modal-body">
           <ul class="wizard-menu nav nav-pills nav-primary">
             <li class="step" style="width: 50%;">
@@ -141,7 +141,7 @@
                 <div class="form-group col-6 col-md-7">
                   <label>Kategori</label>
                   <br>
-                  <select class="select2basic" id="addIdCategoryProduct" style="width:250px"></select>
+                  <select class="select2basic" id="addCategoryIdProduct" style="width:250px"></select>
                 </div>
                 <div class="form-group col-md-7" >
                   <label>Keterangan</label>
@@ -151,18 +151,18 @@
                   <div class="input-file input-file-image">
                     <label>Gambar</label>
                     <img class="img-upload-preview" width="150" src="http://placehold.it/150x150" alt="preview">
-                    <input type="file" class="form-control form-control-file" id="uploadImg2" name="uploadImg2" accept="image/*" required="">
-                    <label for="uploadImg2" class=" label-input-file btn btn-success">
-                      <span class="btn-label">
-                        <i class="fa fa-file-image"></i>
-                      </span>
-                      Upload Foto
-                    </label>
+                    <input type="file" class="form-control form-control-file" id="fileUpload" name="fileUpload" accept="image/*" required="">
+                    <label for="fileUpload" class="  label-input-file btn btn-success">
+													<span class="btn-label">
+														<i class="fa fa-file-image"></i>
+													</span>
+													Upload Foto
+												</label>
                   </div>
                 </div>
               </div>
               <div class="modal-footer">
-                <button type="button" class="btn btn-primary" onclick="proceedAddProduct()">Simpan</button>
+                <button type="button" class="btn btn-primary" onclick="ProceedAddProduct()">Simpan</button>
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Kembali</button>
               </div>
             </div>
