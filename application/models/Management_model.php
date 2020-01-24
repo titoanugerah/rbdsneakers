@@ -292,6 +292,29 @@ class Management_model extends CI_Model
     return json_encode($data);
 
   }
+
+  public function uploadFile($type,$id)
+  {
+    $filename = $type.'_'.$id;
+    $config['upload_path'] = APPPATH.'../assets/picture/';
+    $config['overwrite'] = TRUE;
+    $config['file_name']     =  str_replace(' ','_',$filename);
+    $config['allowed_types'] = 'jpg|png|jpeg';
+    $this->load->library('upload', $config);
+    if (!$this->upload->do_upload('file')) {
+      $upload['status']= 'danger';
+      $upload['message']= "Mohon maaf terjadi error saat proses upload : ".$this->upload->display_errors();
+    } else {
+      $upload['status']= 'success';
+      $upload['message'] = "File berhasil di upload";
+      $upload['ext'] = $this->upload->data('file_ext');
+      $this->core_model->updateData($type, 'id', $id, 'Image', $filename.$upload['ext']);
+    }
+    return json_encode($upload);
+  }
+
+
+
 }
 
 

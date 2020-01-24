@@ -40,6 +40,13 @@ class Core_model extends CI_Model
     $this->db->limit(50, (50*$page));
     return $this->db->get_where($table, substr($where, 0, strlen($where)-3))->result();
   }
+
+  public function updateData($table, $whereVar, $whereVal, $setVar, $setVal)
+  {
+    $data = array($setVar => $setVal, );
+    $this->db->where($where = array($whereVar => $whereVal ));
+    return $this->db->update($table, $data);
+  }
   //FUNCTIONAL
   public function GetWebConf()
   {

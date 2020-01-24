@@ -107,7 +107,8 @@ class management extends CI_Controller
 
   public function UploadFile($type, $id)
   {
-    echo json_encode($type);
+//    echo json_encode($type);
+    echo $this->management_model->UploadFile($type, $id);
   }
 
 }

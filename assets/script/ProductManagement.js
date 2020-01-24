@@ -136,7 +136,7 @@ function UploadFile(type, id) {
   var fd = new FormData();
   var files = $('#fileUpload')[0].files[0];
   fd.append('file',files);
-  console.log(fd);
+  console.log('uploading');
 
   $.ajax({
     url: 'uploadFile/'+type+'/'+id,
@@ -146,6 +146,7 @@ function UploadFile(type, id) {
     processData: false,
     success: function(response){
       console.log('success', response);
+      GetProduct()
         // if(response != 0){
         //     $("#img").attr("src",response);
         //     $(".preview img").show(); // Display image element
@@ -155,6 +156,7 @@ function UploadFile(type, id) {
     },
     error: function(result){
       console.log('error', result);
+      alert('error');
     }
   });
 }
@@ -252,7 +254,7 @@ function GetProduct() {
           '<div class="col-sm-6 col-lg-3">' +
           '<div class="card">' +
           '<div class="p-2">' +
-          '<img class="card-img-top rounded" src="assets/upload/'+result.product[i].Image+'">' +
+          '<img class="card-img-top rounded" src="assets/picture/'+result.product[i].Image+'">' +
           '</div>' +
           '<div class="card-body pt-2">' +
           '<h4 class="mb-1 fw-bold">' +
