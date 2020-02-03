@@ -262,7 +262,7 @@ function GetProduct() {
           '</h4>' +
           '<br>' +
           '<center>' +
-          '<button type="button" class="btn btn-secondary btn-round" onclick="getDetailProduct('+result.product[i].Id+')">Detail</button>'+
+          '<a type="button" class="btn btn-secondary btn-round" href="detailProduct/'+result.product[i].Id+'">Detail</a>'+
           '</center>' +
           '</div>' +
           '</div>' +

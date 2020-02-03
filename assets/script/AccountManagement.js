@@ -39,7 +39,6 @@ function DeleteAccountManagement() {
       getAccount();
     },
     error: function(result) {
-      console.log(result);
       alert('err');
     }
   });
@@ -57,7 +56,6 @@ function getAccount() {
     },
     url: "getAll2",
     success: function(result) {
-      console.log(result);
       var html1='';
       var html2='';
       for(i=0; i<result.customer.length; i++){
@@ -105,7 +103,6 @@ function getAccount() {
         }
 
       }
-      console.log(html1);
       $('#data1').html(html1);
       $('#data2').html(html2);
     },
@@ -148,7 +145,6 @@ function GetDetailManagement(id) {
     dataType : "JSON",
     url: "getDetailManagement?Id="+id,
     success: function(result) {
-      console.log(result);
       var privilegesList = convertNumberToBinary(result.detail.Privilleges);
       $("#detailAccountManagement").modal('show');
       $('#fullnameManagement').val(result.detail.Fullname);
@@ -192,7 +188,6 @@ function UpdateAccountManagement() {
       getAccount();
     },
     error: function(result) {
-      console.log(result);
       alert('err');
     }
   });
@@ -215,7 +210,6 @@ function insertAccountManagement() {
       getAccount()
     },
     error: function(result) {
-      console.log(result);
       alert('err');
     }
   });

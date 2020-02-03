@@ -29,19 +29,8 @@ class Management_model extends CI_Model
     return $data;
   }
 
-  public function ContentAccountManagement($keyword, $page)
+  public function ContentAccountManagement()
   {
-    //will be deleted
-    if ($keyword!=null)
-    {
-      $data['customer'] = $this->core_model->GetSearchData('Customer', $keyword, $page);
-      $data['management'] = $this->core_model->GetSearchData('Management', $keyword, $page);
-    }
-    else
-    {
-      $data['customer'] = $this->core_model->GetAllData('Customer', $page);
-      $data['management'] = $this->core_model->GetAllData('Management', $page);
-    }
     $data['webConf'] = $this->core_model->GetWebConf();
     $data['viewName'] = 'AccountManagement';
     return $data;
@@ -311,6 +300,13 @@ class Management_model extends CI_Model
       $this->core_model->updateData($type, 'id', $id, 'Image', $filename.$upload['ext']);
     }
     return json_encode($upload);
+  }
+
+  public function ContentDetailProduct($id)
+  {
+    $data['webConf'] = $this->core_model->GetWebConf();
+    $data['viewName'] = 'DetailProduct';
+    return $data;
   }
 
 

@@ -26,13 +26,7 @@ class management extends CI_Controller
 
   public function AccountManagement($page)
   {
-    $keyword = null;
-    if ($this->input->post('search'))
-    {
-      $keyword = $this->input->post('search');
-    }
-    $this->session->set_flashdata('page', $page);
-    $this->load->view('Management/Template', $this->management_model->ContentAccountManagement($keyword, $page));
+    $this->load->view('Management/Template', $this->management_model->ContentAccountManagement());
   }
 
   public function CategoryManagement()
@@ -43,6 +37,11 @@ class management extends CI_Controller
   public function ProductManagement()
   {
     $this->load->view('Management/Template', $this->management_model->ContentProductManagement());
+  }
+
+  public function DetailProduct($id)
+  {
+    $this->load->view('Management/Template', $this->management_model->ContentDetailProduct($id));
   }
 
   public function GetDetailCustomer()
@@ -107,7 +106,6 @@ class management extends CI_Controller
 
   public function UploadFile($type, $id)
   {
-//    echo json_encode($type);
     echo $this->management_model->UploadFile($type, $id);
   }
 
