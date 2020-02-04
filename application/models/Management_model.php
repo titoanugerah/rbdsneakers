@@ -309,7 +309,15 @@ class Management_model extends CI_Model
     return $data;
   }
 
-
+  public function GetDetail($input)
+  {
+    $data['detail'] = $this->core_model->GetSingleData($input['Table'], $input['Variable'], $input['Value']);
+    if ($input['Table']=='Product') {
+      $data['variant'] = $this->core_model->GetSomeData('Variant', 'ProductId', $input['Id']);
+//      $data['review'] = $this->core_model->GetSomeData('Review', 'ProductId', $input['Id']);
+    }
+    return json_encode($data);
+  }
 
 }
 

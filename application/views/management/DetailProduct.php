@@ -35,7 +35,7 @@
       <div class="form-group col-6 col-md-4">
         <label>Kategori</label>
         <br>
-        <select class="select2basic" id="categoryIdProduct" style="width:330px"></select>
+        <select class="select2basic" id="categoryIdProduct" style="width:330px" value=9></select>
       </div>
       <div class="form-group col-md-10" >
         <label>Keterangan</label>
@@ -44,7 +44,7 @@
       <div class="form-group col-md-2">
         <div class="input-file input-file-image">
           <label>Gambar</label>
-          <img class="img-upload-preview" width="150" src="http://placehold.it/150x150" alt="preview">
+          <img class="img-upload-preview" width="150" src="http://placehold.it/150x150" alt="preview" id="imageProduct">
           <input type="file" class="form-control form-control-file" id="fileUpload" name="fileUpload" accept="image/*" required="">
           <label for="fileUpload" class="  label-input-file btn btn-success">
             <span class="btn-label">

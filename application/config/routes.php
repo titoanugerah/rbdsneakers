@@ -22,6 +22,8 @@ $route['(:any)/delete'] = 'management/Delete';
 $route['delete'] = 'management/Delete';
 $route['(:any)/recover'] = 'management/Recover';
 $route['recover'] = 'management/Recover';
+$route['(:any)/getDetail'] = 'management/GetDetail';
+$route['getDetail'] = 'management/GetDetail';
 
 //account
 $route['getAccount'] = 'management/GetAccount';

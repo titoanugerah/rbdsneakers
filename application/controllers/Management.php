@@ -109,6 +109,11 @@ class management extends CI_Controller
     echo $this->management_model->UploadFile($type, $id);
   }
 
+  public function GetDetail()
+  {
+    echo $this->management_model->GetDetail($this->input->post());
+  }
+
 }
 
  ?>
