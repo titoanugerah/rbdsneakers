@@ -6,6 +6,8 @@
         <h5 class="text-white op-7 mb-2"> Halaman panel pengelolaan Akun</h5>
       </div>
       <div class="ml-md-auto py-2 py-md-0">
+        <button type="button" id="addVariantButton" data-toggle="modal" data-target="addVariantForm" class="btn btn-primary btn-round">Tambah Varian</button>
+        <input type="number" id="idProduct" value="<?php echo $id; ?>" hidden>
       </div>
     </div>
   </div>
@@ -57,12 +59,12 @@
     </div>
     <div class="card-footer">
       <button type="button" class="btn btn-primary" onclick="UpdateProduct()">Simpan</button>
-      <button type="button" class="btn btn-secondary" data-dismiss="modal">Kembali</button>
+      <button type="button" class="btn btn-secondary"> Kembali</button>
     </div>
   </div>
 <div class="tab-pane fade show" id="tab2" role="tabpanel" >
   <div class="card-body row" id="data2">
-    tab 2
+
   </div>
 </div>
 <div class="tab-pane fade show" id="tab3" role="tabpanel" >
