@@ -287,6 +287,7 @@ class Management_model extends CI_Model
     $filename = $type.'_'.$id;
     $config['upload_path'] = APPPATH.'../assets/picture/';
     $config['overwrite'] = TRUE;
+    
     $config['file_name']     =  str_replace(' ','_',$filename);
     $config['allowed_types'] = 'jpg|png|jpeg';
     $this->load->library('upload', $config);
@@ -320,6 +321,23 @@ class Management_model extends CI_Model
     return json_encode($data);
   }
 
+  public function AddVariant($input)
+  {
+     if ($this->session->userdata['StockManagement']){
+         $query = $this->db->query('CALL AddVariant('.$input['ProductId'].',"'.$input['Model'].'","'.$input['Color'].'",'.$this->session->userdata['Id'].')');
+        $data['id'] = $query->row('Id');
+        $data['title'] = 'Berhasil';
+        $data['type'] = 'success';
+        $data['message'] = 'Proses penambahan varian produk berhasil dilakukan';
+     }
+     else
+     {
+        $data['title'] = 'Gagal';
+        $data['type'] = 'danger';
+        $data['message'] = 'Anda tidak memiliki hak akses untuk aksi ini';
+     }
+    return json_encode($data);
+  }
 }
 
 

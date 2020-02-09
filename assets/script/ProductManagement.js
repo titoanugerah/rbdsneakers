@@ -2,7 +2,7 @@
 $(document).ready(function() {
   $('.select2basic').select2();
   $('#table1').DataTable();
-  getDeletedProduct();
+  GetDeletedProduct();
   GetProduct();
   GetCategory();
 });
@@ -29,9 +29,7 @@ function PreviousPage(){
   GetProduct();
 }
 
-
-
-function getDeletedProduct() {
+function GetDeletedProduct() {
   $.ajax({
     type: "POST",
     dataType : "JSON",
@@ -59,8 +57,7 @@ function getDeletedProduct() {
   });
 }
 
-
-function getDetailProduct(id) {
+function GetDetailProduct(id) {
   $.ajax({
     type: "POST",
     dataType : "JSON",
@@ -87,8 +84,7 @@ function getDetailProduct(id) {
   });
 }
 
-
-function deleteProduct() {
+function DeleteProduct() {
   $("#detailProduct").modal('hide');
   $.ajax({
     type: "POST",
@@ -100,7 +96,7 @@ function deleteProduct() {
     url: "deleteProduct",
     success: function(result) {
       GetProduct();
-      getDeletedProduct();
+      GetDeletedProduct();
       notify('fa fa-user', result.title, result.message, result.type);
     },
     error: function(result) {
@@ -110,7 +106,7 @@ function deleteProduct() {
   });
 }
 
-function updateProduct() {
+function UpdateProduct() {
   $("#detailProduct").modal('hide');
   $.ajax({
     type: "POST",
@@ -185,7 +181,7 @@ function ProceedAddProduct() {
   });
 }
 
-function proceedRecoverProduct(){
+function ProceedRecoverProduct(){
   $("#addProduct").modal('hide');
   $.ajax({
     type: "POST",
@@ -196,7 +192,7 @@ function proceedRecoverProduct(){
     url: "recoverProduct",
     success: function(result) {
       GetProduct();
-      getDeletedProduct();
+      GetDeletedProduct();
       notify('fa fa-user', result.title, result.message, result.type);
     },
     error: function(result) {

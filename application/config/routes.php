@@ -40,7 +40,11 @@ $route['updateCategory'] = 'management/UpdateCategory';
 //product
 $route['addProduct'] = 'management/AddProduct';
 $route['uploadFile/(:any)/(:any)'] = 'management/UploadFile/$1/$2';
+$route['detailProduct/addVariant'] = 'management/AddVariant';
+$route['addVariant'] = 'management/AddVariant';
 $route['detailProduct/(:any)'] =  'management/DetailProduct/$1';
+$route['(:any)/detailProduct/addVariant'] = 'management/AddVariant';
+$route['(:any)/(:any)/detailProduct/addVariant'] = 'management/AddVariant';
 
 #SYSTEM
 $route['404_override'] = '';

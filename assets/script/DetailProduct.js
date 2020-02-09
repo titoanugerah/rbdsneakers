@@ -1,4 +1,5 @@
 $(document).ready(function(){
+  $('.select2basic').select2();
   GetDetailProduct();
   GetCategory();
 });
@@ -34,12 +35,39 @@ function GetCategory() {
       $('#categoryIdProduct').html(html);
     },
     error: function(result) {
-      alert('error', url);
+      alert('error', result);
+    }
+  });
+}
+
+function ProceedAddVariant() {
+  $.ajax({
+    type: "POST",
+    dataType : "JSON",
+    url: 'addVariant',
+    data : {
+      Model : $('#addModelVariant').val(),
+      ProductId : $('#idProduct').val(),
+      Color : $('#addColorVariant').val()
+    },
+    success: function(result) {
+//      UploadFile('Product',result.id);
+//      GetProduct()
+      notify('fa fa-user', result.title, result.message, result.status);
+    },
+    error: function(result) {
+      console.log('Error',result);
     }
   });
 }
 
 function GetDetailProduct() {
+  var url;
+  if("<?php echo $webConf->status; ?>" == "live"){
+    url = 'localhost';
+  } else {
+    url = 'http://localhost/rbdsneakers/';
+  }
   $.ajax({
     type: "POST",
     dataType : "JSON",
@@ -54,8 +82,9 @@ function GetDetailProduct() {
       categoryId = result.detail.CategoryId;
       $('#descriptionProduct').val(result.detail.Description);
       $('#imageProduct').attr('src', '/rbdsneakers/assets/picture/'+result.detail.Image);
-
       var html='';
+      var html2 = '<option value="0" deselect>Silahkan Pilih</option>';
+
       for(i=0; i<result.variant.length; i++){
         console.log('length',result.variant.length);
         console.log('val', result.variant[i])
@@ -64,7 +93,7 @@ function GetDetailProduct() {
           '<div class="col-sm-6 col-lg-3">' +
           '<div class="card">' +
           '<div class="p-2">' +
-          '<img class="card-img-top rounded" src="assets/picture/'+result.variant[i].Image+'">' +
+          '<img class="card-img-top rounded" src="'+url+'assets/picture/'+result.variant[i].Image+'">' +
           '</div>' +
           '<div class="card-body pt-2">' +
           '<h4 class="mb-1 fw-bold">' +
@@ -78,13 +107,11 @@ function GetDetailProduct() {
           '</div>' +
           '</div>';
         } else {
-
-          continue;
+          html2 +='<option value="'+result.variant[i].Id+'">'+result.variant[i].Model+'</option>';
         }
       }
-      console.log(html);
       $('#data2').html(html);
-
+      $('#idRecoverVariant').html(html2);
     },
     error: function(result) {
       alert('error', url);

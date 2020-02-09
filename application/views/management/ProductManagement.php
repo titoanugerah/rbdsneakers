@@ -59,7 +59,7 @@
                 </div>
               </div>
               <div class="modal-footer">
-                <button type="button" class="btn btn-primary" onclick="updateProduct()">Simpan</button>
+                <button type="button" class="btn btn-primary" onclick="UpdateProduct()">Simpan</button>
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Kembali</button>
               </div>
             </div>
@@ -94,7 +94,7 @@
               </div>
             </center>
             <div class="modal-footer">
-              <button type="button" class="btn btn-danger" onclick="deleteProduct()">Hapus Produk</button>
+              <button type="button" class="btn btn-danger" onclick="DeleteProduct()">Hapus Produk</button>
               <button type="button" class="btn btn-secondary" data-dismiss="modal">Kembali</button>
             </div>
             </div>
@@ -175,7 +175,7 @@
                 </select>
               </div>
               <div class="modal-footer">
-                <button type="button" class="btn btn-primary" onclick="proceedRecoverProduct()">Pulihkan</button>
+                <button type="button" class="btn btn-primary" onclick="ProceedRecoverProduct()">Pulihkan</button>
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Kembali</button>
               </div>
             </div>
