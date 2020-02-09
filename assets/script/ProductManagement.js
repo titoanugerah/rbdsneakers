@@ -132,8 +132,6 @@ function UploadFile(type, id) {
   var fd = new FormData();
   var files = $('#fileUpload')[0].files[0];
   fd.append('file',files);
-  console.log('uploading');
-
   $.ajax({
     url: 'uploadFile/'+type+'/'+id,
     type: 'post',
@@ -143,12 +141,6 @@ function UploadFile(type, id) {
     success: function(response){
       console.log('success', response);
       GetProduct()
-        // if(response != 0){
-        //     $("#img").attr("src",response);
-        //     $(".preview img").show(); // Display image element
-        // }else{
-        //     alert('file not uploaded');
-        // }
     },
     error: function(result){
       console.log('error', result);

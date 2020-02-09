@@ -43,7 +43,7 @@ class Core_model extends CI_Model
 
   public function updateData($table, $whereVar, $whereVal, $setVar, $setVal)
   {
-    $data = array($setVar => $setVal, );
+    $data = array($setVar => $setVal );
     $this->db->where($where = array($whereVar => $whereVal ));
     return $this->db->update($table, $data);
   }

@@ -287,7 +287,7 @@ class Management_model extends CI_Model
     $filename = $type.'_'.$id;
     $config['upload_path'] = APPPATH.'../assets/picture/';
     $config['overwrite'] = TRUE;
-    
+
     $config['file_name']     =  str_replace(' ','_',$filename);
     $config['allowed_types'] = 'jpg|png|jpeg';
     $this->load->library('upload', $config);
@@ -298,7 +298,8 @@ class Management_model extends CI_Model
       $upload['status']= 'success';
       $upload['message'] = "File berhasil di upload";
       $upload['ext'] = $this->upload->data('file_ext');
-      $this->core_model->updateData($type, 'id', $id, 'Image', $filename.$upload['ext']);
+      $upload['filename'] = $filename;
+      $this->core_model->updateData($type, 'Id', $id, 'Image', $filename.$upload['ext']);
     }
     return json_encode($upload);
   }

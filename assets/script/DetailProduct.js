@@ -51,8 +51,8 @@ function ProceedAddVariant() {
       Color : $('#addColorVariant').val()
     },
     success: function(result) {
-//      UploadFile('Product',result.id);
-//      GetProduct()
+      UploadFile('fileUpload2','Variant',result.id);
+      GetDetailProduct();
       notify('fa fa-user', result.title, result.message, result.status);
     },
     error: function(result) {
@@ -60,6 +60,28 @@ function ProceedAddVariant() {
     }
   });
 }
+
+function UploadFile(form, type, id) {
+  var fd = new FormData();
+  var files = $('#'+form)[0].files[0];
+  fd.append('file',files);
+  $.ajax({
+    url: 'uploadFile/'+type+'/'+id,
+    type: 'post',
+    data: fd,
+    contentType: false,
+    processData: false,
+    success: function(response){
+      console.log('success', response);
+      GetDetailProduct();
+    },
+    error: function(result){
+      console.log('error', result);
+      alert('error');
+    }
+  });
+}
+
 
 function GetDetailProduct() {
   var url;

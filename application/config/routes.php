@@ -44,6 +44,7 @@ $route['detailProduct/addVariant'] = 'management/AddVariant';
 $route['addVariant'] = 'management/AddVariant';
 $route['detailProduct/(:any)'] =  'management/DetailProduct/$1';
 $route['(:any)/detailProduct/addVariant'] = 'management/AddVariant';
+$route['(:any)/uploadFile/(:any)/(:any)'] = 'management/UploadFile/$2/$3';
 $route['(:any)/(:any)/detailProduct/addVariant'] = 'management/AddVariant';
 
 #SYSTEM
