@@ -19,7 +19,6 @@ function GetCategory() {
     success: function(result) {
       var html='<option value="0" selected>Silahkan Pilih</option>';
       for(i=0; i<result.category.length; i++){
-        console.log(categoryId);
         if (result.category[i].IsExist==1) {
           if (result.category[i].Id == categoryId) {
             html +=
@@ -56,7 +55,6 @@ function ProceedAddVariant() {
       notify('fa fa-user', result.title, result.message, result.status);
     },
     error: function(result) {
-      console.log('Error',result);
     }
   });
 }
@@ -72,16 +70,34 @@ function UploadFile(form, type, id) {
     contentType: false,
     processData: false,
     success: function(response){
-      console.log('success', response);
       GetDetailProduct();
     },
     error: function(result){
-      console.log('error', result);
       alert('error');
     }
   });
 }
 
+function ProceedRecoverVariant(){
+  $("#addVariantForm").modal('hide');
+  $.ajax({
+    type: "POST",
+    dataType : "JSON",
+    data : {
+      Table: 'Variant',
+      Id: $('#idRecoverVariant').val()
+    },
+    url: "recover",
+    success: function(result) {
+      GetDetailProduct();
+      notify('fa fa-user', result.title, result.message, result.type);
+    },
+    error: function(result) {
+      console.log(result);
+      alert('err');
+    }
+  });
+}
 
 function GetDetailProduct() {
   var url;
@@ -98,7 +114,6 @@ function GetDetailProduct() {
     },
     url: "getDetail",
     success: function(result) {
-      console.log('Details',result);
       $('#nameProduct').val(result.detail.Name);
       $('#priceProduct').val(result.detail.Price);
       categoryId = result.detail.CategoryId;
@@ -108,8 +123,6 @@ function GetDetailProduct() {
       var html2 = '<option value="0" deselect>Silahkan Pilih</option>';
 
       for(i=0; i<result.variant.length; i++){
-        console.log('length',result.variant.length);
-        console.log('val', result.variant[i])
         if (result.variant[i].IsExist==1) {
           html +=
           '<div class="col-sm-6 col-lg-3">' +

@@ -229,7 +229,7 @@ class Management_model extends CI_Model
 
   public function Recover($table, $id)
   {
-    if ((($table=='Category'|| $table=='Product') && $this->session->userdata['StockManagement']) || ($table=='Management' && $this->session->userdata['AccountManagement']))
+    if ((($table=='Category'|| $table=='Product' || $table=='Variant') && $this->session->userdata['StockManagement']) || ($table=='Management' && $this->session->userdata['AccountManagement']))
     {
       $this->db->query('CALL DeleteOrRecover'.$table.'('.$id.',1)');
       $data['title'] = 'Berhasil';
