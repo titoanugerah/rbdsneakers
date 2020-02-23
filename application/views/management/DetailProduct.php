@@ -80,7 +80,93 @@
   </div>
 </div>
 
+<div class="modal fade" id="updateVariantForm" role="dialog">
+  <div class="modal-dialog">
+    <!-- Modal content-->
+    <div class="modal-content">
+      <div class="modal-header">
+        <center>
+          <h4>Detail Produk</h4>
+        </center>
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+      </div>
+      <form role="form" method="post" enctype="multipart/form-data">
+        <div class="modal-body">
+          <ul class="wizard-menu nav nav-pills nav-primary">
+            <li class="step" style="width: 33%;">
+              <a class="nav-link active" href="#detailVariant" data-toggle="tab" aria-expanded="true"><i class="fas fa-plus-circle mr-0"></i> Detail</a>
+            </li>
+            <li class="step" style="width: 33%;">
+              <a class="nav-link" href="#sizeVariant" data-toggle="tab"><i class="fas fa-ruler-vertical mr-2"></i>Ukuran</a>
+            </li>
+            <li class="step" style="width: 33%;">
+              <a class="nav-link" href="#stockVariant" data-toggle="tab"><i class="fas fa-ruler-vertical mr-2"></i>Stok</a>
+            </li>
 
+          </ul>
+
+          <div class="tab-content">
+            <div class="tab-pane active" id="detailVariant">
+              <div class="row">
+
+                <div class="form-group col-6 col-md-7">
+                  <label>Model</label>
+                  <input type="text" class="form-control" id="updateModelVariant"  >
+                  <input type="text" class="form-control" id="updateIdVariant" hidden >
+                  <br>
+                  <label>Warna</label>
+                  <input type="text" class="form-control" id="updateColorVariant"  >
+                </div>
+                <div class="form-group col-md-5">
+                  <div class="input-file input-file-image">
+                    <label>Gambar</label>
+                    <img class="img-upload-preview" width="150" src="http://placehold.it/150x150" id="imageVariant" alt="preview">
+                    <input type="file" class="form-control form-control-file" id="fileUpload3" name="fileUpload3" accept="image/*" required="">
+                    <label for="fileUpload3" class="  label-input-file btn btn-success">
+                      <span class="btn-label">
+                        <i class="fa fa-file-image"></i>
+                      </span>
+                      Upload Foto
+                    </label>
+                  </div>
+                </div>
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-primary" data-dismiss="modal" onclick="ProceedUpdateVariant()">Simpan</button>
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Kembali</button>
+              </div>
+            </div>
+            <div class="tab-pane" id="sizeVariant">
+              <div class="form-group row">
+                <label class="form-group">Ukuran Sepatu</label>
+                <input type="number" name="addSizeVariant" id="addSizeVariant" value="" class="form-control col-md-4">
+                &nbsp;&nbsp;&nbsp;&nbsp;
+                <button type="button" name="addSizeButton" onclick="ProceedAddSize()" class="btn btn-success">Tambah Ukuran</button>
+              </div>
+              <div class="table-wrapper-scroll-y my-custom-scrollbar">
+                <table class="table table-striped mt-3">
+                  <thead>
+                    <tr>
+                      <th scope="col">#</th>
+                      <th scope="col" colspan="2">Ukuran</th>
+                    </tr>
+                  </thead>
+                  <tbody id="sizeTableList">
+
+                  </tbody>
+                </table>
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-primary" onclick="ProceedRecoverVariant()">Pulihkan</button>
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Kembali</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
 
 <div class="modal fade" id="addVariantForm" role="dialog">
   <div class="modal-dialog">
@@ -96,15 +182,15 @@
         <div class="modal-body">
           <ul class="wizard-menu nav nav-pills nav-primary">
             <li class="step" style="width: 50%;">
-              <a class="nav-link active" href="#addNewProduct" data-toggle="tab" aria-expanded="true"><i class="fas fa-plus-circle mr-0"></i> Tambah Baru</a>
+              <a class="nav-link active" href="#addNewVariant" data-toggle="tab" aria-expanded="true"><i class="fas fa-plus-circle mr-0"></i> Tambah Baru</a>
             </li>
             <li class="step" style="width: 50%;">
-              <a class="nav-link" href="#recoverProduct" data-toggle="tab"><i class="fa fa-history mr-2"></i>Pulihkan Produk</a>
+              <a class="nav-link" href="#recoverVariant" data-toggle="tab"><i class="fa fa-history mr-2"></i>Pulihkan Produk</a>
             </li>
           </ul>
 
           <div class="tab-content">
-            <div class="tab-pane active" id="addNewProduct">
+            <div class="tab-pane active" id="addNewVariant">
               <div class="row">
 
                 <div class="form-group col-6 col-md-7">
@@ -133,7 +219,7 @@
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Kembali</button>
               </div>
             </div>
-            <div class="tab-pane" id="recoverProduct">
+            <div class="tab-pane" id="recoverVariant">
               <div class="form-group">
                 <label>Pilih Produk Terhapus</label>
                 &nbsp;&nbsp;&nbsp;
@@ -148,8 +234,18 @@
             </div>
           </div>
         </div>
-
       </form>
     </div>
   </div>
 </div>
+
+<style>
+  .my-custom-scrollbar {
+    position: relative;
+    height: 200px;
+    overflow: auto;
+  }
+  .table-wrapper-scroll-y {
+    display: block;
+  }
+</style>

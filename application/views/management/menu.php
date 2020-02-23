@@ -31,11 +31,6 @@
         </a>
       </li>
       <li>
-        <a href="<?php echo base_url('variantManagement'); ?>">
-          <span class="sub-item">Varian Produk</span>
-        </a>
-      </li>
-      <li>
         <a href="<?php echo base_url('stockManagement'); ?>">
           <span class="sub-item">Stok Produk</span>
         </a>

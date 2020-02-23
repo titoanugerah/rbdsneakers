@@ -2,6 +2,9 @@ $(document).ready(function(){
   $('.select2basic').select2();
   GetDetailProduct();
   GetCategory();
+  $('#search').attr('placeholder', 'Feature Not Available');
+  $('#search').attr('disabled', true);
+
 });
 
 var categoryId;
@@ -99,6 +102,57 @@ function ProceedRecoverVariant(){
   });
 }
 
+function GetDetailVariant(id) {
+  $('#updateVariantForm').modal('show');
+  $.ajax({
+    type: "POST",
+    dataType : "JSON",
+    data: {
+      Table : 'Variant', Variable : 'Id', Value : id
+    },
+    url: "getDetail",
+    success: function(result) {
+      console.log(result);
+      html = '';
+      $('#updateIdVariant').val(result.detail.Id);
+      $('#updateModelVariant').val(result.detail.Model);
+      $('#updateColorVariant').val(result.detail.Color);
+      $('#imageVariant').attr('src', '/rbdsneakers/assets/picture/'+result.detail.Image);
+      for(i=1; i<=result.size.length; i++){
+        html = html +
+        '<tr>'+
+          '<td>'+i+'</td>'+
+          '<td colspan="2">'+result.size.Size+'</td>' +
+        '</tr>';
+      }
+      $('#sizeTableList').html(html);
+    },
+    error: function(result) {
+      alert('error');
+    }
+  });
+}
+
+function ProceedAddSize() {
+  $.ajax({
+    type: "POST",
+    dataType : "JSON",
+    data: {
+      VariantId : $('#updateIdVariant').val(),
+      Size : $('#addSizeVariant').val(),
+    },
+    url: 'addSize',
+    success: function(result) {
+      console.log(result);
+
+    },
+    error: function(result) {
+      console.log(result);
+      alert('error');
+    }
+  });
+}
+
 function GetDetailProduct() {
   var url;
   if("<?php echo $webConf->status; ?>" == "live"){
@@ -136,7 +190,7 @@ function GetDetailProduct() {
           '</h4>' +
           '<br>' +
           '<center>' +
-          '<a type="button" class="btn btn-secondary btn-round" href="detailProduct/'+result.variant[i].Id+'">Detail</a>'+
+          '<button type="button" class="btn btn-secondary btn-round" onclick="GetDetailVariant('+result.variant[i].Id+')">Detail</button>'+
           '</center>' +
           '</div>' +
           '</div>' +

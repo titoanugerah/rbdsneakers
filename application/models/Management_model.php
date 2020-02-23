@@ -282,7 +282,7 @@ class Management_model extends CI_Model
 
   }
 
-  public function uploadFile($type,$id)
+  public function UploadFile($type,$id)
   {
     $filename = $type.'_'.$id;
     $config['upload_path'] = APPPATH.'../assets/picture/';
@@ -318,6 +318,9 @@ class Management_model extends CI_Model
     if ($input['Table']=='Product') {
       $data['variant'] = $this->core_model->GetSomeData('Variant', 'ProductId', $input['Value']);
 //      $data['review'] = $this->core_model->GetSomeData('Review', 'ProductId', $input['Id']);
+    } else if ($input['Table'] == 'Variant') {
+      $data['size'] = $this->db->query("SELECT Size FROM Stock WHERE VariantId = ".$input['Value']." GROUP BY Size")->result();
+      $data['stock'] = $this->core_model->GetSomeData('Stock', 'VariantId', $input['Value ']);
     }
     return json_encode($data);
   }
@@ -325,7 +328,7 @@ class Management_model extends CI_Model
   public function AddVariant($input)
   {
      if ($this->session->userdata['StockManagement']){
-         $query = $this->db->query('CALL AddVariant('.$input['ProductId'].',"'.$input['Model'].'","'.$input['Color'].'",'.$this->session->userdata['Id'].')');
+        $query = $this->db->query('CALL AddVariant('.$input['ProductId'].',"'.$input['Model'].'","'.$input['Color'].'",'.$this->session->userdata['Id'].')');
         $data['id'] = $query->row('Id');
         $data['title'] = 'Berhasil';
         $data['type'] = 'success';
@@ -339,6 +342,29 @@ class Management_model extends CI_Model
      }
     return json_encode($data);
   }
+
+  public function AddSize($input)
+  {
+    if (($this->session->userdata['StockManagement'])) {
+       $query = $this->db->query('CALL AddSize('.$input['VariantId'].','.$input['Size'].','.$this->session->userdata['Id'].')');
+      if ($query->row('Status')==1) {
+        $data['title'] = 'Berhasil';
+        $data['type'] = 'success';
+        $data['message'] = 'Proses penambahan ukuran varian berhasil dilakukan';
+      } else {
+        $data['title'] = 'Gagal';
+        $data['type'] = 'danger';
+        $data['message'] = 'Proses penambahan ukuran varian gagal dilakukan, ukuran sudah tersedia';
+      }
+    } else {
+      $data['title'] = 'Gagal';
+      $data['type'] = 'danger';
+      $data['message'] = 'Proses penambahan ukuran varian gagal dilakukan, anda tidak memiliki hak akses';
+    }
+    return json_encode($data);
+  }
+
+
 }
 
 
