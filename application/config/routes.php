@@ -41,14 +41,22 @@ $route['updateCategory'] = 'management/UpdateCategory';
 $route['addProduct'] = 'management/AddProduct';
 $route['addVariant'] = 'management/AddVariant';
 $route['addSize'] = 'management/AddSize';
+$route['addStock'] = 'management/AddStock';
+$route['updateVariant'] = 'management/UpdateVariant';
 $route['uploadFile/(:any)/(:any)'] = 'management/UploadFile/$1/$2';
 $route['detailProduct/addVariant'] = 'management/AddVariant';
 $route['detailProduct/addSize'] = 'management/AddSize';
+$route['detailProduct/addStock'] = 'management/AddStock';
+$route['detailProduct/updateVariant'] = 'management/UpdateVariant';
 $route['(:any)/detailProduct/addVariant'] = 'management/AddVariant';
 $route['(:any)/detailProduct/addSize'] = 'management/AddSize';
+$route['(:any)/detailProduct/addStock'] = 'management/AddStock';
+$route['(:any)/detailProduct/updateVariant'] = 'management/UpdateVariant';
 $route['detailProduct/(:any)'] =  'management/DetailProduct/$1';
 $route['(:any)/uploadFile/(:any)/(:any)'] = 'management/UploadFile/$2/$3';
 $route['(:any)/(:any)/detailProduct/addVariant'] = 'management/AddVariant';
+$route['(:any)/(:any)/detailProduct/addStock'] = 'management/AddStock';
+$route['(:any)/(:any)/detailProduct/updateVariant'] = 'management/UpdateVariant';
 
 #SYSTEM
 $route['404_override'] = '';

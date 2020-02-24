@@ -114,6 +114,8 @@ function GetDetailVariant(id) {
     success: function(result) {
       console.log(result);
       html = '';
+      html1 = '';
+      html2 = '';
       $('#updateIdVariant').val(result.detail.Id);
       $('#updateModelVariant').val(result.detail.Model);
       $('#updateColorVariant').val(result.detail.Color);
@@ -122,10 +124,31 @@ function GetDetailVariant(id) {
         html = html +
         '<tr>'+
           '<td>'+i+'</td>'+
-          '<td colspan="2">'+result.size.Size+'</td>' +
+          '<td colspan="2">'+result.size[i-1].Size+'</td>' +
+          '<td colspan="2">'+result.size[i-1].Stock+'</td>' +
         '</tr>';
+
+        html1 = html1 +
+        '<option value="'+result.size[i-1].Size+'">'+result.size[i-1].Size+'</option>';
+
       }
+      for(i=result.stock.length-1; i>=0; i--){
+        if (result.stock[i].Stock == 0) {
+          continue;
+        } else {
+          html2 =
+          html2 +
+          '<tr>'+
+          '<td colspan="2">'+result.stock[i].Size+'</td>' +
+          '<td colspan="2">'+result.stock[i].Stock+'</td>' +
+          '<td colspan="2">'+result.stock[i].Date+'</td>' +
+          '</tr>';
+        }
+      }
+
       $('#sizeTableList').html(html);
+      $('#addStockSize').html(html1);
+      $('#stockTableList').html(html2);
     },
     error: function(result) {
       alert('error');
@@ -143,14 +166,60 @@ function ProceedAddSize() {
     },
     url: 'addSize',
     success: function(result) {
-      console.log(result);
-
+      notify('fa fa-user', result.title, result.message, result.status);
+      GetDetailVariant($('#updateIdVariant').val());
     },
     error: function(result) {
       console.log(result);
       alert('error');
     }
   });
+}
+
+function ProceedAddStock() {
+  $.ajax({
+    type: "POST",
+    dataType : "JSON",
+    data: {
+      VariantId : $('#updateIdVariant').val(),
+      Size : $('#addStockSize').val(),
+      Stock : $('#addStockQty').val()
+    },
+    url: 'addStock',
+    success: function(result) {
+      notify('fa fa-user', result.title, result.message, result.status);
+      GetDetailVariant($('#updateIdVariant').val());
+    },
+    error: function(result) {
+      console.log(result);
+      alert('error');
+    }
+  });
+}
+
+function ProceedUpdateVariant() {
+  $.ajax({
+    type: "POST",
+    dataType : "JSON",
+    data: {
+      VariantId : $('#updateIdVariant').val(),
+      Model : $('#updateModelVariant').val(),
+      Color : $('#updateColorVariant').val()
+    },
+    url: 'updateVariant',
+    success: function(result) {
+      console.log(result);
+      UploadFile('fileUpload3','Variant', $('#updateIdVariant').val());
+      notify('fa fa-user', result.title, result.message, result.status);
+      GetDetailVariant($('#updateIdVariant').val());
+      GetDetailProduct();
+    },
+    error: function(result) {
+      console.log(result);
+      alert('error');
+    }
+  });
+
 }
 
 function GetDetailProduct() {

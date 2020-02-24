@@ -94,13 +94,13 @@
         <div class="modal-body">
           <ul class="wizard-menu nav nav-pills nav-primary">
             <li class="step" style="width: 33%;">
-              <a class="nav-link active" href="#detailVariant" data-toggle="tab" aria-expanded="true"><i class="fas fa-plus-circle mr-0"></i> Detail</a>
+              <a class="nav-link active" href="#detailVariant" data-toggle="tab" aria-expanded="true"><i class="fas fa-list mr-0"></i> Detail</a>
             </li>
             <li class="step" style="width: 33%;">
-              <a class="nav-link" href="#sizeVariant" data-toggle="tab"><i class="fas fa-ruler-vertical mr-2"></i>Ukuran</a>
+              <a class="nav-link" href="#sizeVariant" data-toggle="tab"><i class="fas fa-ruler-vertical mr-2"></i>Stok</a>
             </li>
             <li class="step" style="width: 33%;">
-              <a class="nav-link" href="#stockVariant" data-toggle="tab"><i class="fas fa-ruler-vertical mr-2"></i>Stok</a>
+              <a class="nav-link" href="#stockVariant" data-toggle="tab"><i class="fas fa-plus mr-2"></i>Tambah Stok</a>
             </li>
 
           </ul>
@@ -149,6 +149,7 @@
                     <tr>
                       <th scope="col">#</th>
                       <th scope="col" colspan="2">Ukuran</th>
+                      <th scope="col" colspan="2">Stok</th>
                     </tr>
                   </thead>
                   <tbody id="sizeTableList">
@@ -156,10 +157,34 @@
                   </tbody>
                 </table>
               </div>
-              <div class="modal-footer">
-                <button type="button" class="btn btn-primary" onclick="ProceedRecoverVariant()">Pulihkan</button>
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Kembali</button>
+
+            </div>
+            <div class="tab-pane" id="stockVariant">
+              <div class="form-group row">
+                <select class="form-control" id="addStockSize" style="width:135px">
+
+                </select>
+                &nbsp;
+                <input type="number" class="form-control col-md-5" placeholder="Jumlah Stok Barang" id="addStockQty">
+                &nbsp;
+                <button type="button" onclick="ProceedAddStock()" class="btn btn-success">Tambah Stok</button>
               </div>
+
+              <div class="table-wrapper-scroll-y my-custom-scrollbar">
+                <table class="table table-striped mt-3">
+                  <thead>
+                    <tr>
+                      <th scope="col" colspan="2">Ukuran</th>
+                      <th scope="col" colspan="2">Stok</th>
+                      <th scope="col" colspan="2">Tanggal</th>
+                    </tr>
+                  </thead>
+                  <tbody id="stockTableList">
+
+                  </tbody>
+                </table>
+              </div>
+
             </div>
           </div>
         </div>
@@ -224,7 +249,6 @@
                 <label>Pilih Produk Terhapus</label>
                 &nbsp;&nbsp;&nbsp;
                 <select class="select2basic" id="idRecoverVariant" style="width:250px;">
-
                 </select>
               </div>
               <div class="modal-footer">

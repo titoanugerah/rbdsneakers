@@ -319,8 +319,8 @@ class Management_model extends CI_Model
       $data['variant'] = $this->core_model->GetSomeData('Variant', 'ProductId', $input['Value']);
 //      $data['review'] = $this->core_model->GetSomeData('Review', 'ProductId', $input['Id']);
     } else if ($input['Table'] == 'Variant') {
-      $data['size'] = $this->db->query("SELECT Size FROM Stock WHERE VariantId = ".$input['Value']." GROUP BY Size")->result();
-      $data['stock'] = $this->core_model->GetSomeData('Stock', 'VariantId', $input['Value ']);
+      $data['size'] = $this->db->query("SELECT A.Size as Size, Sum(A.Stock) as Stock FROM Stock as A WHERE VariantId = ".$input['Value']." GROUP BY Size")->result();
+      $data['stock'] = $this->core_model->GetSomeData('Stock', 'VariantId', $input['Value']);
     }
     return json_encode($data);
   }
@@ -364,6 +364,41 @@ class Management_model extends CI_Model
     return json_encode($data);
   }
 
+  public function AddStock($input)
+  {
+    if (($this->session->userdata['StockManagement'])) {
+       $query = $this->db->query('CALL AddStock('.$input['VariantId'].','.$input['Size'].','.$input['Stock'].','.$this->session->userdata['Id'].')');
+      if ($query->row('IsExist')>0) {
+        $data['title'] = 'Berhasil';
+        $data['type'] = 'success';
+        $data['message'] = 'Proses penambahan stok berhasil dilakukan';
+      } else {
+        $data['title'] = 'Gagal';
+        $data['type'] = 'danger';
+        $data['message'] = 'Proses penambahan ukuran varian gagal dilakukan, ukuran tidak ada';
+      }
+    } else {
+      $data['title'] = 'Gagal';
+      $data['type'] = 'danger';
+      $data['message'] = 'Proses penambahan ukuran varian gagal dilakukan, anda tidak memiliki hak akses';
+    }
+    return json_encode($data);
+  }
+
+  public function UpdateVariant($input)
+  {
+    if (($this->session->userdata['StockManagement'])) {
+       $query = $this->db->query('CALL UpdateVariant('.$input['VariantId'].',"'.$input['Model'].'","'.$input['Color'].'",'.$this->session->userdata['Id'].')');
+       $data['title'] = 'Berhasil';
+       $data['type'] = 'success';
+       $data['message'] = 'Proses update varian berhasil dilakukan';
+    } else {
+      $data['title'] = 'Gagal';
+      $data['type'] = 'danger';
+      $data['message'] = 'Proses penambahan ukuran varian gagal dilakukan, anda tidak memiliki hak akses';
+    }
+    return json_encode($data);
+  }
 
 }
 
