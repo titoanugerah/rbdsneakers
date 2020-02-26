@@ -14,6 +14,7 @@ $route['categoryManagement'] = 'management/CategoryManagement';
 $route['productManagement'] = 'management/ProductManagement';
 $route['webManagement'] = 'management/WebManagement';
 
+
 #Ajax
 $route['(:any)/getAll'] = 'management/GetAll';
 $route['getAll'] = 'management/GetAll';
@@ -59,6 +60,9 @@ $route['(:any)/(:any)/detailProduct/addVariant'] = 'management/AddVariant';
 $route['(:any)/(:any)/detailProduct/addStock'] = 'management/AddStock';
 $route['(:any)/(:any)/detailProduct/updateVariant'] = 'management/UpdateVariant';
 
+
+//WEBCONF
+$route['updateWebConf'] = 'management/UpdateWebConf';
 #SYSTEM
 $route['404_override'] = '';
 $route['translate_uri_dashes'] = FALSE;

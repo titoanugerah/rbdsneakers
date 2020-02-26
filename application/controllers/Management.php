@@ -134,6 +134,11 @@ class management extends CI_Controller
     echo $this->management_model->AddStock($this->input->post());
   }
 
+  public function UpdateWebConf()
+  {
+    echo $this->management_model->UpdateWebConf($this->input->post());
+  }
+
   public function UpdateVariant()
   {
     echo $this->management_model->UpdateVariant($this->input->post());
