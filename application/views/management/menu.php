@@ -30,11 +30,14 @@
           <span class="sub-item">Produk</span>
         </a>
       </li>
-      <li>
-        <a href="<?php echo base_url('stockManagement'); ?>">
-          <span class="sub-item">Stok Produk</span>
-        </a>
-      </li>
+
     </ul>
   </div>
+</li>
+
+<li class="nav-item" <?php if(!$this->session->userdata['SalesManagement']){echo 'hidden';} ?>>
+  <a href="<?php echo base_url('webManagement'); ?>">
+    <i class="fas fa-quote-left"></i>
+    <p>Identitas Web</p>
+  </a>
 </li>

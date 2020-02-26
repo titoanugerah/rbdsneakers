@@ -49,6 +49,7 @@ class General_model extends CI_Model
           'Customer' => substr(decbin($user->Privilleges),0,1),
           'AccountManagement' => substr(decbin($user->Privilleges),1,1),
           'StockManagement' => substr(decbin($user->Privilleges),2,1),
+          'SalesManagement' => substr(decbin($user->Privilleges),3,1),
          );
          $this->session->set_userdata($userdata);
       }

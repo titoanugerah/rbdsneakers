@@ -84,27 +84,6 @@ function GetDetailProduct(id) {
   });
 }
 
-function DeleteProduct() {
-  $("#detailProduct").modal('hide');
-  $.ajax({
-    type: "POST",
-    dataType : "JSON",
-    data : {
-      Id: $('#idProduct').val(),
-      Email : $('#emailUser').val()
-    },
-    url: "deleteProduct",
-    success: function(result) {
-      GetProduct();
-      GetDeletedProduct();
-      notify('fa fa-user', result.title, result.message, result.type);
-    },
-    error: function(result) {
-      console.log(result);
-      alert('err');
-    }
-  });
-}
 
 function UpdateProduct() {
   $("#detailProduct").modal('hide');
@@ -179,9 +158,10 @@ function ProceedRecoverProduct(){
     type: "POST",
     dataType : "JSON",
     data : {
+      Table : "Product",
       Id: $('#idRecoverProduct').val()
     },
-    url: "recoverProduct",
+    url: "recover",
     success: function(result) {
       GetProduct();
       GetDeletedProduct();

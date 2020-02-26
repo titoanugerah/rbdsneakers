@@ -44,6 +44,11 @@ class management extends CI_Controller
     $this->load->view('Management/Template', $this->management_model->ContentDetailProduct($id));
   }
 
+  public function WebManagement()
+  {
+    $this->load->view('Management/Template', $this->management_model->ContentWebManagement());
+  }
+
   public function GetDetailCustomer()
   {
     echo $this->management_model->GetDetailCustomer($this->input->get('Id'));
@@ -133,6 +138,8 @@ class management extends CI_Controller
   {
     echo $this->management_model->UpdateVariant($this->input->post());
   }
+
+
 }
 
  ?>

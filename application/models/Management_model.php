@@ -50,6 +50,13 @@ class Management_model extends CI_Model
     return $data;
   }
 
+  public function ContentWebManagement()
+  {
+    $data['webConf'] = $this->core_model->GetWebConf();
+    $data['viewName'] = 'WebManagement';
+    return $data;
+  }
+
   public function GetDetailCustomer($id)
   {
     $data['detail'] = $this->core_model->GetSingleData('Customer', 'Id', $id);
@@ -247,7 +254,7 @@ class Management_model extends CI_Model
 
   public function Delete($table, $id)
   {
-    if ((($table=='Category'|| $table=='Product') && $this->session->userdata['StockManagement']) || ($table=='Management' && $this->session->userdata['AccountManagement']))
+    if ((($table=='Category'|| $table=='Product' || $table=='Variant') && $this->session->userdata['StockManagement']) || ($table=='Management' && $this->session->userdata['AccountManagement']))
     {
       $this->db->query('CALL DeleteOrRecover'.$table.'('.$id.',0)');
       $data['title'] = 'Berhasil';
@@ -399,6 +406,8 @@ class Management_model extends CI_Model
     }
     return json_encode($data);
   }
+
+
 
 }
 

@@ -222,6 +222,49 @@ function ProceedUpdateVariant() {
 
 }
 
+function Delete(table, id){
+  $.ajax({
+    type: "POST",
+    dataType : "JSON",
+    data: {
+      Table : table,
+      Id : $("#"+id).val()
+    },
+    url: 'delete',
+    success: function(result) {
+      console.log(result);
+      notify('fa fa-user', result.title, result.message, result.status);
+      $('#updateVariantForm').modal('hide');
+      GetDetailProduct();
+    },
+    error: function(result) {
+      console.log(result);
+      alert('error');
+    }
+  });
+}
+
+function Recover(table, id){
+  $.ajax({
+    type: "POST",
+    dataType : "JSON",
+    data: {
+      Table : table,
+      Id : $("#"+id).val()
+    },
+    url: 'recover',
+    success: function(result) {
+      console.log(result);
+      notify('fa fa-user', result.title, result.message, result.status);
+      GetDetailProduct();
+    },
+    error: function(result) {
+      console.log(result);
+      alert('error');
+    }
+  });
+}
+
 function GetDetailProduct() {
   var url;
   if("<?php echo $webConf->status; ?>" == "live"){

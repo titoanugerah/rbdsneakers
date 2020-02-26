@@ -18,7 +18,6 @@
       <a class="nav-link active show" data-toggle="tab" href="#tab1">Informasi Umum</a>
       <a class="nav-link" data-toggle="tab" href="#tab2">Varian</a>
       <a class="nav-link" data-toggle="tab" href="#tab3">Review</a>
-      <a class="nav-link" data-toggle="tab" href="#tab4">Hapus</a>
     </div>
   </div>
 </div>
@@ -59,6 +58,7 @@
       </div>
       <div class="card-footer">
         <button type="button" class="btn btn-primary" onclick="UpdateProduct()">Simpan</button>
+        <button type="button" class="btn btn-danger" onclick="Delete('Product', 'idProduct')">Hapus</button>
         <button type="button" class="btn btn-secondary"> Kembali</button>
       </div>
     </div>
@@ -70,11 +70,6 @@
     <div class="tab-pane fade show" id="tab3" role="tabpanel" >
       <div class="card-body row" id="data2">
         tab 3
-      </div>
-    </div>
-    <div class="tab-pane fade show" id="tab4" role="tabpanel" >
-      <div class="card-body row" id="data2">
-        tab 4
       </div>
     </div>
   </div>
@@ -133,6 +128,7 @@
               </div>
               <div class="modal-footer">
                 <button type="button" class="btn btn-primary" data-dismiss="modal" onclick="ProceedUpdateVariant()">Simpan</button>
+                <button type="button" class="btn btn-danger" onclick="Delete('Variant', 'updateIdVariant')" >Hapus</button>
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Kembali</button>
               </div>
             </div>
