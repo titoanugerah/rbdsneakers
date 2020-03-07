@@ -85,7 +85,6 @@ class Management_model extends CI_Model
       $data['type'] = 'danger';
       $data['message'] = 'Anda tidak memiliki hak akses untuk aksi ini';
     }
-
     return json_encode($data);
   }
 
@@ -125,6 +124,26 @@ class Management_model extends CI_Model
     $data['detail'] = $this->core_model->GetSingleData('Category', 'Id', $id);
     $data['product'] = $this->core_model->GetSomeData('Product', 'CategoryId', $id);
     return json_encode($data);
+  }
+
+  public function AddCategory($input)
+  {
+    if ($this->session->userdata['StockManagement'])
+    {
+      $query = $this->db->query('CALL AddCategory("'.$input['Name'].'","'.$input['Description'].'",'.$this->session->userdata['Id'].')');
+      $data['Id'] = $query->row('Id');
+      $data['title'] = 'Berhasil';
+      $data['type'] = 'success';
+      $data['message'] = 'Update kategori berhasil dilakukan';
+    }
+    else
+    {
+      $data['title'] = 'Gagal';
+      $data['type'] = 'danger';
+      $data['message'] = 'Anda tidak memiliki hak akses untuk aksi ini';
+    }
+    return json_encode($data);
+
   }
 
   public function UpdateCategory($id, $name, $description)
@@ -336,8 +355,8 @@ class Management_model extends CI_Model
   {
     if ($this->session->userdata['SalesManagement']){
       //NEED TO MODIFY
-       $query = $this->db->query('CALL UpdateWebConf('.$input['ProductId'].',"'.$input['Model'].'","'.$input['Color'].'",'.$this->session->userdata['Id'].')');
-       $data['id'] = $query->row('Id');
+      $que = 'CALL UpdateWebConf("'.$input['brand_name'].'","'.$input['brand_slogan'].'","'.$input['office_name'].'","'.$input['office_map'].'","'.$input['office_address'].'","'.$input['office_phone_number'].'","'.$input['host'].'","'.$input['email'].'","'.$input['password'].'","'.$input['port'].'","'.$input['crypto'].'","'.$input['bank_name'].'","'.$input['bank_account'].'","'.$input['bank_user'].'","'.$input['official_facebook_account'].'","'.$input['official_twitter_account'].'","'.$input['official_instagram_account'].'")';
+       $query = $this->db->query($que);
        $data['title'] = 'Berhasil';
        $data['type'] = 'success';
        $data['message'] = 'Proses penambahan varian produk berhasil dilakukan';

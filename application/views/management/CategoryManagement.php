@@ -44,18 +44,29 @@
           <div class="tab-content">
             <div class="tab-pane active" id="aboutCategory">
               <div class="row">
-                <div class="form-group col-6 col-md-3">
+                <div class="form-group col-md-8 ">
                   <label>Nama Kategori</label>
                   <input type="text" class="form-control" id="nameCategory" >
                   <input type="text" class="form-control" id="idCategory" hidden>
-                </div>
-                <div class="form-group col-6 col-md-9">
                   <label>Deskripsi</label>
-                  <textarea id="descriptionCategory" rows="2" cols="80" class="form-control"></textarea>
+                  <textarea id="descriptionCategory" rows="4" cols="80" class="form-control"></textarea>
+                </div>
+                <div class="form-group col-md-4">
+                  <div class="input-file input-file-image">
+                    <label>Gambar</label>
+                    <img class="img-upload-preview" width="150" src="http://placehold.it/150x150" id="filePreview" alt="preview">
+                    <input type="file" class="form-control form-control-file" id="fileUpload" name="fileUpload" accept="image/*" required="">
+                    <label for="fileUpload" class="  label-input-file btn btn-success">
+													<span class="btn-label">
+														<i class="fa fa-file-image"></i>
+													</span>
+													Upload Foto
+												</label>
+                  </div>
                 </div>
               </div>
               <div class="modal-footer">
-                <button type="button" class="btn btn-primary" onclick="updateCategory()">Simpan</button>
+                <button type="button" class="btn btn-primary" onclick="UpdateCategory()">Simpan</button>
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Kembali</button>
               </div>
             </div>
@@ -90,7 +101,7 @@
               </div>
             </center>
             <div class="modal-footer">
-              <button type="button" class="btn btn-danger" onclick="deleteCategory()">Hapus Kategori</button>
+              <button type="button" class="btn btn-danger" onclick="DeleteCategory()">Hapus Kategori</button>
               <button type="button" class="btn btn-secondary" data-dismiss="modal">Kembali</button>
             </div>
             </div>
@@ -125,17 +136,29 @@
           <div class="tab-content">
             <div class="tab-pane active" id="addNewCategory">
               <div class="row">
-                <div class="form-group col-6 col-md-4">
+                <div class="form-group col-md-8 ">
                   <label>Nama Kategori</label>
-                  <input type="text" class="form-control" id="addNameCategory"  >
+                  <input type="text" class="form-control" id="nameCategory" >
+                  <input type="text" class="form-control" id="idCategory" hidden>
+                  <label>Deskripsi</label>
+                  <textarea id="descriptionCategory" rows="4" cols="80" class="form-control"></textarea>
                 </div>
-                <div class="form-group col-6 col-md-8">
-                  <label>Keterangan</label>
-                  <textarea id="addDescriptionCategory" rows="2" cols="80" class="form-control"></textarea>
+                <div class="form-group col-md-4">
+                  <div class="input-file input-file-image">
+                    <label>Gambar</label>
+                    <img class="img-upload-preview" width="150" src="http://placehold.it/150x150" id="filePreview" alt="preview">
+                    <input type="file" class="form-control form-control-file" id="fileUpload" name="fileUpload" accept="image/*" required="">
+                    <label for="fileUpload" class="  label-input-file btn btn-success">
+													<span class="btn-label">
+														<i class="fa fa-file-image"></i>
+													</span>
+													Upload Foto
+												</label>
+                  </div>
                 </div>
               </div>
               <div class="modal-footer">
-                <button type="button" class="btn btn-primary" onclick="proceedAddCategory()">Simpan</button>
+                <button type="button" class="btn btn-primary" onclick="ProceedAddCategory()">Simpan</button>
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Kembali</button>
               </div>
             </div>
@@ -148,7 +171,7 @@
                 </select>
               </div>
               <div class="modal-footer">
-                <button type="button" class="btn btn-primary" onclick="proceedRecoverCategory()">Pulihkan</button>
+                <button type="button" class="btn btn-primary" onclick="ProceedRecoverCategory()">Pulihkan</button>
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Kembali</button>
               </div>
             </div>

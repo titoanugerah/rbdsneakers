@@ -3,10 +3,10 @@ $(document).ready(function() {
   $('.select2basic').select2();
   $('#table1').DataTable();
   getDeletedCategory();
-  getCategory();
+  GetCategory();
 });
 $( "#search" ).on('change', function() {
-  getCategory();
+  GetCategory();
 });
 
 
@@ -41,8 +41,27 @@ function getDeletedCategory() {
   });
 }
 
+function UploadFile(type, id) {
+  var fd = new FormData();
+  var files = $('#fileUpload')[0].files[0];
+  fd.append('file',files);
+  $.ajax({
+    url: 'uploadFile/'+type+'/'+id,
+    type: 'post',
+    data: fd,
+    contentType: false,
+    processData: false,
+    success: function(response){
+      console.log('success', response);
+    },
+    error: function(result){
+      console.log('error', result);
+      alert('error');
+    }
+  });
+}
 
-function getDetailCategory(id) {
+function GetDetailCategory(id) {
   $.ajax({
     type: "POST",
     dataType : "JSON",
@@ -54,6 +73,7 @@ function getDetailCategory(id) {
       $('#nameCategory').val(result.detail.Name);
       $('#idCategory').val(result.detail.Id);
       $('#descriptionCategory').val(result.detail.Description);
+      $('#filePreview').attr('src', 'assets/picture/'+result.detail.Image);
       var html;
       for(i=0; i<result.product.length; i++){
         html +=
@@ -70,7 +90,7 @@ function getDetailCategory(id) {
 }
 
 
-function deleteCategory() {
+function DeleteCategory() {
   $("#detailCategory").modal('hide');
   $.ajax({
     type: "POST",
@@ -81,7 +101,7 @@ function deleteCategory() {
     },
     url: "delete",
     success: function(result) {
-      getCategory();
+      GetCategory();
       getDeletedCategory();
       notify('fa fa-user', result.title, result.message, result.type);
     },
@@ -92,7 +112,7 @@ function deleteCategory() {
   });
 }
 
-function updateCategory() {
+function UpdateCategory() {
   $("#detailCategory").modal('hide');
   $.ajax({
     type: "POST",
@@ -104,7 +124,9 @@ function updateCategory() {
     },
     url: "updateCategory",
     success: function(result) {
-      getCategory();
+      UploadFile('Category', $('#idCategory').val());
+      console.log('Updating');
+      GetCategory();
       notify('fa fa-user', result.title, result.message, result.type);
     },
     error: function(result) {
@@ -114,7 +136,7 @@ function updateCategory() {
   });
 }
 
-function proceedAddCategory() {
+function ProceedAddCategory() {
   var urls = 'addCategory';
   $.ajax({
     type: "POST",
@@ -125,6 +147,7 @@ function proceedAddCategory() {
       Description : $("#addDescriptionCategory").val()
     },
     success: function(result) {
+      UploadFile('Category', result.Id);
       notify('fa fa-user', result.title, result.message, result.status);
     },
     error: function(result) {
@@ -134,7 +157,7 @@ function proceedAddCategory() {
   });
 }
 
-function proceedRecoverCategory(){
+function ProceedRecoverCategory(){
   $("#addCategory").modal('hide');
   $.ajax({
     type: "POST",
@@ -145,7 +168,7 @@ function proceedRecoverCategory(){
     },
     url: "recover",
     success: function(result) {
-      getCategory();
+      GetCategory();
       getDeletedCategory();
       notify('fa fa-user', result.title, result.message, result.type);
     },
@@ -156,7 +179,7 @@ function proceedRecoverCategory(){
   });
 }
 
-function getCategory() {
+function GetCategory() {
   $.ajax({
     type: "POST",
     dataType : "JSON",
@@ -174,13 +197,16 @@ function getCategory() {
           html +=
           '<div class="col-sm-6 col-lg-3">' +
           '<div class="card">' +
+          '<div class="p-2">' +
+          '<img class="card-img-top rounded" src="assets/picture/'+result.category[i].Image+'">' +
+          '</div>' +
           '<div class="card-body pt-2">' +
           '<h4 class="mb-1 fw-bold">' +
           result.category[i].Name +
           '</h4>' +
           '<br>' +
           '<center>' +
-          '<button type="button" class="btn btn-secondary btn-round" onclick="getDetailCategory('+result.category[i].Id+')">Detail</button>'+
+          '<button type="button" class="btn btn-secondary btn-round" onclick="GetDetailCategory('+result.category[i].Id+')">Detail</button>'+
           '</center>' +
           '</div>' +
           '</div>' +

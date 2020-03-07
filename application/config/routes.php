@@ -36,6 +36,7 @@ $route['updateAccountManagement'] = 'management/UpdateAccountManagement';
 
 
 //category
+$route['addCategory'] = 'management/AddCategory';
 $route['getDetailCategory'] = 'management/GetDetailCategory';
 $route['updateCategory'] = 'management/UpdateCategory';
 

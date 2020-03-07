@@ -1,15 +1,15 @@
 $(document).ready(function() {
   $('.select2basic').select2();
+  $('#search').attr('placeholder', 'Feature Not Available');
+  $('#search').attr('disabled', true);
   GetWebConf();
 });
 
 $( "#officeEmail" ).on('change', function() {
-  console.log("Changed Email");
   $("#emailAddress").val($("#officeEmail").val());
 });
 
 $( "#emailAddress" ).on('change', function() {
-  console.log("Changed Email");
   $("#officeEmail").val($("#emailAddress").val());
 });
 
@@ -30,9 +30,7 @@ function GetWebConf() {
       $("#officeName").val(result.detail.office_name);
       $("#officeAddress").val(result.detail.office_address);
       $("#officeMap").val(result.detail.office_map);
-      if (result.detail.brand_logo != null) {
-        $("#brandLogo").attr('src', result.detail.brand_logo);
-      }
+      $("#brandLogo").attr('src', "http://localhost/rbdsneakers/assets/picture/"+result.detail.image);
       $("#officePhoneNumber").val(result.detail.office_phone_number);
       $("#officeEmail").val(result.detail.email);
       $("#officialTwitter").val(result.detail.official_twitter_account);
@@ -49,6 +47,27 @@ function GetWebConf() {
 
     },
     error: function(result) {
+      alert('error');
+    }
+  });
+}
+
+
+function UploadFile(type, id) {
+  var fd = new FormData();
+  var files = $('#fileUpload')[0].files[0];
+  fd.append('file',files);
+  $.ajax({
+    url: 'uploadFile/'+type+'/'+id,
+    type: 'post',
+    data: fd,
+    contentType: false,
+    processData: false,
+    success: function(response){
+      console.log('success', response);
+    },
+    error: function(result){
+      console.log('upload error', result);
       alert('error');
     }
   });
@@ -74,15 +93,17 @@ function UpdateWebConf() {
       official_instagram_account : $("#officialInstagram").val(),
       email : $("#emailAddress").val(),
       host : $("#emailHost").val(),
-      password : ("#emailPassword").val(),
+      password : $("#emailPassword").val(),
       port : $("#emailPort").val(),
       crypto : $("#emailCrypto").val(),
       bank_name : $("#bankName").val(),
       bank_account : $("#bankAccount").val(),
       bank_user : $("#bankOwner").val()
     },
-    url: "update",
+    url: "updateWebConf",
     success: function(result) {
+      UploadFile('WebConf', 1);
+      notify('fa fa-user', result.title, result.message, result.type);
       GetWebConf();
     },
     error: function(result) {
