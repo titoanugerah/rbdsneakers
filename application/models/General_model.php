@@ -23,6 +23,16 @@ class General_model extends CI_Model
     return $data;
   }
 
+  public function ContentAbout()
+  {
+    $data['about'] = $this->core_model->GetAllData('About', 0);
+    $data['webConf'] = $this->core_model->GetWebConf();
+    $data['account'] = $this->account();
+    $data['category'] = $this->core_model->GetAllData('category',0);
+
+    return $data;
+  }
+
   public function Account()
   {
     if ((!isset($this->session->userdata['isLogin'])) || ((!isset($this->session->userdata['isLogin'])) && (!$this->session->userdata['isLogin'])))

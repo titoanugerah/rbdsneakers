@@ -13,11 +13,11 @@
 <div class="page-navs bg-white">
   <div class="nav-scroller">
     <div class="nav nav-tabs nav-line nav-color-secondary d-flex align-items-center justify-contents-center w-100">
-      <a class="nav-link active show" data-toggle="tab" href="#tab1">Informasi Perusahaan</a>
-      <a class="nav-link" data-toggle="tab" href="#tab2">Akun Media Sosial </a>
-      <a class="nav-link" data-toggle="tab" href="#tab3">Konfigurasi Email </a>
-      <a class="nav-link" data-toggle="tab" href="#tab4">Pembayaran</a>
-      <a class="nav-link" data-toggle="tab" href="#tab5">Tentang Perusahaan</a>
+      <a class="nav-link active show" data-toggle="tab" onclick="ChangeBtn('WebConf')" href="#tab1">Informasi Perusahaan</a>
+      <a class="nav-link" data-toggle="tab" onclick="ChangeBtn('WebConf')" href="#tab2">Akun Media Sosial </a>
+      <a class="nav-link" data-toggle="tab" onclick="ChangeBtn('WebConf')" href="#tab3">Konfigurasi Email </a>
+      <a class="nav-link" data-toggle="tab" onclick="ChangeBtn('WebConf')" href="#tab4">Pembayaran</a>
+      <a class="nav-link" data-toggle="tab" onclick="ChangeBtn('About')" href="#tab5">Tentang Perusahaan</a>
     </div>
   </div>
 </div>
@@ -130,11 +130,43 @@
     </div>
     <div class="tab-pane fade" id="tab5" role="tabpanel" >
       <div class="card-body">
-        this is tab 5
+        <div class="row">
+          <div class="col-md-2">
+            <div class="nav flex-column nav-pills nav-secondary" id="v-pills-tab" role="tablist" aria-orientation="vertical">
+
+            </div>
+          </div>
+          <div class="col-md-10">
+            <div class="tab-content" >
+              <div class="tab-pane fade active show" role="tabpanel" >
+                <div class="row">
+                  <div class="form-group col-md-9">
+                    <input type="number" id="updateAboutId" value="0" hidden>
+                    <input type="text" id="updateAboutTitle" class="form-control" placeholder="Type Title Here">
+                    <textarea id="summernote" name="editordata" rows="6"></textarea>
+                  </div>
+                  <div class="form-group col-md-3">
+                    <div class="input-file input-file-image">
+                      <img class="img-upload-preview" width="150" src="http://placehold.it/150x150" alt="preview" id="filePreview1">
+                      <input type="file" class="form-control form-control-file" id="fileUpload1" name="fileUpload" accept="image/*" required="">
+                      <label for="fileUpload1" class="  label-input-file btn btn-success">
+                        <span class="btn-label">
+                          <i class="fa fa-file-image"></i>
+                        </span>
+                        Upload Foto
+                      </label>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="card-footer">
+        <button type="button" id="saveBtn" onclick="UpdateWebConf()" class="btn btn-success">Simpan</button>
       </div>
     </div>
-    <div class="card-footer">
-      <button type="button" onclick="UpdateWebConf()" class="btn btn-success">Simpan</button>
-    </div>
   </div>
-</div>

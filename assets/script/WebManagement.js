@@ -3,7 +3,20 @@ $(document).ready(function() {
   $('#search').attr('placeholder', 'Feature Not Available');
   $('#search').attr('disabled', true);
   GetWebConf();
+  $('#summernote').summernote({
+    placeholder: 'Type Here',
+    tabsize: 2,
+    height: 100
+  });
 });
+
+function ChangeBtn(tab) {
+  if (tab=="WebConf") {
+    $('#saveBtn').attr('onclick', 'UpdateWebConf()');
+  } else {
+    $('#saveBtn').attr('onclick', 'UpdateAbout()');
+  }
+}
 
 $( "#officeEmail" ).on('change', function() {
   $("#emailAddress").val($("#officeEmail").val());
@@ -12,6 +25,7 @@ $( "#officeEmail" ).on('change', function() {
 $( "#emailAddress" ).on('change', function() {
   $("#officeEmail").val($("#emailAddress").val());
 });
+
 
 function GetWebConf() {
   $.ajax({
@@ -25,6 +39,7 @@ function GetWebConf() {
     url: "getDetail",
     success: function(result) {
       console.log(result);
+      var html='<button class="nav-link active show" onclick="DetailAbout(0)" data-toggle="pill" role="tab" aria-selected="true">Baru</button>';
       $("#brandName").val(result.detail.brand_name);
       $("#brandSlogan").val(result.detail.brand_slogan);
       $("#officeName").val(result.detail.office_name);
@@ -44,6 +59,42 @@ function GetWebConf() {
       $("#bankName").val(result.detail.bank_name);
       $("#bankAccount").val(result.detail.bank_account);
       $("#bankOwner").val(result.detail.bank_user);
+      for(i=0; i<result.about.length; i++){
+        html +=
+        '<button class="nav-link" onclick="DetailAbout('+result.about[i].Id+')" data-toggle="pill" role="tab" aria-selected="false">'+result.about[i].Title+'</button>';
+      }
+      $('#v-pills-tab').html(html);
+    },
+    error: function(result) {
+      alert('error');
+    }
+  });
+}
+
+function UpdateAbout() {
+  var urls;
+  var id = $('#updateAboutId').val();
+  if (id==0) {
+    urls = 'addAbout';
+  } else {
+    urls = 'updateAbout';
+  }
+  $.ajax({
+    type: "POST",
+    dataType : "JSON",
+    data: {
+      Id : id,
+      Title : $('#updateAboutTitle').val(),
+      Content :  $('#summernote').summernote("code"),
+    },
+    url: urls,
+    success: function(result) {
+        console.log('id', result);
+        if (id==0) {
+          GetWebConf();
+        }
+        UploadFile('fileUpload1', 'About', result.id);
+        notify('fa fa-user', result.title, result.message, result.type);
 
     },
     error: function(result) {
@@ -53,9 +104,41 @@ function GetWebConf() {
 }
 
 
-function UploadFile(type, id) {
+function DetailAbout(id) {
+  $('#updateAboutId').val(id);
+  if (id==0) {
+    $('#summernote').summernote("code", "");
+    $('#filePreview1').attr('src', 'assets/picture/no.jpg');
+    $('#updateAboutId').val(0);
+    $('#updateAboutTitle').val("");
+
+  } else {
+    $.ajax({
+      type: "POST",
+      dataType : "JSON",
+      data: {
+        Table: 'About',
+        Variable : 'Id',
+        Value : id
+      },
+      url: "getDetail",
+      success: function(result) {
+        console.log(result.detail.Content);
+        $('#summernote').summernote("code", result.detail.Content);
+        $('#filePreview1').attr('src', 'assets/picture/'+result.detail.Image);
+        $('#updateAboutId').val(result.detail.Id);
+        $('#updateAboutTitle').val(result.detail.Title);
+      },
+      error: function(result) {
+        alert('error');
+      }
+    });
+  }
+}
+
+function UploadFile(name, type, id) {
   var fd = new FormData();
-  var files = $('#fileUpload')[0].files[0];
+  var files = $('#'+name)[0].files[0];
   fd.append('file',files);
   $.ajax({
     url: 'uploadFile/'+type+'/'+id,
@@ -102,7 +185,7 @@ function UpdateWebConf() {
     },
     url: "updateWebConf",
     success: function(result) {
-      UploadFile('WebConf', 1);
+      UploadFile('fileUpload','WebConf', 1);
       notify('fa fa-user', result.title, result.message, result.type);
       GetWebConf();
     },

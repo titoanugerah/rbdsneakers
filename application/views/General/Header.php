@@ -68,14 +68,6 @@
                 <a href="<?php echo base_url('./assets/template/cozastore/'); ?>product.html">Shop</a>
               </li>
 
-              <li class="label1" data-label1="hot">
-                <a href="<?php echo base_url('./assets/template/cozastore/'); ?>shoping-cart.html">Features</a>
-              </li>
-
-              <li>
-                <a href="<?php echo base_url('./assets/template/cozastore/'); ?>blog.html">Blog</a>
-              </li>
-
               <li>
                 <a href="<?php echo base_url('./assets/template/cozastore/'); ?>about.html">About</a>
               </li>

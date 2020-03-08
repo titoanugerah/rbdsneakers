@@ -4,6 +4,8 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 $route['default_controller'] = 'general/Index';
 $route['home'] = 'general/Index';
 $route['logout'] = 'general/Logout';
+$route['about'] = 'general/About';
+
 
 #MANAGEMENT
 $route['profile'] = 'management/Profile';
@@ -64,6 +66,8 @@ $route['(:any)/(:any)/detailProduct/updateVariant'] = 'management/UpdateVariant'
 
 //WEBCONF
 $route['updateWebConf'] = 'management/UpdateWebConf';
+$route['addAbout'] = 'management/AddAbout';
+$route['updateAbout'] = 'management/UpdateAbout';
 #SYSTEM
 $route['404_override'] = '';
 $route['translate_uri_dashes'] = FALSE;

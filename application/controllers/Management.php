@@ -149,6 +149,15 @@ class management extends CI_Controller
     echo $this->management_model->UpdateVariant($this->input->post());
   }
 
+  public function AddAbout()
+  {
+    echo $this->management_model->AddAbout($this->input->post());
+  }
+
+  public function UpdateAbout()
+  {
+    echo $this->management_model->UpdateAbout($this->input->post());
+  }
 
 }
 

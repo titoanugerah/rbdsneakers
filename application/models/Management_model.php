@@ -347,6 +347,9 @@ class Management_model extends CI_Model
     } else if ($input['Table'] == 'Variant') {
       $data['size'] = $this->db->query("SELECT A.Size as Size, Sum(A.Stock) as Stock FROM Stock as A WHERE VariantId = ".$input['Value']." GROUP BY Size")->result();
       $data['stock'] = $this->core_model->GetSomeData('Stock', 'VariantId', $input['Value']);
+    } else if($input['Table']== 'WebConf') {
+      $data['about'] = $this->core_model->GetAllData('About', 0);
+
     }
     return json_encode($data);
   }
@@ -445,7 +448,39 @@ class Management_model extends CI_Model
     return json_encode($data);
   }
 
+  public function AddAbout($input)
+  {
+    if (($this->session->userdata['SalesManagement'])) {
+      $queries = "CALL AddAbout('".$input['Title']."','".$input['Content']."',".$this->session->userdata['Id'].")";
+      $query = $this->db->query($queries);
+      $data['id'] = $query->row('Id');
+      $data['queries'] = $queries;
+       $data['title'] = 'Berhasil';
+       $data['type'] = 'success';
+       $data['message'] = 'Proses tambah konten berhasil dilakukan';
+    } else {
+      $data['title'] = 'Gagal';
+      $data['type'] = 'danger';
+      $data['message'] = 'Proses tambah konten gagal dilakukan, anda tidak memiliki hak akses';
+    }
+    return json_encode($data);
+  }
 
+  public function UpdateAbout($input)
+  {
+    if (($this->session->userdata['SalesManagement'])) {
+       $query = $this->db->query('CALL UpdateAbout('.$input['Id'].',"'.$input['Title'].'","'.$input['Content'].'",'.$this->session->userdata['Id'].')');
+       $data['id'] = $query->row('Id');
+       $data['title'] = 'Berhasil';
+       $data['type'] = 'success';
+       $data['message'] = 'Proses update konten berhasil dilakukan';
+    } else {
+      $data['title'] = 'Gagal';
+      $data['type'] = 'danger';
+      $data['message'] = 'Proses update konten gagal dilakukan, anda tidak memiliki hak akses';
+    }
+    return json_encode($data);
+  }
 
 }
 

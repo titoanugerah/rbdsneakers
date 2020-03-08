@@ -22,7 +22,7 @@
 	<link rel="stylesheet" href="<?php echo base_url('./assets/template/AtlantisLite/'); ?>assets/css/demo.css">
 	<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.20/css/jquery.dataTables.css">
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-switch/3.3.4/css/bootstrap2/bootstrap-switch.css"  />
-
+    <link href="https://cdn.jsdelivr.net/npm/summernote@0.8.16/dist/summernote-bs4.min.css" rel="stylesheet">
 </head>
 <body>
 	<div class="wrapper">
@@ -218,6 +218,7 @@
 	<link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.7/css/select2.min.css" rel="stylesheet" />
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.7/js/select2.min.js"></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-switch/3.3.4/js/bootstrap-switch.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/summernote@0.8.16/dist/summernote-bs4.min.js"></script>
 
 	<script type="text/javascript">
 		//Notify
@@ -229,14 +230,15 @@
 				placement : { from: 'bottom', align: 'right'}, time: 1000 });";
 			} ?>
 		</script>
+		<script src="<?php echo base_url('assets/script/'.$viewName.'.js'); ?>"></script>
 
 		<script type="text/javascript">
 			$(document).ready(function() {
 				$('.select2basic').select2();
 				$('#table1').DataTable();
+				  $('#summernote').summernote();
 			});
 		</script>
-		<script src="<?php echo base_url('assets/script/'.$viewName.'.js'); ?>"></script>
 
 	</body>
 	</html>
