@@ -19,7 +19,6 @@ class General_model extends CI_Model
     $data['webConf'] = $this->core_model->GetWebConf();
     $data['account'] = $this->account();
     $data['category'] = $this->core_model->GetAllData('category',0);
-
     return $data;
   }
 
@@ -29,9 +28,17 @@ class General_model extends CI_Model
     $data['webConf'] = $this->core_model->GetWebConf();
     $data['account'] = $this->account();
     $data['category'] = $this->core_model->GetAllData('category',0);
-
     return $data;
   }
+
+  public function ContentContact()
+  {
+    $data['webConf'] = $this->core_model->GetWebConf();
+    $data['account'] = $this->account();
+    $data['category'] = $this->core_model->GetAllData('category',0);
+    return $data;
+  }
+
 
   public function Account()
   {

@@ -26,8 +26,13 @@ class General extends CI_Controller
   public function About()
   {
     $this->load->view('General/About', $this->general_model->ContentAbout());
-
   }
+
+  public function Contact()
+  {
+    $this->load->view('General/Contact', $this->general_model->ContentContact());
+  }
+
 
   public function Logout()
   {

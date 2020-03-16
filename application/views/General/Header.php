@@ -55,13 +55,8 @@
           <!-- Menu desktop -->
           <div class="menu-desktop">
             <ul class="main-menu">
-              <li class="active-menu">
-                <a href="<?php echo base_url('./assets/template/cozastore/'); ?>index.html">Home</a>
-                <ul class="sub-menu">
-                  <li><a href="<?php echo base_url('./assets/template/cozastore/'); ?>index.html">Homepage 1</a></li>
-                  <li><a href="<?php echo base_url('./assets/template/cozastore/'); ?>home-02.html">Homepage 2</a></li>
-                  <li><a href="<?php echo base_url('./assets/template/cozastore/'); ?>home-03.html">Homepage 3</a></li>
-                </ul>
+              <li class="">
+                <a href="<?php echo base_url(''); ?>">Home</a>
               </li>
 
               <li>
@@ -69,11 +64,11 @@
               </li>
 
               <li>
-                <a href="<?php echo base_url('./assets/template/cozastore/'); ?>about.html">About</a>
+                <a href="<?php echo base_url('about'); ?>">About</a>
               </li>
 
               <li>
-                <a href="<?php echo base_url('./assets/template/cozastore/'); ?>contact.html">Contact</a>
+                <a href="<?php echo base_url('contact'); ?>">Contact</a>
               </li>
             </ul>
           </div>

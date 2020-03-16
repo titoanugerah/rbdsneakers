@@ -5,6 +5,7 @@ $route['default_controller'] = 'general/Index';
 $route['home'] = 'general/Index';
 $route['logout'] = 'general/Logout';
 $route['about'] = 'general/About';
+$route['contact'] = 'general/Contact';
 
 
 #MANAGEMENT
