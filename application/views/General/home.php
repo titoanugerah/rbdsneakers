@@ -1,8 +1,3 @@
-<?php $this->load->view('General/Header'); ?>
-
-
-
-
 	<!-- Slider -->
 	<section class="section-slide">
 		<div class="wrap-slick1">
@@ -114,5 +109,3 @@
 		</div>
 		</div>
 	</div>
-	<!-- Footer -->
-<?php $this->load->view('General/Footer'); ?>

@@ -1,5 +1,3 @@
-<?php $this->load->view('General/Header'); ?>
-
 <section class="bg0 p-t-104 p-b-116">
   <div class="container">
     <div class="flex-w flex-tr">
@@ -76,5 +74,3 @@
     </div>
   </div>
 </section>
-
-<?php $this->load->view('General/Footer'); ?>

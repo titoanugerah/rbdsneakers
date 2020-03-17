@@ -16,30 +16,25 @@ class General extends CI_Controller
 
   public function Index()
   {
-    if (!$this->session->userdata['isLogin']) {
-      $this->load->view('General/Home2', $this->general_model->ContentHome());
-    } else {
-      $this->load->view('General/Home', $this->general_model->ContentHome());
-    }
+    $this->load->view('General/Template', $this->general_model->ContentHome());
   }
 
   public function About()
   {
-    $this->load->view('General/About', $this->general_model->ContentAbout());
+    $this->load->view('General/Template', $this->general_model->ContentAbout());
   }
 
   public function Contact()
   {
-    $this->load->view('General/Contact', $this->general_model->ContentContact());
+    $this->load->view('General/Template', $this->general_model->ContentContact());
   }
-
 
   public function Logout()
   {
     $this->session->sess_destroy();
     redirect(base_url());
   }
-}
 
+}
 
  ?>
