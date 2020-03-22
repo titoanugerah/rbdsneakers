@@ -29,6 +29,16 @@ class General extends CI_Controller
     $this->load->view('General/Template', $this->general_model->ContentContact());
   }
 
+  public function Shop()
+  {
+    $this->load->view('General/Template', $this->general_model->ContentShop());
+  }
+
+  public function GetProduct()
+  {
+    echo $this->general_model->GetProduct($this->input->post());
+  }
+
   public function Logout()
   {
     $this->session->sess_destroy();

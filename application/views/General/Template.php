@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -48,7 +49,7 @@
         <nav class="limiter-menu-desktop container">
 
           <!-- Logo desktop -->
-          <a href="<?php echo base_url('./assets/template/cozastore/'); ?>#" class="logo">
+          <a href="<?php echo base_url(''); ?>" class="logo">
             <img src="<?php echo base_url('./assets/template/cozastore/'); ?>images/icons/logo-01.png" alt="IMG-LOGO">
           </a>
 
@@ -60,7 +61,7 @@
               </li>
 
               <li>
-                <a href="<?php echo base_url('./assets/template/cozastore/'); ?>product.html">Shop</a>
+                <a href="<?php echo base_url('shop'); ?>">Shop</a>
               </li>
 
               <li>
@@ -70,6 +71,11 @@
               <li>
                 <a href="<?php echo base_url('contact'); ?>">Contact</a>
               </li>
+
+              <li>
+                <a href="<?php echo base_url('dashboard'); ?>" <?php if($this->session->userdata['Role']!='Management'){echo 'hidden'; } ?>>Dashboard </a>
+              </li>
+
             </ul>
           </div>
 
@@ -139,29 +145,50 @@
   </header>
 
   <!-- Cart -->
-  <div class="wrap-header-cart js-panel-cart">
-    <div class="s-full js-hide-cart"></div>
 
-    <div class="header-cart flex-col-l p-l-65 p-r-25">
-      <div class="header-cart-title flex-w flex-sb-m p-b-8">
-        <span class="mtext-103 cl2">
-          Your Cart
-        </span>
+	<div class="wrap-header-cart js-panel-cart">
+		<div class="s-full js-hide-cart"></div>
 
-        <div class="fs-35 lh-10 cl2 p-lr-5 pointer hov-cl1 trans-04 js-hide-cart">
-          <i class="zmdi zmdi-close"></i>
-        </div>
-      </div>
+		<div class="header-cart flex-col-l p-l-65 p-r-25">
+			<div class="header-cart-title flex-w flex-sb-m p-b-8">
+				<span class="mtext-103 cl2">
+          Keranjang Belanja
+				</span>
 
-      <div class="header-cart-content flex-w js-pscroll">
-        <ul class="header-cart-wrapitem w-full">
+				<div class="fs-35 lh-10 cl2 p-lr-5 pointer hov-cl1 trans-04 js-hide-cart">
+					<i class="zmdi zmdi-close"></i>
+				</div>
+			</div>
+
+			<div class="header-cart-content flex-w js-pscroll">
+
+
+
+				<div class="w-full" <?php if($this->session->userdata['isLogin']){echo 'hidden';} ?>>
+					<p>Anda belum login, silahkan klik tombol dibawah ini untuk masuk</p>
+          <br>
+					<div class="header-cart-buttons flex-w w-full">
+						<a href="<?php echo $this->session->flashdata('link'); ?>" class="flex-c-m stext-101 cl0 size-107 bg3 bor2 hov-btn3 p-lr-15 trans-04 m-r-8 m-b-10">
+							Login dengan Google
+						</a>
+					</div>
+				</div>
+				<div class="w-full" <?php if(!$this->session->userdata['isLogin'] || $this->session->userdata['isLogin']==null){echo 'hidden';} ?>>
+					<div class="header-cart-buttons flex-w w-full">
+						<p><?php echo $this->session->userdata['Fullname']; ?><a href="<?php echo base_url('logout'); ?>">
+							(Logout)
+						</a></p>
+
+					</div>
+				</div>
+        <ul class="header-cart-wrapitem w-full" >
           <li class="header-cart-item flex-w flex-t m-b-12">
             <div class="header-cart-item-img">
-              <img src="<?php echo base_url('./assets/template/cozastore/'); ?>images/item-cart-01.jpg" alt="IMG">
+              <img src="<?php echo base_url('/assets/template/cozastore/'); ?>images/item-cart-01.jpg" alt="IMG">
             </div>
 
             <div class="header-cart-item-txt p-t-8">
-              <a href="<?php echo base_url('./assets/template/cozastore/'); ?>#" class="header-cart-item-name m-b-18 hov-cl1 trans-04">
+              <a href="<?php echo base_url('/assets/template/cozastore/'); ?>#" class="header-cart-item-name m-b-18 hov-cl1 trans-04">
                 White Shirt Pleat
               </a>
 
@@ -171,27 +198,10 @@
             </div>
           </li>
 
-          
         </ul>
-
-        <div class="w-full">
-          <div class="header-cart-total w-full p-tb-40">
-            Total: $75.00
-          </div>
-
-          <div class="header-cart-buttons flex-w w-full">
-            <a href="<?php echo base_url('./assets/template/cozastore/'); ?>shoping-cart.html" class="flex-c-m stext-101 cl0 size-107 bg3 bor2 hov-btn3 p-lr-15 trans-04 m-r-8 m-b-10">
-              View Cart
-            </a>
-
-            <a href="<?php echo base_url('./assets/template/cozastore/'); ?>shoping-cart.html" class="flex-c-m stext-101 cl0 size-107 bg3 bor2 hov-btn3 p-lr-15 trans-04 m-b-10">
-              Check Out
-            </a>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
+			</div>
+		</div>
+	</div>
 
 
 
@@ -199,6 +209,7 @@
   <!--content-->
   <?php $this->load->view('General/'.$view); ?>
   <!--content-->
+
 
 
 
@@ -269,9 +280,13 @@
 
   <!-- Modal1 -->
 
+  <script src="<?php echo base_url('./assets/template/cozastore/'); ?>vendor/jquery/jquery-3.2.1.min.js"></script>
+  <?php if(file_exists('./assets/script/'.$view.'.js')) {
+
+    echo "<script type='text/javascript' src=".base_url('./assets/script/'.$view.'.js')."></script>";
+  } ?>
 
   <!--===============================================================================================-->
-  <script src="<?php echo base_url('./assets/template/cozastore/'); ?>vendor/jquery/jquery-3.2.1.min.js"></script>
   <!--===============================================================================================-->
   <script src="<?php echo base_url('./assets/template/cozastore/'); ?>vendor/animsition/js/animsition.min.js"></script>
   <!--===============================================================================================-->
@@ -279,14 +294,6 @@
   <script src="<?php echo base_url('./assets/template/cozastore/'); ?>vendor/bootstrap/js/bootstrap.min.js"></script>
   <!--===============================================================================================-->
   <script src="<?php echo base_url('./assets/template/cozastore/'); ?>vendor/select2/select2.min.js"></script>
-  <script>
-    $(".js-select2").each(function(){
-      $(this).select2({
-        minimumResultsForSearch: 20,
-        dropdownParent: $(this).next('.dropDownSelect2')
-      });
-    })
-  </script>
   <!--===============================================================================================-->
   <script src="<?php echo base_url('./assets/template/cozastore/'); ?>vendor/daterangepicker/moment.min.js"></script>
   <script src="<?php echo base_url('./assets/template/cozastore/'); ?>vendor/daterangepicker/daterangepicker.js"></script>
@@ -295,28 +302,29 @@
   <script src="<?php echo base_url('./assets/template/cozastore/'); ?>js/slick-custom.js"></script>
   <!--===============================================================================================-->
   <script src="<?php echo base_url('./assets/template/cozastore/'); ?>vendor/parallax100/parallax100.js"></script>
-  <script>
-        $('.parallax100').parallax100();
-  </script>
   <!--===============================================================================================-->
   <script src="<?php echo base_url('./assets/template/cozastore/'); ?>vendor/MagnificPopup/jquery.magnific-popup.min.js"></script>
-  <script>
-    $('.gallery-lb').each(function() { // the containers for all your galleries
-      $(this).magnificPopup({
-            delegate: 'a', // the selector for gallery item
-            type: 'image',
-            gallery: {
-              enabled:true
-            },
-            mainClass: 'mfp-fade'
-        });
-    });
-  </script>
   <!--===============================================================================================-->
   <script src="<?php echo base_url('./assets/template/cozastore/'); ?>vendor/isotope/isotope.pkgd.min.js"></script>
   <!--===============================================================================================-->
+  <script src="<?php echo base_url('./assets/template/cozastore/'); ?>vendor/perfect-scrollbar/perfect-scrollbar.min.js"></script>
+  <!--===============================================================================================-->
+  <script src="<?php echo base_url('./assets/template/cozastore/'); ?>js/main.js"></script>
+
   <script src="<?php echo base_url('./assets/template/cozastore/'); ?>vendor/sweetalert/sweetalert.min.js"></script>
+
   <script>
+  $('.parallax100').parallax100();
+
+
+    $(".js-select2").each(function(){
+      $(this).select2({
+        minimumResultsForSearch: 20,
+        dropdownParent: $(this).next('.dropDownSelect2')
+      });
+    })
+
+
     $('.js-addwish-b2').on('click', function(e){
       e.preventDefault();
     });
@@ -351,10 +359,6 @@
       });
     });
 
-  </script>
-  <!--===============================================================================================-->
-  <script src="<?php echo base_url('./assets/template/cozastore/'); ?>vendor/perfect-scrollbar/perfect-scrollbar.min.js"></script>
-  <script>
     $('.js-pscroll').each(function(){
       $(this).css('position','relative');
       $(this).css('overflow','hidden');
@@ -368,9 +372,9 @@
         ps.update();
       })
     });
+
   </script>
   <!--===============================================================================================-->
-  <script src="<?php echo base_url('./assets/template/cozastore/'); ?>js/main.js"></script>
   <!-- include summernote css/js -->
   </body>
   </html>

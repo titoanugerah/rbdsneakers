@@ -42,6 +42,21 @@ class General_model extends CI_Model
     return $data;
   }
 
+  public function ContentShop()
+  {
+    $data['webConf'] = $this->core_model->GetWebConf();
+    $data['category'] = $this->core_model->GetAllData('category',0);
+    $data['account'] = $this->account();
+    $data['view'] = 'Shop';
+    return $data;
+  }
+
+  public function GetProduct($input)
+  {
+    $result = $this->db->query('CALL GetProduct('.$input['CategoryId'].',"'.$input['Keyword'].'",'.$input['Count'].')');
+    return json_encode($result->result());
+  }
+
 
   public function Account()
   {

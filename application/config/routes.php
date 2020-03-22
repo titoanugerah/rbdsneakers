@@ -5,6 +5,7 @@ $route['default_controller'] = 'general/Index';
 $route['home'] = 'general/Index';
 $route['logout'] = 'general/Logout';
 $route['about'] = 'general/About';
+$route['shop'] = 'general/Shop';
 $route['contact'] = 'general/Contact';
 
 
@@ -29,6 +30,7 @@ $route['(:any)/recover'] = 'management/Recover';
 $route['recover'] = 'management/Recover';
 $route['(:any)/getDetail'] = 'management/GetDetail';
 $route['getDetail'] = 'management/GetDetail';
+$route['getProduct'] = 'general/GetProduct';
 
 //account
 $route['getAccount'] = 'management/GetAccount';
