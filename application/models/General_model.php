@@ -17,7 +17,7 @@ class General_model extends CI_Model
   public function ContentHome()
   {
     $data['webConf'] = $this->core_model->GetWebConf();
-    $data['category'] = $this->core_model->GetAllData('category',0);
+    $data['Category'] = $this->core_model->GetAllData('Category',0);
     $data['account'] = $this->account();
     $data['view'] = 'Home';
     return $data;
@@ -27,7 +27,7 @@ class General_model extends CI_Model
   {
     $data['about'] = $this->core_model->GetAllData('About', 0);
     $data['webConf'] = $this->core_model->GetWebConf();
-    $data['category'] = $this->core_model->GetAllData('category',0);
+    $data['Category'] = $this->core_model->GetAllData('Category',0);
     $data['account'] = $this->account();
     $data['view'] = 'About';
     return $data;
@@ -36,7 +36,7 @@ class General_model extends CI_Model
   public function ContentContact()
   {
     $data['webConf'] = $this->core_model->GetWebConf();
-    $data['category'] = $this->core_model->GetAllData('category',0);
+    $data['Category'] = $this->core_model->GetAllData('Category',0);
     $data['account'] = $this->account();
     $data['view'] = 'Contact';
     return $data;
@@ -45,7 +45,7 @@ class General_model extends CI_Model
   public function ContentShop()
   {
     $data['webConf'] = $this->core_model->GetWebConf();
-    $data['category'] = $this->core_model->GetAllData('category',0);
+    $data['Category'] = $this->core_model->GetAllData('Category',0);
     $data['account'] = $this->account();
     $data['view'] = 'Shop';
     return $data;
