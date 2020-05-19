@@ -286,7 +286,7 @@
     echo "<script type='text/javascript' src=".base_url('./assets/script/'.$view.'.js')."></script>";
   } ?>
 
-  <!--===============================================================================================-->
+
   <!--===============================================================================================-->
   <script src="<?php echo base_url('./assets/template/cozastore/'); ?>vendor/animsition/js/animsition.min.js"></script>
   <!--===============================================================================================-->
@@ -294,6 +294,14 @@
   <script src="<?php echo base_url('./assets/template/cozastore/'); ?>vendor/bootstrap/js/bootstrap.min.js"></script>
   <!--===============================================================================================-->
   <script src="<?php echo base_url('./assets/template/cozastore/'); ?>vendor/select2/select2.min.js"></script>
+  <script>
+    $(".js-select2").each(function(){
+      $(this).select2({
+        minimumResultsForSearch: 20,
+        dropdownParent: $(this).next('.dropDownSelect2')
+      });
+    })
+  </script>
   <!--===============================================================================================-->
   <script src="<?php echo base_url('./assets/template/cozastore/'); ?>vendor/daterangepicker/moment.min.js"></script>
   <script src="<?php echo base_url('./assets/template/cozastore/'); ?>vendor/daterangepicker/daterangepicker.js"></script>
@@ -302,30 +310,29 @@
   <script src="<?php echo base_url('./assets/template/cozastore/'); ?>js/slick-custom.js"></script>
   <!--===============================================================================================-->
   <script src="<?php echo base_url('./assets/template/cozastore/'); ?>vendor/parallax100/parallax100.js"></script>
+  <script>
+        $('.parallax100').parallax100();
+  </script>
   <!--===============================================================================================-->
   <script src="<?php echo base_url('./assets/template/cozastore/'); ?>vendor/MagnificPopup/jquery.magnific-popup.min.js"></script>
+  <script>
+    $('.gallery-lb').each(function() { // the containers for all your galleries
+      $(this).magnificPopup({
+            delegate: 'a', // the selector for gallery item
+            type: 'image',
+            gallery: {
+              enabled:true
+            },
+            mainClass: 'mfp-fade'
+        });
+    });
+  </script>
   <!--===============================================================================================-->
   <script src="<?php echo base_url('./assets/template/cozastore/'); ?>vendor/isotope/isotope.pkgd.min.js"></script>
   <!--===============================================================================================-->
-  <script src="<?php echo base_url('./assets/template/cozastore/'); ?>vendor/perfect-scrollbar/perfect-scrollbar.min.js"></script>
-  <!--===============================================================================================-->
-  <script src="<?php echo base_url('./assets/template/cozastore/'); ?>js/main.js"></script>
-
   <script src="<?php echo base_url('./assets/template/cozastore/'); ?>vendor/sweetalert/sweetalert.min.js"></script>
-
   <script>
-  $('.parallax100').parallax100();
-
-
-    $(".js-select2").each(function(){
-      $(this).select2({
-        minimumResultsForSearch: 20,
-        dropdownParent: $(this).next('.dropDownSelect2')
-      });
-    })
-
-
-    $('.js-addwish-b2').on('click', function(e){
+    $('.js-addwish-b2, .js-addwish-detail').on('click', function(e){
       e.preventDefault();
     });
 
@@ -359,6 +366,10 @@
       });
     });
 
+  </script>
+  <!--===============================================================================================-->
+  <script src="<?php echo base_url('./assets/template/cozastore/'); ?>vendor/perfect-scrollbar/perfect-scrollbar.min.js"></script>
+  <script>
     $('.js-pscroll').each(function(){
       $(this).css('position','relative');
       $(this).css('overflow','hidden');
@@ -372,9 +383,9 @@
         ps.update();
       })
     });
-
   </script>
   <!--===============================================================================================-->
-  <!-- include summernote css/js -->
+  <script src="<?php echo base_url('./assets/template/cozastore/'); ?>js/main.js"></script>
+
   </body>
   </html>

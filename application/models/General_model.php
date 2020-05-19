@@ -57,6 +57,13 @@ class General_model extends CI_Model
     return json_encode($result->result());
   }
 
+  public function GetDetailProduct($input)
+  {
+    $result['detail'] = $this->core_model->GetSingleData('Product','Id', $input['Id']);
+    $result['variant'] = $this->core_model->GetSomeData('Variant', 'ProductId', $input['Id']);
+    $result['order'] = ($this->db->query('SELECT COUNT(Id) AS Sold, IFNULL((SUM(Rating)/COUNT(Id)), 0) AS Rating FROM DetailOrder WHERE ProductId='.$input['Id']))->row();
+    return json_encode($result);
+  }
 
   public function Account()
   {

@@ -7,6 +7,7 @@ $route['logout'] = 'general/Logout';
 $route['about'] = 'general/About';
 $route['shop'] = 'general/Shop';
 $route['contact'] = 'general/Contact';
+$route['getDetailProduct'] = 'general/GetDetailProduct';
 
 
 #MANAGEMENT

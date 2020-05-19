@@ -39,6 +39,11 @@ class General extends CI_Controller
     echo $this->general_model->GetProduct($this->input->post());
   }
 
+  public function GetDetailProduct()
+  {
+    echo $this->general_model->GetDetailProduct($this->input->post());
+  }
+
   public function Logout()
   {
     $this->session->sess_destroy();

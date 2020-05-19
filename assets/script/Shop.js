@@ -7,6 +7,30 @@ function FindByCategory(category){
   GetProduct();
 }
 
+function FormatNumber(num) {
+  return num.toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1.')
+}
+
+function  DetailProduct(id){
+  console.log('voila',id);
+  $.ajax({
+    type: "POST",
+    dataType : "JSON",
+    url: 'getDetailProduct' ,
+    data: {
+      Id  : id,
+    },
+    success: function(result) {
+      console.log(result);
+      $('.js-show-modal1').click();
+      
+    },
+    error: function(result) {
+      alert('err');
+    }
+  });
+}
+
 function GetProduct(){
   var categoryId = 0;;
   if (location.search.replace('?CategoryId=','')!="") {
@@ -30,7 +54,7 @@ function GetProduct(){
           '<div class="block2">' +
             '<div class="block2-pic hov-img0">' +
               '<img src="assets/picture/'+result[i].Image+'" alt="IMG-PRODUCT">' +
-              '<a href="#" class="block2-btn flex-c-m stext-103 cl2 size-102 bg0 bor2 hov-btn1 p-lr-15 trans-04 js-show-modal1">' +
+              '<a href="#" class="block2-btn flex-c-m stext-103 cl2 size-102 bg0 bor2 hov-btn1 p-lr-15 trans-04 js-show-modal1" onclick="DetailProduct('+result[i].Id+')">' +
                 'Lihat' +
               '</a>' +
             '</div>' +
@@ -42,7 +66,7 @@ function GetProduct(){
                 '</a>' +
 
                 '<span class="stext-105 cl3">' +
-                result[i].Price +
+                "Rp. "+FormatNumber(result[i].Price) +
               '</span>' +
               '</div>' +
 

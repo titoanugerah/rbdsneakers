@@ -142,7 +142,7 @@ function ProceedAddProduct() {
     success: function(result) {
       console.log(result);
       UploadFile('Product',result.id);
-      GetProduct()
+      GetProduct();
       notify('fa fa-user', result.title, result.message, result.status);
     },
     error: function(result) {
