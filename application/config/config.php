@@ -2,7 +2,7 @@
 defined('BASEPATH') OR exit('No direct script access allowed');
 
 
-$config['base_url'] = 'http://localhost/rbdsneakers/';
+$config['base_url'] = 'http://localhost:59999/rbdsneakers/';
 $config['index_page'] = 'index.php';
 $config['uri_protocol']	= 'REQUEST_URI';
 $config['url_suffix'] = '';

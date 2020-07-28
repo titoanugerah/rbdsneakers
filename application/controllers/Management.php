@@ -44,10 +44,21 @@ class management extends CI_Controller
     $this->load->view('Management/Template', $this->management_model->ContentDetailProduct($id));
   }
 
+  public function UpdateProduct()
+  {
+    echo json_encode($this->management_model->UpdateProduct($this->input->post()));
+  }
+
   public function WebManagement()
   {
     $this->load->view('Management/Template', $this->management_model->ContentWebManagement());
   }
+
+  public function GetWebConf()
+  {
+    echo $this->management_model->GetWebConf();
+  }
+
 
   public function GetDetailCustomer()
   {

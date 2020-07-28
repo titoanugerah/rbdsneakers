@@ -64,7 +64,7 @@
 
 
 <div class="wrap-modal1 js-modal1 p-t-60 p-b-20" >
-  <div class="overlay-modal1 js-show-modal1"></div>
+  <div class="overlay-modal1 js-show-modal2"></div>
 
   <div class="container">
     <div class="bg0 p-t-60 p-b-30 p-lr-15-lg how-pos3-parent">
@@ -76,39 +76,10 @@
         <div class="col-md-6 col-lg-7 p-b-30">
           <div class="p-l-25 p-r-30 p-lr-0-lg">
             <div class="wrap-slick3 flex-sb flex-w">
-              <div class="wrap-slick3-dots"></div>
+              <div class="wrap-slick3-dots" id="imageVariant"></div>
               <div class="wrap-slick3-arrows flex-sb-m flex-w"></div>
-
-              <div class="slick3 gallery-lb">
-                <div class="item-slick3" data-thumb="<?php echo base_url('./assets/template/cozastore/'); ?>images/product-detail-01.jpg">
-                  <div class="wrap-pic-w pos-relative">
-                    <img src="<?php echo base_url('./assets/template/cozastore/'); ?>images/product-detail-01.jpg" alt="IMG-PRODUCT">
-
-                    <a class="flex-c-m size-108 how-pos1 bor0 fs-16 cl10 bg0 hov-btn3 trans-04" href="<?php echo base_url('./assets/template/cozastore/'); ?>images/product-detail-01.jpg">
-                      <i class="fa fa-expand"></i>
-                    </a>
-                  </div>
-                </div>
-
-                <div class="item-slick3" data-thumb="<?php echo base_url('./assets/template/cozastore/'); ?>images/product-detail-02.jpg">
-                  <div class="wrap-pic-w pos-relative">
-                    <img src="<?php echo base_url('./assets/template/cozastore/'); ?>images/product-detail-02.jpg" alt="IMG-PRODUCT">
-
-                    <a class="flex-c-m size-108 how-pos1 bor0 fs-16 cl10 bg0 hov-btn3 trans-04" href="<?php echo base_url('./assets/template/cozastore/'); ?>images/product-detail-02.jpg">
-                      <i class="fa fa-expand"></i>
-                    </a>
-                  </div>
-                </div>
-
-                <div class="item-slick3" data-thumb="<?php echo base_url('./assets/template/cozastore/'); ?>images/product-detail-03.jpg">
-                  <div class="wrap-pic-w pos-relative">
-                    <img src="<?php echo base_url('./assets/template/cozastore/'); ?>images/product-detail-03.jpg" alt="IMG-PRODUCT">
-
-                    <a class="flex-c-m size-108 how-pos1 bor0 fs-16 cl10 bg0 hov-btn3 trans-04" href="<?php echo base_url('./assets/template/cozastore/'); ?>images/product-detail-03.jpg">
-                      <i class="fa fa-expand"></i>
-                    </a>
-                  </div>
-                </div>
+              
+              <div class="slick3 gallery-lb" id="imageVariant">
               </div>
             </div>
           </div>
@@ -116,15 +87,15 @@
 
         <div class="col-md-6 col-lg-5 p-b-30">
           <div class="p-r-50 p-t-5 p-lr-0-lg">
-            <h4 class="mtext-105 cl2 js-name-detail p-b-14">
+            <h4 class="mtext-105 cl2 js-name-detail p-b-14" id="productName">
               Lightweight Jacket
             </h4>
 
-            <span class="mtext-106 cl2">
+            <span class="mtext-106 cl2" id="productPrice">
               $58.79
             </span>
 
-            <p class="stext-102 cl3 p-t-23">
+            <p class="stext-102 cl3 p-t-23" id="productDescription">
               Nulla eget sem vitae eros pharetra viverra. Nam vitae luctus ligula. Mauris consequat ornare feugiat.
             </p>
 
@@ -132,17 +103,13 @@
             <div class="p-t-33">
               <div class="flex-w flex-r-m p-b-10">
                 <div class="size-203 flex-c-m respon6">
-                  Size
+                  Varian
                 </div>
 
                 <div class="size-204 respon6-next">
                   <div class="rs1-select2 bor8 bg0">
-                    <select class="js-select2" name="time">
+                    <select class="js-select2" name="time" id="productVariantId">
                       <option>Choose an option</option>
-                      <option>Size S</option>
-                      <option>Size M</option>
-                      <option>Size L</option>
-                      <option>Size XL</option>
                     </select>
                     <div class="dropDownSelect2"></div>
                   </div>
@@ -151,17 +118,13 @@
 
               <div class="flex-w flex-r-m p-b-10">
                 <div class="size-203 flex-c-m respon6">
-                  Color
+                  Ukuran
                 </div>
 
                 <div class="size-204 respon6-next">
                   <div class="rs1-select2 bor8 bg0">
-                    <select class="js-select2" name="time">
-                      <option>Choose an option</option>
-                      <option>Red</option>
-                      <option>Blue</option>
-                      <option>White</option>
-                      <option>Grey</option>
+                    <select class="js-select2" name="time" id="productSize">
+                      <option>Pilih varian terlebih dahulu</option>
                     </select>
                     <div class="dropDownSelect2"></div>
                   </div>

@@ -57,6 +57,11 @@ $route['detailProduct/addVariant'] = 'management/AddVariant';
 $route['detailProduct/addSize'] = 'management/AddSize';
 $route['detailProduct/addStock'] = 'management/AddStock';
 $route['detailProduct/updateVariant'] = 'management/UpdateVariant';
+$route['detailProduct/updateProduct'] = 'management/UpdateProduct';
+
+$route['getSizeVariant'] = 'general/GetSizeVariant';
+
+//WKWKWKWK
 $route['(:any)/detailProduct/addVariant'] = 'management/AddVariant';
 $route['(:any)/detailProduct/addSize'] = 'management/AddSize';
 $route['(:any)/detailProduct/addStock'] = 'management/AddStock';
@@ -70,6 +75,7 @@ $route['(:any)/(:any)/detailProduct/updateVariant'] = 'management/UpdateVariant'
 
 //WEBCONF
 $route['updateWebConf'] = 'management/UpdateWebConf';
+$route['getWebConf'] = 'management/GetWebConf';
 $route['addAbout'] = 'management/AddAbout';
 $route['updateAbout'] = 'management/UpdateAbout';
 #SYSTEM

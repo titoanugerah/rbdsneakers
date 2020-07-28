@@ -57,6 +57,12 @@ class General_model extends CI_Model
     return json_encode($result->result());
   }
 
+  public function GetSizeVariant()
+  {
+    $data = ($this->db->query('Select a.Size, (sum(a.Stock) - IFNULL(sum(b.Qty), 0)) as Stock from Stock as a left join DetailOrder as b on ( a.VariantId = b.VariantId and a.Size = b.Size) where a.VariantId = '.$this->input->post('Id').' group by a.Size'))->result();
+    return json_encode($data);
+  }
+
   public function GetDetailProduct($input)
   {
     $result['detail'] = $this->core_model->GetSingleData('Product','Id', $input['Id']);

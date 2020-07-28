@@ -32,11 +32,11 @@ function GetWebConf() {
     type: "POST",
     dataType : "JSON",
     data: {
-      Table: 'WebConf',
+      Table: 'webconf',
       Variable : 'Id',
       Value : 1
     },
-    url: "getDetail",
+    url: "getWebConf",
     success: function(result) {
       console.log(result);
       var html='<button class="nav-link active show" onclick="DetailAbout(0)" data-toggle="pill" role="tab" aria-selected="true">Baru</button>';
@@ -45,7 +45,7 @@ function GetWebConf() {
       $("#officeName").val(result.detail.office_name);
       $("#officeAddress").val(result.detail.office_address);
       $("#officeMap").val(result.detail.office_map);
-      $("#brandLogo").attr('src', "http://localhost/rbdsneakers/assets/picture/"+result.detail.image);
+      $("#brandLogo").attr('src', "assets/picture/"+result.detail.image);
       $("#officePhoneNumber").val(result.detail.office_phone_number);
       $("#officeEmail").val(result.detail.email);
       $("#officialTwitter").val(result.detail.official_twitter_account);

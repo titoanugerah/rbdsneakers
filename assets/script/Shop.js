@@ -11,8 +11,53 @@ function FormatNumber(num) {
   return num.toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1.')
 }
 
+function pricify( num ) {
+  var str = num.toString().split('.');
+  if (str[0].length >= 5) {
+      str[0] = str[0].replace(/(\d)(?=(\d{3})+$)/g, '$1.');
+  }
+  if (str[1] && str[1].length >= 5) {
+      str[1] = str[1].replace(/(\d{3})/g, '$1 ');
+  }
+  return "Rp. "+str.join('.');
+}
+
+$('#productVariantId').on('change', function(){
+  $.ajax({
+    type: "POST",
+    dataType : "JSON",
+    url: 'getSizeVariant' ,
+    data: {
+      Id  : $('#productVariantId').val(),
+    },
+    success: function(result) {
+      console.log(result);
+      var selectSize = "<option>Pilih Ukuran</option>";
+
+      result.forEach(element => {
+        if(element.Stock >0) 
+        {
+          selectSize = selectSize + "<option> "+ element.Size +" ( Tersedia "+element.Stock +" ) </option>";        
+        } else {
+          selectSize = selectSize + "<option disabled> "+ element.Size +" ( Tersedia "+element.Stock +" ) </option>";        
+
+        }
+      });
+
+      $('#productSize').html(selectSize);
+
+      $('.js-modal1').addClass('show-modal1');
+      
+      
+    },
+    error: function(result) {
+      alert('err');
+    }
+  });
+
+});
+
 function  DetailProduct(id){
-  console.log('voila',id);
   $.ajax({
     type: "POST",
     dataType : "JSON",
@@ -22,7 +67,42 @@ function  DetailProduct(id){
     },
     success: function(result) {
       console.log(result);
-      $('.js-show-modal1').click();
+      var selectVariant = "<option>Pilih Varian</option>";
+      var imageVariant = '<div class="slick3 gallery-lb">' +
+      '<div class="item-slick3" data-thumb="assets/template/cozastore/images/product-detail-01.jpg">' +
+        '<div class="wrap-pic-w pos-relative">' +
+          '<img src="assets/template/cozastore/images/product-detail-01.jpg" alt="IMG-PRODUCT">' +
+
+          '<a class="flex-c-m size-108 how-pos1 bor0 fs-16 cl10 bg0 hov-btn3 trans-04" href="assets/template/images/product-detail-01.jpg">' +
+            '<i class="fa fa-expand"></i>' + 
+          '</a>' +
+        '</div>' +
+      '</div>';
+
+      // $('.js-show-modal1').click();
+      $('#productName').html(result.detail.Name);
+      $('#productPrice').html(pricify(result.detail.Price));
+      $('#productDescription').html(result.detail.Description);
+
+      result.variant.forEach(element => {
+        selectVariant = selectVariant + "<option value='"+element.Id+"'> "+ element.Model +" - "+element.Color +" </option>";        
+        imageVariant = imageVariant +
+        '<div class="item-slick3" data-thumb="assets/template/cozastore/images/product-detail-01.jpg">' +
+          '<div class="wrap-pic-w pos-relative">' +
+            '<img src="assets/template/cozastore/images/product-detail-01.jpg" alt="IMG-PRODUCT">' +
+  
+            '<a class="flex-c-m size-108 how-pos1 bor0 fs-16 cl10 bg0 hov-btn3 trans-04" href="assets/template/images/product-detail-01.jpg">' +
+              '<i class="fa fa-expand"></i>' + 
+            '</a>' +
+        '</div>';
+  
+      });
+      console.log(imageVariant);
+
+      $('#productVariantId').html(selectVariant);
+      $('#imageVariant').html(imageVariant);
+      $('.js-modal1').addClass('show-modal1');
+      
       
     },
     error: function(result) {
@@ -54,7 +134,7 @@ function GetProduct(){
           '<div class="block2">' +
             '<div class="block2-pic hov-img0">' +
               '<img src="assets/picture/'+result[i].Image+'" alt="IMG-PRODUCT">' +
-              '<a href="#" class="block2-btn flex-c-m stext-103 cl2 size-102 bg0 bor2 hov-btn1 p-lr-15 trans-04 js-show-modal1" onclick="DetailProduct('+result[i].Id+')">' +
+              '<a href="#" class="block2-btn flex-c-m stext-103 cl2 size-102 bg0 bor2 hov-btn1 p-lr-15 trans-04 js-show-modal2" onclick="DetailProduct('+result[i].Id+')">' +
                 'Lihat' +
               '</a>' +
             '</div>' +

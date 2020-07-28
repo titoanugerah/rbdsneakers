@@ -59,7 +59,7 @@
       <div class="card-footer">
         <button type="button" class="btn btn-primary" onclick="UpdateProduct()">Simpan</button>
         <button type="button" class="btn btn-danger" onclick="Delete('Product', 'idProduct')">Hapus</button>
-        <button type="button" class="btn btn-secondary"> Kembali</button>
+        <a type="button" class="btn btn-secondary" href="<?php echo base_url('productManagement'); ?>"> Kembali</a>
       </div>
     </div>
     <div class="tab-pane fade show" id="tab2" role="tabpanel" >

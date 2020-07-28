@@ -92,10 +92,25 @@ class Management_model extends CI_Model
   {
     if ($this->session->userdata['AccountManagement'])
     {
-      $operation = ($this->db->query('CALL AddAccountManagement("'.$email.'",'.$privilleges.')'))->row();
-      $data['title'] = $operation->Title;
-      $data['type'] = $operation->Status;
-      $data['message'] = $operation->Message;
+//      $operation = ($this->db->query('CALL AddAccountManagement("'.$email.'",'.$privilleges.')'))->row();
+      $checkManagement = $this->core_model->GetNumRows('Management', 'Email', '"'.$email.'"');
+      $checkCustomer = $this->core_model->GetNumRows('Customer', 'Email', '"'.$email.'"');
+      if ($checkCustomer == 0 && $checkManagement==0) 
+      {
+        $this->db->insert('Management', array('Email'=>$email, 'privileges' => $privilleges,'Image' => 'assets/no.jpg'));
+        $data['title'] = "Berhasil";
+        $data['type'] = 'Success';
+        $data['message'] = "Akun berhasil ditambahkan ";
+      } 
+      else if ($checkCustomer == 0 && $checkManagement==0) 
+      {
+        $this->db->where('Email', $email);
+        $this->db->update('Management', array('IsExist'=> 1, 'Privilleges'=>$privilleges));
+        $data['title'] = "Akun Dipulihkan";
+        $data['type'] = 'Info';
+        $data['message'] = "Akun sudah ada,  berhasil dipulihkan ";
+
+      } 
     }
     else
     {
@@ -144,6 +159,15 @@ class Management_model extends CI_Model
     }
     return json_encode($data);
 
+  }
+
+  public function updateProduct($input)
+  {
+    $this->core_model->UpdateDataBatch('Product', 'Id', $input['Id'], $input);
+    $data['title'] = 'Berhasil';
+    $data['type'] = 'success';
+    $data['message'] = 'Update produk berhasil dilakukan';
+    return $data; 
   }
 
   public function UpdateCategory($id, $name, $description)
@@ -352,6 +376,13 @@ class Management_model extends CI_Model
 
     }
     return json_encode($data);
+  }
+
+  public function GetWebConf()
+  {
+    $data['detail'] = $this->core_model->GetWebConf();
+    $data['about'] = $this->core_model->GetAllData('About',0);
+    return json_encode($data);     
   }
 
   public function UpdateWebConf($input)
