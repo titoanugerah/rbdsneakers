@@ -67,40 +67,43 @@ function  DetailProduct(id){
     },
     success: function(result) {
       console.log(result);
-      var selectVariant = "<option>Pilih Varian</option>";
-      var imageVariant = '<div class="slick3 gallery-lb">' +
-      '<div class="item-slick3" data-thumb="assets/template/cozastore/images/product-detail-01.jpg">' +
-        '<div class="wrap-pic-w pos-relative">' +
-          '<img src="assets/template/cozastore/images/product-detail-01.jpg" alt="IMG-PRODUCT">' +
-
-          '<a class="flex-c-m size-108 how-pos1 bor0 fs-16 cl10 bg0 hov-btn3 trans-04" href="assets/template/images/product-detail-01.jpg">' +
-            '<i class="fa fa-expand"></i>' + 
-          '</a>' +
+      var i = 0;
+      var carouselIndicator = '<li data-target="#carouselExampleIndicators" data-slide-to="'+i+'" class="active"></li>';
+      var carouselImage = 
+      '<div class="carousel-item active">' + 
+        '<img class="d-block w-100" src="assets/picture/'+result.detail.Image+'" style="max-height:700px;max-width:700px;">' +
+        '<div class="carousel-caption d-none d-md-block">' +
+          '<h5>Gambar Utama</h5>' +
         '</div>' +
       '</div>';
 
+
+
+      var selectVariant = "<option>Pilih Varian</option>";
       // $('.js-show-modal1').click();
       $('#productName').html(result.detail.Name);
       $('#productPrice').html(pricify(result.detail.Price));
       $('#productDescription').html(result.detail.Description);
 
       result.variant.forEach(element => {
-        selectVariant = selectVariant + "<option value='"+element.Id+"'> "+ element.Model +" - "+element.Color +" </option>";        
-        imageVariant = imageVariant +
-        '<div class="item-slick3" data-thumb="assets/template/cozastore/images/product-detail-01.jpg">' +
-          '<div class="wrap-pic-w pos-relative">' +
-            '<img src="assets/template/cozastore/images/product-detail-01.jpg" alt="IMG-PRODUCT">' +
-  
-            '<a class="flex-c-m size-108 how-pos1 bor0 fs-16 cl10 bg0 hov-btn3 trans-04" href="assets/template/images/product-detail-01.jpg">' +
-              '<i class="fa fa-expand"></i>' + 
-            '</a>' +
+        i++;
+        carouselIndicator = carouselIndicator + '<li data-target="#carouselExampleIndicators" data-slide-to="'+i+'" class="active"></li>';
+        carouselImage = carouselImage + 
+        '<div class="carousel-item .variant'+element.Id+'">' + 
+          '<img class="d-block w-100" src="assets/picture/'+element.Image+'" style="max-height:700px;max-width:700px;">' +
+          '<div class="carousel-caption d-none d-md-block">' +
+            '<h5>Varian '+element.Model+'</h5>' +
+            '<p>Warna '+element.Color+'</p>' +
+          '</div>' +
         '</div>';
+        selectVariant = selectVariant + "<option value='"+element.Id+"'> "+ element.Model +" - "+element.Color +" </option>";        
+
   
       });
-      console.log(imageVariant);
 
       $('#productVariantId').html(selectVariant);
-      $('#imageVariant').html(imageVariant);
+      $('#carouselImage').html(carouselImage);
+      $('#carouselIndicator').html(carouselIndicator);
       $('.js-modal1').addClass('show-modal1');
       
       
@@ -129,36 +132,40 @@ function GetProduct(){
       var html = "";
       console.log(result);
       for (var i = 0; i < result.length; i++) {
-        html = html +
-        '<div class="col-sm-6 col-md-4 col-lg-3 p-b-35 isotope-item '+result[i].Category+'">' +
-          '<div class="block2">' +
-            '<div class="block2-pic hov-img0">' +
-              '<img src="assets/picture/'+result[i].Image+'" alt="IMG-PRODUCT">' +
-              '<a href="#" class="block2-btn flex-c-m stext-103 cl2 size-102 bg0 bor2 hov-btn1 p-lr-15 trans-04 js-show-modal2" onclick="DetailProduct('+result[i].Id+')">' +
-                'Lihat' +
-              '</a>' +
-            '</div>' +
-
-            '<div class="block2-txt flex-w flex-t p-t-14">' +
-              '<div class="block2-txt-child1 flex-col-l ">' +
-                '<a href="product-detail.html" class="stext-104 cl4 hov-cl1 trans-04 js-name-b2 p-b-6">' +
-                  result[i].Name +
-                '</a>' +
-
-                '<span class="stext-105 cl3">' +
-                "Rp. "+FormatNumber(result[i].Price) +
-              '</span>' +
-              '</div>' +
-
-              '<div class="block2-txt-child2 flex-r p-t-3">' +
-                '<a href="#" class="btn-addwish-b2 dis-block pos-relative js-addwish-b2">' +
-                  '<img class="icon-heart1 dis-block trans-04" src="assets/template/cozastore/images/icons/icon-heart-01.png" alt="ICON">' +
-                  '<img class="icon-heart2 dis-block trans-04 ab-t-l" src="assets/template/cozastore/images/icons/icon-heart-02.png" alt="ICON">' +
+        if(result[i].IsExist == 1) {
+          html = html +
+          '<div class="col-sm-6 col-md-4 col-lg-3 p-b-35 isotope-item '+result[i].Category+'">' +
+            '<div class="block2">' +
+              '<div class="block2-pic hov-img0">' +
+                '<img src="assets/picture/'+result[i].Image+'" alt="IMG-PRODUCT">' +
+                '<a href="#" class="block2-btn flex-c-m stext-103 cl2 size-102 bg0 bor2 hov-btn1 p-lr-15 trans-04 js-show-modal2" onclick="DetailProduct('+result[i].Id+')">' +
+                  'Lihat' +
                 '</a>' +
               '</div>' +
+
+              '<div class="block2-txt flex-w flex-t p-t-14">' +
+                '<div class="block2-txt-child1 flex-col-l ">' +
+                  '<a href="product-detail.html" class="stext-104 cl4 hov-cl1 trans-04 js-name-b2 p-b-6">' +
+                    result[i].Name +
+                  '</a>' +
+
+                  '<span class="stext-105 cl3">' +
+                  "Rp. "+FormatNumber(result[i].Price) +
+                '</span>' +
+                '</div>' +
+
+                '<div class="block2-txt-child2 flex-r p-t-3">' +
+                  '<a href="#" class="btn-addwish-b2 dis-block pos-relative js-addwish-b2">' +
+                    '<img class="icon-heart1 dis-block trans-04" src="assets/template/cozastore/images/icons/icon-heart-01.png" alt="ICON">' +
+                    '<img class="icon-heart2 dis-block trans-04 ab-t-l" src="assets/template/cozastore/images/icons/icon-heart-02.png" alt="ICON">' +
+                  '</a>' +
+                '</div>' +
+              '</div>' +
             '</div>' +
-          '</div>' +
-        '</div>';
+          '</div>';
+        } else {
+          continue;
+        }
       }
 
       $('#products').html(html);

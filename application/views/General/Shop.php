@@ -66,23 +66,33 @@
 <div class="wrap-modal1 js-modal1 p-t-60 p-b-20" >
   <div class="overlay-modal1 js-show-modal2"></div>
 
-  <div class="container">
-    <div class="bg0 p-t-60 p-b-30 p-lr-15-lg how-pos3-parent">
+  <div class="container overflow-auto" >
+    <div class="bg0 how-pos3-parent">
       <button class="how-pos3 hov3 trans-04 js-hide-modal1">
         <img src="<?php echo base_url('./assets/template/cozastore/'); ?>images/icons/icon-close.png" alt="CLOSE">
       </button>
 
       <div class="row">
         <div class="col-md-6 col-lg-7 p-b-30">
-          <div class="p-l-25 p-r-30 p-lr-0-lg">
-            <div class="wrap-slick3 flex-sb flex-w">
-              <div class="wrap-slick3-dots" id="imageVariant"></div>
-              <div class="wrap-slick3-arrows flex-sb-m flex-w"></div>
-              
-              <div class="slick3 gallery-lb" id="imageVariant">
-              </div>
+            
+          <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
+            <ol class="carousel-indicators" id="carouselIndicator">
+              <li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
+              <li data-target="#carouselExampleIndicators" data-slide-to="2"></li>
+            </ol>
+            <div class="carousel-inner" id="carouselImage">
             </div>
+            <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
+              <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+              <span class="sr-only">Previous</span>
+            </a>
+            <a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next">
+              <span class="carousel-control-next-icon" aria-hidden="true"></span>
+              <span class="sr-only">Next</span>
+            </a>
           </div>
+
+
         </div>
 
         <div class="col-md-6 col-lg-5 p-b-30">
