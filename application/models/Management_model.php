@@ -375,7 +375,7 @@ class Management_model extends CI_Model
        $query = $this->db->query($que);
        $data['title'] = 'Berhasil';
        $data['type'] = 'success';
-       $data['message'] = 'Proses penambahan varian produk berhasil dilakukan';
+       $data['message'] = 'Proses perubahan CMS berhasil dilakukan';
     }
     else
     {
