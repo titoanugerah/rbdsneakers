@@ -138,10 +138,10 @@
               <div class="row">
                 <div class="form-group col-md-8 ">
                   <label>Nama Kategori</label>
-                  <input type="text" class="form-control" id="nameCategory" >
+                  <input type="text" class="form-control" id="addNameCategory" >
                   <input type="text" class="form-control" id="idCategory" hidden>
                   <label>Deskripsi</label>
-                  <textarea id="descriptionCategory" rows="4" cols="80" class="form-control"></textarea>
+                  <textarea id="addDescriptionCategory" rows="4" cols="80" class="form-control"></textarea>
                 </div>
                 <div class="form-group col-md-4">
                   <div class="input-file input-file-image">
