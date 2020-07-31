@@ -313,7 +313,7 @@ function GetDetailProduct() {
           '<div class="col-sm-6 col-lg-3">' +
           '<div class="card">' +
           '<div class="p-2">' +
-          '<img class="card-img-top rounded" src="'+url+'assets/picture/'+result.variant[i].Image+'">' +
+          '<img class="card-img-top rounded" src="'+'/assets/picture/'+result.variant[i].Image+'">' +
           '</div>' +
           '<div class="card-body pt-2">' +
           '<h4 class="mb-1 fw-bold">' +
