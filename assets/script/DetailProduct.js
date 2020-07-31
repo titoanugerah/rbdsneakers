@@ -334,7 +334,7 @@ function GetDetailProduct() {
       $('#idRecoverVariant').html(html2);
     },
     error: function(result) {
-      alert('error', url);
+
     }
   });
 }
