@@ -97,7 +97,7 @@ class Management_model extends CI_Model
       $checkCustomer = $this->core_model->GetNumRows('Customer', 'Email', '"'.$email.'"');
       if ($checkCustomer == 0 && $checkManagement==0) 
       {
-        $this->db->insert('Management', array('Email'=>$email, 'privileges' => $privilleges,'Image' => 'assets/no.jpg'));
+        $this->db->insert('Management', array('Email'=>$email, 'Privileges' => $privilleges,'Image' => 'assets/no.jpg'));
         $data['title'] = "Berhasil";
         $data['type'] = 'Success';
         $data['message'] = "Akun berhasil ditambahkan ";
