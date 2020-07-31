@@ -149,6 +149,7 @@ function ProceedAddCategory() {
     success: function(result) {
       UploadFile('Category', result.Id);
       notify('fa fa-user', result.title, result.message, result.status);
+      GetCategory();
     },
     error: function(result) {
       console.log(result);
