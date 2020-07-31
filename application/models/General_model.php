@@ -76,17 +76,17 @@ class General_model extends CI_Model
     if ((!isset($this->session->userdata['isLogin'])) || ((!isset($this->session->userdata['isLogin'])) && (!$this->session->userdata['isLogin'])))
     {
       $user['status'] = 0;
-      require_once 'vendor/autoload.php';
-      $client = new Google_Client();
-      $client->setAuthConfig('assets/client_credentials.json');
-      $client->addScope("email");
-      $client->addScope("profile");
-      if (isset($_GET['code']))
-      {
-        $token = $client->fetchAccessTokenWithAuthCode($this->input->get('code'));
-        $client->setAccessToken($token['access_token']);
-        $validUser = (new Google_Service_Oauth2($client))->userinfo->get();
-        $user = $this->db->query('CALL GetAccount("'.$validUser->email.'","'.$validUser->name.'","'.$validUser->picture.'")')->row();
+       require_once 'vendor/autoload.php';
+       $client = new Google_Client();
+       $client->setAuthConfig('assets/client_credentials.json');
+       $client->addScope("email");
+       $client->addScope("profile");
+       if (isset($_GET['code']))
+       {
+         $token = $client->fetchAccessTokenWithAuthCode($this->input->get('code'));
+         $client->setAccessToken($token['access_token']);
+         $validUser = (new Google_Service_Oauth2($client))->userinfo->get();
+         $user = $this->db->query('CALL GetAccount("'.$validUser->email.'","'.$validUser->name.'","'.$validUser->picture.'")')->row();
         $userdata = array(
           'isLogin' => true,
           'Role' => $user->Role,
