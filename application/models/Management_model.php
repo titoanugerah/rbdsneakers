@@ -93,24 +93,6 @@ class Management_model extends CI_Model
     if ($this->session->userdata['AccountManagement'])
     {
       $data = ($this->db->query('CALL AddAccountManagement("'.$email.'",'.$privilleges.')'))->row();
-      // $checkManagement = $this->core_model->GetNumRows('Management', 'Email', '"'.$email.'"');
-      // $checkCustomer = $this->core_model->GetNumRows('Customer', 'Email', '"'.$email.'"');
-      // if ($checkCustomer == 0 && $checkManagement==0) 
-      // {
-      //   $this->db->insert('Management', array('Email'=>$email, 'Privilleges' => $privilleges,'Image' => 'assets/no.jpg'));
-      //   $data['title'] = "Berhasil";
-      //   $data['type'] = 'Success';
-      //   $data['message'] = "Akun berhasil ditambahkan ";
-      // } 
-      // else if ($checkCustomer == 0 && $checkManagement==0) 
-      // {
-      //   $this->db->where('Email', $email);
-      //   $this->db->update('Management', array('IsExist'=> 1, 'Privilleges'=>$privilleges));
-      //   $data['title'] = "Akun Dipulihkan";
-      //   $data['type'] = 'Info';
-      //   $data['message'] = "Akun sudah ada,  berhasil dipulihkan ";
-
-      // } 
     }
     else
     {

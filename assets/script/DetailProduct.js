@@ -291,12 +291,6 @@ function Recover(table, id){
 
 
 function GetDetailProduct() {
-  var url;
-  if("<?php echo $webConf->status; ?>" == "live"){
-    url = 'localhost';
-  } else {
-    url = 'http://localhost:59999/rbdsneakers/';
-  }
   $.ajax({
     type: "POST",
     dataType : "JSON",
