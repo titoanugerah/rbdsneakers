@@ -370,12 +370,17 @@ class Management_model extends CI_Model
   public function UpdateWebConf($input)
   {
     if ($this->session->userdata['SalesManagement']){
-      //NEED TO MODIFY
-      $que = 'CALL UpdateWebConf("'.$input['brand_name'].'","'.$input['brand_slogan'].'","'.$input['office_name'].'","'.$input['office_map'].'","'.$input['office_address'].'","'.$input['office_phone_number'].'","'.$input['host'].'","'.$input['email'].'","'.$input['password'].'","'.$input['port'].'","'.$input['crypto'].'","'.$input['bank_name'].'","'.$input['bank_account'].'","'.$input['bank_user'].'","'.$input['official_facebook_account'].'","'.$input['official_twitter_account'].'","'.$input['official_instagram_account'].'")';
-       $query = $this->db->query($que);
-       $data['title'] = 'Berhasil';
-       $data['type'] = 'success';
-       $data['message'] = 'Proses perubahan CMS berhasil dilakukan';
+      try {
+         $que = 'CALL UpdateWebConf("'.$input['brand_name'].'","'.$input['brand_slogan'].'","'.$input['office_name'].'","'.$input['office_map'].'","'.$input['office_address'].'","'.$input['office_phone_number'].'","'.$input['host'].'","'.$input['email'].'","'.$input['password'].'","'.$input['port'].'","'.$input['crypto'].'","'.$input['bank_name'].'","'.$input['bank_account'].'","'.$input['bank_user'].'","'.$input['official_facebook_account'].'","'.$input['official_twitter_account'].'","'.$input['official_instagram_account'].'")';
+         $query = $this->db->query($que);
+         $data['title'] = 'Berhasil';
+         $data['type'] = 'success';
+         $data['message'] = 'Proses perubahan CMS berhasil dilakukan';
+      } catch (Exception $e) {
+        $data['title'] = 'Gagal';
+        $data['type'] = 'danger';
+        $data['message'] = 'Terjadi kesalahan sistem '.$e->getMessage();         
+      }
     }
     else
     {
