@@ -66,13 +66,13 @@
 <div class="wrap-modal1 js-modal1 p-t-60 p-b-20" >
   <div class="overlay-modal1 js-show-modal2"></div>
 
-  <div class="container overflow-auto" >
+  <div class="container" >
     <div class="bg0 how-pos3-parent">
       <button class="how-pos3 hov3 trans-04 js-hide-modal1">
         <img src="<?php echo base_url('./assets/template/cozastore/'); ?>images/icons/icon-close.png" alt="CLOSE">
       </button>
 
-      <div class="row">
+      <div class="row overflow-auto">
         <div class="col-md-6 col-lg-7 p-b-30">
             
           <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
