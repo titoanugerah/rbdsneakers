@@ -487,7 +487,7 @@ class Management_model extends CI_Model
   public function UpdateAbout($input)
   {
     if (($this->session->userdata['SalesManagement'])) {
-       $query = $this->db->query('CALL UpdateAbout('.$input['Id'].',"'.$input['Title'].'","'.$input['Content'].'",'.$this->session->userdata['Id'].')');
+       $query = $this->db->query("CALL UpdateAbout(".$input["Id"].",'".$input["Title"]."','".$input["Content"]."',".$this->session->userdata["Id"].")");
        $data['id'] = $query->row('Id');
        $data['title'] = 'Berhasil';
        $data['type'] = 'success';
