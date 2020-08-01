@@ -60,6 +60,9 @@ $route['detailProduct/updateVariant'] = 'management/UpdateVariant';
 $route['detailProduct/updateProduct'] = 'management/UpdateProduct';
 
 $route['getSizeVariant'] = 'general/GetSizeVariant';
+$route['addToCart'] = 'general/AddToCart';
+$route['getCart'] = 'general/GetCart';
+$route['deleteFromCart'] = 'general/DeleteFromCart';
 
 //WKWKWKWK
 $route['(:any)/detailProduct/addVariant'] = 'management/AddVariant';

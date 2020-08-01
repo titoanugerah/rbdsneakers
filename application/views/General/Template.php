@@ -181,24 +181,12 @@
 
 					</div>
 				</div>
-        <ul class="header-cart-wrapitem w-full" >
-          <li class="header-cart-item flex-w flex-t m-b-12">
-            <div class="header-cart-item-img">
-              <img src="<?php echo base_url('/assets/template/cozastore/'); ?>images/item-cart-01.jpg" alt="IMG">
-            </div>
-
-            <div class="header-cart-item-txt p-t-8">
-              <a href="<?php echo base_url('/assets/template/cozastore/'); ?>#" class="header-cart-item-name m-b-18 hov-cl1 trans-04">
-                White Shirt Pleat
-              </a>
-
-              <span class="header-cart-item-info">
-                1 x $19.00
-              </span>
-            </div>
-          </li>
+        <ul class="header-cart-wrapitem w-full" id='cartList'>
+         
 
         </ul>
+        <button >Beli Sekarang</button>
+
 			</div>
 		</div>
 	</div>
@@ -359,12 +347,12 @@
 
     /*---------------------------------------------*/
 
-    $('.js-addcart-detail').each(function(){
-      var nameProduct = $(this).parent().parent().parent().parent().find('.js-name-detail').html();
-      $(this).on('click', function(){
-        swal(nameProduct, "is added to cart !", "success");
-      });
-    });
+    // $('.js-addcart-detail').each(function(){
+    //   var nameProduct = $(this).parent().parent().parent().parent().find('.js-name-detail').html();
+    //   $(this).on('click', function(){
+    //     swal(nameProduct, "is added to cart !", "success");
+    //   });
+    // });
 
   </script>
   <!--===============================================================================================-->

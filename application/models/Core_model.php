@@ -46,6 +46,16 @@ class Core_model extends CI_Model
     return $this->db->get_where($table, substr($where, 0, strlen($where)-3))->result();
   }
 
+  public function InsertData($table,$data)
+  {
+    return $this->db->insert($table, $data);
+  }
+
+  public function DeleteData($table, $whereVar, $whereVal)
+  {
+    return $this->db->delete($table, array($whereVar => $whereVal));
+  }
+
   public function updateData($table, $whereVar, $whereVal, $setVar, $setVal)
   {
     $data = array($setVar => $setVal );

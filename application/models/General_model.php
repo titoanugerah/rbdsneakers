@@ -110,6 +110,29 @@ class General_model extends CI_Model
     }
   }
 
+  public function DeleteFromCart()
+  {
+    return json_encode($this->core_model->DeleteData('Cart', 'Id', $this->input->post('Id')));
+  }
+
+  public function GetCart(){
+    $result = $this->db->query('CALL GetCart('.$this->session->userdata('Id').')');
+    return json_encode($result->result());
+    // return json_encode($this->core_model->GetSingleData('Cart', 'CustomerId', $this->session->userdata('Id')));
+  }
+
+  public function AddToCart()
+  {
+    $input = $this->input->post();
+    $input['CustomerId'] = $this->session->userdata('Id'); 
+    try {
+      $this->core_model->InsertData('Cart', $input);
+      return http_response_code(200);
+    } catch (Exception $error) {
+      return http_response_code(500);
+    }
+  }
+
 }
 
  ?>

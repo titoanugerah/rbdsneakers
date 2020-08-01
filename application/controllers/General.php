@@ -49,6 +49,21 @@ class General extends CI_Controller
     echo $this->general_model->GetSizeVariant();
   }
 
+  public function AddToCart()
+  {
+    echo $this->general_model->AddToCart();
+  }
+
+  public function GetCart()
+  {
+    echo $this->general_model->GetCart();
+  }
+
+  public function DeleteFromCart()
+  {
+    echo $this->general_model->DeleteFromCart();
+  }
+
   public function Logout()
   {
     $this->session->sess_destroy();

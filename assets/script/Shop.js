@@ -1,5 +1,6 @@
 $(document).ready(function(){
   GetProduct();
+  GetCart();
 });
 
 function FindByCategory(category){
@@ -9,6 +10,88 @@ function FindByCategory(category){
 
 function FormatNumber(num) {
   return num.toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1.')
+}
+
+function GetCart(){
+  $.ajax({
+    type: "POST",
+    dataType : "JSON",
+    url: 'getCart' ,
+    success: function(result) {
+      console.log(result);
+      var cartList = "";
+      result.forEach(cart => {
+        cartList = cartList + 
+        '<li class="header-cart-item flex-w flex-t m-b-12">' +
+          '<div class="header-cart-item-img" onclick="deleteFromCart('+cart.Id+')">' +
+            '<img src="assets/picture/'+cart.Image+'" alt="IMG">' +
+          '</div>' + 
+        '<div class="header-cart-item-txt p-t-8" >' +
+          '<button  class="header-cart-item-name m-b-18 hov-cl1 trans-04">' +
+            cart.Product + " " + cart.Model  + 
+          '</button>' +
+          '<span class="header-cart-item-info">' +
+            cart.Color + " ukuran " + cart.Size +
+            '<br>' +
+            pricify(cart.Total) +
+          '</span>' +
+        '</div>' +
+      '</li>';
+
+      });
+
+      $('#cartList').html(cartList);
+
+      // $('.js-modal1').addClass('show-modal1');
+      
+      
+    },
+    error: function(result) {
+      alert('err');
+    }
+  });
+}
+
+function deleteFromCart(id){
+  $.ajax({
+    type: "POST",
+    dataType : "JSON",
+    url: 'deleteFromCart' ,
+    data: {
+      Id  : id
+    },
+    success: function(result) {
+      console.log(result);
+      GetCart();      
+      swal("Berhasil", "Berhasil dihapus", "success");
+
+    },
+    error: function(result) {
+      swal($('#productName').text(), "Gagal dihapus", "danger");
+    }
+  });
+}
+
+function AddToCart(){
+  $.ajax({
+    type: "POST",
+    dataType : "JSON",
+    url: 'addToCart' ,
+    data: {
+      VariantId  : $('#productVariantId').val(),
+      Size : $('#productSize').val(),
+      Qty :  $('#productQty').val()     
+    },
+    success: function(result) {
+      console.log(result);
+      swal($('#productName').text(), "Berhasil ditambahkan", "success");
+
+      GetCart();      
+    },
+    error: function(result) {
+      swal($('#productName').text(), "Gagal ditambahkan", "danger");
+    }
+  });
 }
 
 function pricify( num ) {
@@ -37,9 +120,9 @@ $('#productVariantId').on('change', function(){
       result.forEach(element => {
         if(element.Stock >0) 
         {
-          selectSize = selectSize + "<option> "+ element.Size +" ( Tersedia "+element.Stock +" ) </option>";        
+          selectSize = selectSize + "<option value="+element.Size+"> "+ element.Size +" ( Tersedia "+element.Stock +" ) </option>";        
         } else {
-          selectSize = selectSize + "<option disabled> "+ element.Size +" ( Tersedia "+element.Stock +" ) </option>";        
+          selectSize = selectSize + "<option value="+element.Size+"  disabled> "+ element.Size +" ( Tersedia "+element.Stock +" ) </option>";        
 
         }
       });
