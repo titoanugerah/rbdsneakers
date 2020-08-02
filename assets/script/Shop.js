@@ -47,7 +47,7 @@ function GetCart(){
       
     },
     error: function(result) {
-      alert('err');
+//      swal("Gagal", "Pengguna", "success");
     }
   });
 }
@@ -195,6 +195,64 @@ function  DetailProduct(id){
       alert('err');
     }
   });
+}
+
+function Checkout() {
+
+  Swal.mixin({
+    input: 'text',
+    confirmButtonText: 'Selanjutnya &rarr;',
+    showCancelButton: true,
+    progressSteps: ['1', '2', '3']
+  }).queue([
+    {
+      title: 'Konfirmasi Nama',
+      text: 'Silahkan masukan nama penerima'
+    },
+    {
+      title: 'Konfirmasi Alamat',
+      text: 'Silahkan masukan alamat pengiriman'
+    },
+    {
+      title: 'Konfirmasi Nomor HP',
+      text: 'Silahkan masukan Nomor HP Penerima'
+    }
+  ]).then((result) => {
+    console.log(result);
+    if (result.value) {
+      const answers = JSON.stringify(result.value)
+//       console.log(result.value[0]); GOT IT
+
+      $.ajax({
+          type: "POST",
+          dataType : "JSON",
+          url: 'checkout' ,
+          data: {
+            CustomerName : result.value[0],
+            DeliveryAddress  : result.value[1],
+            CustomerPhone  : result.value[2]
+          },
+          success: function(result) {
+            console.log(result);
+//            swal($('#productName').text(), "Berhasil ditambahkan", "success");
+            Swal.fire({
+              title: 'Tahap konfirmasi selesai',
+              text: 'Silahkan lakukan pembayaran sebesar '+pricify(result.Subtotal),
+              // html: `
+              //   Your answers:
+              //   <pre><code>${answers}</code></pre>
+              // `,
+              confirmButtonText: 'Tutup'
+            })
+
+            GetCart();      
+          },
+          error: function(result) {
+            swal($('#productName').text(), "Gagal ditambahkan", "danger");
+          }
+        });
+    }
+  })
 }
 
 function GetProduct(){

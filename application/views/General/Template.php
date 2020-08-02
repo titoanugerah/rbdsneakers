@@ -185,7 +185,7 @@
          
 
         </ul>
-        <button >Beli Sekarang</button>
+        <button onclick="Checkout()">Beli Sekarang</button>
 
 			</div>
 		</div>
@@ -319,7 +319,9 @@
   <script src="<?php echo base_url('./assets/template/cozastore/'); ?>vendor/isotope/isotope.pkgd.min.js"></script>
   <!--===============================================================================================-->
   <script src="<?php echo base_url('./assets/template/cozastore/'); ?>vendor/sweetalert/sweetalert.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
   <script>
+
     $('.js-addwish-b2, .js-addwish-detail').on('click', function(e){
       e.preventDefault();
     });

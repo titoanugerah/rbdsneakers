@@ -64,6 +64,8 @@ $route['addToCart'] = 'general/AddToCart';
 $route['getCart'] = 'general/GetCart';
 $route['deleteFromCart'] = 'general/DeleteFromCart';
 
+$route['checkout'] = 'general/Checkout';
+
 //WKWKWKWK
 $route['(:any)/detailProduct/addVariant'] = 'management/AddVariant';
 $route['(:any)/detailProduct/addSize'] = 'management/AddSize';

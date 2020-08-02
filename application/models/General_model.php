@@ -121,6 +121,14 @@ class General_model extends CI_Model
     // return json_encode($this->core_model->GetSingleData('Cart', 'CustomerId', $this->session->userdata('Id')));
   }
 
+  public function Checkout()
+  {
+    $input = $this->input->post();
+    $result = $this->db->query('CALL Checkout('.$this->session->userdata('Id').',"'.$input['CustomerName'].'","'.$input['CustomerPhone'].'","'.$input['DeliveryAddress'].'")');
+    return json_encode($result->row());
+    
+  }
+
   public function AddToCart()
   {
     $input = $this->input->post();

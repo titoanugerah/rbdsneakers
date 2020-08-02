@@ -64,6 +64,11 @@ class General extends CI_Controller
     echo $this->general_model->DeleteFromCart();
   }
 
+  public function Checkout()
+  {
+    echo $this->general_model->Checkout();
+  }
+
   public function Logout()
   {
     $this->session->sess_destroy();
