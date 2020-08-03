@@ -56,18 +56,47 @@ class Core_model extends CI_Model
     return $this->db->delete($table, array($whereVar => $whereVal));
   }
 
-  public function updateData($table, $whereVar, $whereVal, $setVar, $setVal)
+  public function UpdateData($table, $whereVar, $whereVal, $setVar, $setVal)
   {
     $data = array($setVar => $setVal );
     $this->db->where($where = array($whereVar => $whereVal ));
     return $this->db->update($table, $data);
   }
 
-  public function updateDataBatch($table, $whereVar, $whereVal, $data)
+  public function UpdateDataBatch($table, $whereVar, $whereVal, $data)
   {
     $this->db->where($where = array($whereVar => $whereVal ));
     return $this->db->update($table, $data);
   }
+
+  public function SentEmail($to, $fullname, $subject, $content, $account)
+  {
+   // $account = $this->getSingleData('webconf', 'id', 1);
+    $config['smtp_crypto'] = $account->crypto; 
+    $config['protocol'] = 'mail'; 
+    $config['smtp_host'] = $account->host;
+    $config['smtp_user'] = $account->email; 
+    $config['smtp_pass'] = $account->password; 
+    $config['smtp_port'] = $account->port; 
+    $config['charset']='utf-8'; // Default should be utf-8 (this should be a text field) 
+    $config['newline']="\r\n"; //"\r\n" or "\n" or "\r". DEFAULT should be "\r\n" 
+    $config['crlf'] = "\r\n"; //"\r\n" or "\n" or "\r" DEFAULT should be "\r\n" 
+    $this->load->library('email', $config);
+    $this->email->initialize($config);
+    $this->email->from($account->username);
+    $this->email->to($to);
+    $this->email->subject($subject);
+    $this->email->message('
+    Yth. '.$fullname.'
+    Di Tempat.
+
+    '.$content.'
+    Terima Kasih
+    ');
+    $sent = $this->email->send(); 
+    error_reporting(0);
+  }
+
   //FUNCTIONAL
   public function GetWebConf()
   {

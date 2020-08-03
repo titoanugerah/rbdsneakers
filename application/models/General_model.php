@@ -123,9 +123,21 @@ class General_model extends CI_Model
 
   public function Checkout()
   {
+    $webconf = $this->core_model->GetWebConf();
     $input = $this->input->post();
-    $result = $this->db->query('CALL Checkout('.$this->session->userdata('Id').',"'.$input['CustomerName'].'","'.$input['CustomerPhone'].'","'.$input['DeliveryAddress'].'")');
-    return json_encode($result->row());
+    $orders = "";
+    $subtotal = 0;
+    $result = ($this->db->query('CALL Checkout('.$this->session->userdata('Id').',"'.$input['CustomerName'].'","'.$input['CustomerPhone'].'","'.$input['DeliveryAddress'].'")'))->result();
+    foreach($result as $item){
+      $orders = $orders." ".$item->Product." - ".$item->Model." ".$item->Color."( ukuran".$item->Size." ) \n";
+      $subtotal = $subtotal + $item->Total;
+    }
+    $content = "
+    Bersamaan dengan email ini kami sampaikan bahwa pesanan kamu di keranjang sudah berhasil checkout, antara lain : \n
+    ".$orders." \n
+    selanjutnya, silahkan lakukan pembayaran sebanyak Rp. ".$subtotal." ke rekening ".$webconf->bank_name." ".$webconf->bank_account." A/N s".$webconf->bank_user;
+    $this->core_model->SentEmail($this->session->userdata('Email'),$this->session->userdata('Fullname'),"Pembayaran pembelian sepatu", $content, $webconf);
+    return json_encode($subtotal);
     
   }
 

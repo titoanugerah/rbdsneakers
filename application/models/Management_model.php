@@ -22,6 +22,13 @@ class Management_model extends CI_Model
     return $data;
   }
 
+  public function ContentOrderManagement()
+  {
+    $data['webConf'] = $this->core_model->GetWebConf();
+    $data['viewName'] = 'Blank';
+    return $data;
+  }
+
   public function ContentProfile()
   {
     $data['webConf'] = $this->core_model->GetWebConf();
@@ -331,7 +338,7 @@ class Management_model extends CI_Model
       $upload['message'] = "File berhasil di upload";
       $upload['ext'] = $this->upload->data('file_ext');
       $upload['filename'] = $filename;
-      $this->core_model->updateData($type, 'Id', $id, 'Image', $filename.$upload['ext']);
+      $this->core_model->UpdateData($type, 'Id', $id, 'Image', $filename.$upload['ext']);
     }
     return json_encode($upload);
   }

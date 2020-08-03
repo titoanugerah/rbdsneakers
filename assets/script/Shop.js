@@ -62,8 +62,9 @@ function deleteFromCart(id){
     },
     success: function(result) {
       console.log(result);
-      GetCart();      
-      swal("Berhasil", "Berhasil dihapus", "success");
+      GetCart();
+      $('.js-hide-cart').click();      
+      swal.fire("Berhasil", "Berhasil dihapus", "success");
 
     },
     error: function(result) {
@@ -84,12 +85,15 @@ function AddToCart(){
     },
     success: function(result) {
       console.log(result);
-      swal($('#productName').text(), "Berhasil ditambahkan", "success");
+      $('.js-hide-modal1').click();
+      Swal.fire($('#productName').text(), "Berhasil ditambahkan", "success");
 
       GetCart();      
     },
     error: function(result) {
-      swal($('#productName').text(), "Gagal ditambahkan", "danger");
+      $('.js-hide-modal1').click();
+
+      Swal.fire($('#productName').text(), "Gagal ditambahkan", "danger");
     }
   });
 }
@@ -198,6 +202,7 @@ function  DetailProduct(id){
 }
 
 function Checkout() {
+  $('.js-hide-cart').click();      
 
   Swal.mixin({
     input: 'text',
@@ -237,7 +242,7 @@ function Checkout() {
 //            swal($('#productName').text(), "Berhasil ditambahkan", "success");
             Swal.fire({
               title: 'Tahap konfirmasi selesai',
-              text: 'Silahkan lakukan pembayaran sebesar '+pricify(result.Subtotal),
+              text: 'Silahkan periksa email dan lakukan pembayaran sebesar '+pricify(result),
               // html: `
               //   Your answers:
               //   <pre><code>${answers}</code></pre>

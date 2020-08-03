@@ -63,8 +63,9 @@ $route['getSizeVariant'] = 'general/GetSizeVariant';
 $route['addToCart'] = 'general/AddToCart';
 $route['getCart'] = 'general/GetCart';
 $route['deleteFromCart'] = 'general/DeleteFromCart';
-
 $route['checkout'] = 'general/Checkout';
+
+$route['orderManagement'] = 'management/OrderManagement';
 
 //WKWKWKWK
 $route['(:any)/detailProduct/addVariant'] = 'management/AddVariant';
@@ -76,6 +77,7 @@ $route['(:any)/uploadFile/(:any)/(:any)'] = 'management/UploadFile/$2/$3';
 $route['(:any)/(:any)/detailProduct/addVariant'] = 'management/AddVariant';
 $route['(:any)/(:any)/detailProduct/addStock'] = 'management/AddStock';
 $route['(:any)/(:any)/detailProduct/updateVariant'] = 'management/UpdateVariant';
+
 
 
 //WEBCONF
