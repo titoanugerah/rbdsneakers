@@ -94,7 +94,7 @@ class Core_model extends CI_Model
     Terima Kasih
     ');
     $sent = $this->email->send(); 
-    error_reporting(0);
+    error_reporting(1);
   }
 
   //FUNCTIONAL

@@ -25,7 +25,7 @@ class Management_model extends CI_Model
   public function ContentOrderManagement()
   {
     $data['webConf'] = $this->core_model->GetWebConf();
-    $data['viewName'] = 'Blank';
+    $data['viewName'] = 'OrderManagement';
     return $data;
   }
 
@@ -148,6 +148,11 @@ class Management_model extends CI_Model
     }
     return json_encode($data);
 
+  }
+
+  public function GetDetailOrder()
+  {
+    return json_encode($this->core_model->GetAllData('ViewDetailOrder',0));
   }
 
   public function updateProduct($input)

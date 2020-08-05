@@ -64,6 +64,10 @@ class management extends CI_Controller
     echo $this->management_model->GetWebConf();
   }
 
+  public function GetDetailOrder()
+  {
+    echo $this->management_model->GetDetailOrder();
+  }
 
   public function GetDetailCustomer()
   {
