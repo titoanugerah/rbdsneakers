@@ -132,13 +132,11 @@ class General_model extends CI_Model
       $orders = $orders." ".$item->Product." - ".$item->Model." ".$item->Color."( ukuran".$item->Size." ) \n";
       $subtotal = $subtotal + $item->Total;
     }
-    // $content = "
-    // Bersamaan dengan email ini kami sampaikan bahwa pesanan kamu di keranjang sudah berhasil checkout, antara lain : \n
-    // ".$orders." \n
-    // selanjutnya, silahkan lakukan pembayaran sebanyak Rp. ".$subtotal." ke rekening ".$webconf->bank_name." ".$webconf->bank_account." A/N s".$webconf->bank_user;
-    //$this->core_model->SentEmail($this->session->userdata('Email'),$this->session->userdata('Fullname'),"Pembayaran pembelian sepatu", $content, $webconf);
-    $content = "Herewith i've shared to you list of car arrangement that request by us. please click link ".base_url('downloadRequest/'.$request->location_id.'/'.$request->date)." to access the file and confirm by reply this email"; 
-    $this->core_model->sentEmail($this->session->userdata('Email'),$this->session->userdata('Fullname'), "PIC Car Arrangement".$request->location, "OCHA", $content, $account);
+    $content = "
+    Bersamaan dengan email ini kami sampaikan bahwa pesanan kamu di keranjang sudah berhasil checkout, antara lain : \n
+    ".$orders." \n
+    selanjutnya, silahkan lakukan pembayaran sebanyak Rp. ".$subtotal." ke rekening ".$webconf->bank_name." ".$webconf->bank_account." A/N s".$webconf->bank_user;
+    $this->core_model->SentEmail($this->session->userdata('Email'),$this->session->userdata('Fullname'),"Pembayaran pembelian sepatu", $content, $webconf);
     return json_encode($subtotal);
     
   }
