@@ -25,13 +25,16 @@
     <div class="tab-pane fade show active" id="tab1" role="tabpanel" >
       <div class="card-body row">
         <div class="col-md-12">
-        <table  class="display datatable" id="example">
+        <table  class="display datatable">
             <thead>
               <tr>
                 <th>ID</th>
-                <th>Nama Perangkat</th>
-                <th>Deskripsi</th>
-                <th>Tanggal</th>
+                <th>Produk</th>
+                <th>Model</th>
+                <th>Ukuran</th>
+                <th>Harga</th>
+                <th>Total</th>
+                <th>Opsi</th>
               </tr>
             </thead>
             <tbody id="allData">

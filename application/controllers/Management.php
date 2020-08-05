@@ -69,6 +69,12 @@ class management extends CI_Controller
     echo $this->management_model->GetDetailOrder();
   }
 
+
+  public function ConfirmPayment()
+  {
+    echo $this->management_model->ConfirmPayment();
+  }
+
   public function GetDetailCustomer()
   {
     echo $this->management_model->GetDetailCustomer($this->input->get('Id'));

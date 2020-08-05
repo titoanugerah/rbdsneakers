@@ -152,7 +152,7 @@ class Management_model extends CI_Model
 
   public function GetDetailOrder()
   {
-    return json_encode($this->core_model->GetAllData('ViewDetailOrder',0));
+    return json_encode($this->core_model->GetAllData('ViewDetailOrder1',0));
   }
 
   public function updateProduct($input)
@@ -162,6 +162,13 @@ class Management_model extends CI_Model
     $data['type'] = 'success';
     $data['message'] = 'Update produk berhasil dilakukan';
     return $data; 
+  }
+
+  public function ConfirmPayment()
+  {
+    $this->db->where(array('OrderId' => $this->input->post()));
+    $this->db->update('Order', array('Status' => 1));
+    return json_encode('OK');
   }
 
   public function UpdateCategory($id, $name, $description)
