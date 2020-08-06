@@ -168,6 +168,11 @@ class Management_model extends CI_Model
   {
     $this->db->where(array('Id' => $this->input->post('Id')));
     $this->db->update('Order', array('Status' => 1));
+    $webconf = $this->core_model->GetWebConf();
+    $query = $this->db->query('Select b.Email, b.Fullname from `Order` as a, `Customer` as b where a.Id='.$this->input->post('Id').' and a.CustomerId=b.Id');
+    $content = "
+    Bersamaan dengan email ini kami sampaikan bahwa pembayaran kamu sudah dikonfirmasi";
+    $this->core_model->SentEmail($query->row('Email'),$query->row('Fullname'),"Pesanan anda sudah dikirim", $content, $webconf);
     return json_encode('OK');
   }
 
@@ -175,7 +180,14 @@ class Management_model extends CI_Model
   {
     $this->db->where(array('Id' => $this->input->post('Id')));
     $this->db->update('Order', array('AWB' => $this->input->post('AWB'),'Status' => 2));
+    $webconf = $this->core_model->GetWebConf();
+    $query = $this->db->query('Select b.Email, b.Fullname from `Order` as a, `Customer` as b where a.Id='.$this->input->post('Id').' and a.CustomerId=b.Id');
+    $content = "
+    Bersamaan dengan email ini kami sampaikan bahwa pesanan kamu sudah dikirimkan dengan nomor AWB ".$this->input->post('AWB');
+    $this->core_model->SentEmail($query->row('Email'),$query->row('Fullname'),"Pesanan anda sudah dikirim", $content, $webconf);
+
     return json_encode('OK');
+
   }
 
 
