@@ -68,6 +68,7 @@ $route['checkout'] = 'general/Checkout';
 $route['orderManagement'] = 'management/OrderManagement';
 $route['getDetailOrder'] = 'management/GetDetailOrder';
 $route['confirmPayment'] = 'management/ConfirmPayment';
+$route['confirmDelivery'] = 'management/ConfirmDelivery';
 //$route['getOrder'] = 'management/GetDetailOrder';
 
 //WKWKWKWK

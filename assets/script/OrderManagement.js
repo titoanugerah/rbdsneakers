@@ -11,6 +11,32 @@ setTimeout(function(){
     });
   }, 600)
   
+  function confirmDeliveryForm(id) {
+    $('#confirmDeliveryModal').modal('show');
+    $('#orderId').val(id)
+  }
+
+  function  confirmDelivery(){
+
+    $.ajax({
+      type: "POST",
+      dataType : "JSON",
+      data : {
+        Id : $('#orderId').val(),
+        AWB : $('#awb').val()
+      },
+      url: "confirmDelivery",
+      success: function(result) {
+        console.log(result);
+        getOrder();
+    },
+      error: function(result) {
+        console.log(result);
+        notify('fas fa-bell', 'Gagal', 'Terjadi masalah ketika memproses, kode error : '+result.status, 'danger');
+      }
+    });
+  }
+
 
   function confirmPayment(id) {
     $.ajax({
@@ -43,23 +69,31 @@ setTimeout(function(){
             var no = 1;
             result.forEach(function(data){
                 var btns = '';
+                var stat = '';
+                var deliveryDestination = data.CustomerName+', '+data.DeliveryAddress+', '+data.CustomerPhone;
                 if(data.Status == 0){
-                    btns ='<button class="btn btn-primary" onclick="confirmPayment('+data.OrderId+')">Konfirmasi Pembayaran</button>';
-                } else if(data.Status==1){
-                    btns ='<button class="btn btn-primary" onclick="confirmDelivery('+data.OrderId+')">Konfirmasi Pengiriman</button>';
-                } 
+                    btns ='<button class="btn btn-warning" onclick="confirmPayment('+data.OrderId+')">Konfirmasi Pembayaran</button>';
+                    stat = 'Menunggu konfirmasi pembayaran';
+                  } else if(data.Status==1){
+                    btns ='<button class="btn btn-primary" onclick="confirmDeliveryForm('+data.OrderId+')">Konfirmasi Pengiriman</button>';
+                    stat = 'Pembayaran dikonfirmasi, menunggu pengiriman';
+                  } else {
+                    stat = 'Pesanan terkirim';
+
+                  }
 
                 html1 =
                 '<tr>' +
-                '<td>'+no+'</td>' +
+                '<td>'+data.OrderId+'</td>' +
                 '<td>'+data.Product+'</td>' +
-                '<td>'+data.Model+data.Color+'</td>' +
-                '<td>'+data.Size+'</td>' +
+                '<td>'+data.Model+' '+data.Color+' ukuran '+data.Size+'</td>' +
                 '<td>'+data.Price+'</td>' +
                 '<td>'+data.Total+'</td>' +
+                '<td>'+deliveryDestination+'</td>' +
+                '<td>'+stat+'</td>' +
                 '<td> '+btns+'</td>' +
                 '</tr>' + html1;    
-              
+                no++;
             });
     
             $('#allData').html(html1);

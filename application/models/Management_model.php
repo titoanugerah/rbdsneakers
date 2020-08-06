@@ -166,10 +166,18 @@ class Management_model extends CI_Model
 
   public function ConfirmPayment()
   {
-    $this->db->where(array('OrderId' => $this->input->post()));
+    $this->db->where(array('Id' => $this->input->post('Id')));
     $this->db->update('Order', array('Status' => 1));
     return json_encode('OK');
   }
+
+  public function ConfirmDelivery()
+  {
+    $this->db->where(array('Id' => $this->input->post('Id')));
+    $this->db->update('Order', array('AWB' => $this->input->post('AWB'),'Status' => 2));
+    return json_encode('OK');
+  }
+
 
   public function UpdateCategory($id, $name, $description)
   {
