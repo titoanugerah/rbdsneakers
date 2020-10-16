@@ -1,16 +1,20 @@
 $(document).ready(function(){
-    getOrder();
-});
+  getOrder();
 
-setTimeout(function(){
-    $('.datatable').DataTable({
-      "order": [[ 0, "desc" ]],
-      dom: 'Bfrtip',
-      buttons: [
-    'copy', 'csv', 'excel', 'pdf', 'print']  
-    });
-  }, 600)
-  
+
+    setTimeout(function(){
+      $('.datatable').DataTable({
+        "order": [[ 0, "desc" ]],
+        dom: 'Bfrtip',
+        buttons: [
+      'copy', 'csv', 'excel', 'pdf', 'print']  
+      });
+
+    }, 1500);
+    
+  });
+
+
   function confirmDeliveryForm(id) {
     $('#confirmDeliveryModal').modal('show');
     $('#orderId').val(id)
