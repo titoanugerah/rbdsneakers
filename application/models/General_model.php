@@ -162,7 +162,7 @@ class General_model extends CI_Model
         'Price' => $item->Price,
         'Qty' => $item->Qty
       );
-      $this->db->insert('Order',$data);
+      $this->db->insert('DetailOrder',$data);
   
     }
 
