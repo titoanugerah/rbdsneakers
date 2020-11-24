@@ -1,7 +1,7 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-$route['default_controller'] = 'general';
+$route['default_controller'] = 'general/Shop';
 $route['home'] = 'general/Index';
 $route['logout'] = 'general/Logout';
 $route['about'] = 'general/About';
@@ -67,9 +67,11 @@ $route['checkout'] = 'general/Checkout';
 
 $route['orderManagement'] = 'management/OrderManagement';
 $route['getDetailOrder'] = 'management/GetDetailOrder';
+$route['getSalesReport'] = 'management/GetSalesReport';
 $route['confirmPayment'] = 'management/ConfirmPayment';
 $route['confirmDelivery'] = 'management/ConfirmDelivery';
 //$route['getOrder'] = 'management/GetDetailOrder';
+$route['invoice/(:any)'] = 'general/Invoice/$1';
 
 //WKWKWKWK
 $route['(:any)/detailProduct/addVariant'] = 'management/AddVariant';

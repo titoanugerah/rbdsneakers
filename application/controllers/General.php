@@ -18,6 +18,10 @@ class General extends CI_Controller
   {
     $this->load->view('General/Template', $this->general_model->ContentHome());
   }
+  public function Invoice($id)
+  {
+    $this->load->view('General/Invoice', $this->general_model->ContentInvoice($id));
+  }
 
   public function About()
   {

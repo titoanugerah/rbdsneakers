@@ -1,6 +1,6 @@
 $(document).ready(function(){
   getOrder();
-
+  getSales();
 
     setTimeout(function(){
       $('.datatable').DataTable({
@@ -13,7 +13,6 @@ $(document).ready(function(){
     }, 1500);
     
   });
-
 
   function confirmDeliveryForm(id) {
     $('#confirmDeliveryModal').modal('show');
@@ -62,50 +61,92 @@ $(document).ready(function(){
   }
   
 
-    function getOrder() {
-        $.ajax({
-          type: "POST",
-          dataType : "JSON",
-          url: "getDetailOrder",
-          success: function(result) {
-            console.log(result);
-            var html1= "";
-            var no = 1;
-            result.forEach(function(data){
-                var btns = '';
-                var stat = '';
-                var deliveryDestination = data.CustomerName+', '+data.DeliveryAddress+', '+data.CustomerPhone;
-                if(data.Status == 0){
-                    btns ='<button class="btn btn-warning" onclick="confirmPayment('+data.OrderId+')">Konfirmasi Pembayaran</button>';
-                    stat = 'Menunggu konfirmasi pembayaran';
-                  } else if(data.Status==1){
-                    btns ='<button class="btn btn-primary" onclick="confirmDeliveryForm('+data.OrderId+')">Konfirmasi Pengiriman</button>';
-                    stat = 'Pembayaran dikonfirmasi, menunggu pengiriman';
-                  } else {
-                    stat = 'Pesanan terkirim';
+  function getOrder() {
+      $.ajax({
+        type: "POST",
+        dataType : "JSON",
+        url: "getDetailOrder",
+        success: function(result) {
+          console.log(result);
+          var html1= "";
+          var no = 1;
+          result.forEach(function(data){
+              var btns = '';
+              var stat = '';
+              var deliveryDestination = data.CustomerName+', '+data.DeliveryAddress+', '+data.CustomerPhone;
+              if(data.Status == 0){
+                  btns ='<button class="btn btn-warning" onclick="confirmPayment('+data.OrderId+')">Konfirmasi Pembayaran</button>';
+                  stat = 'Menunggu konfirmasi pembayaran';
+                } else if(data.Status==1){
+                  btns ='<button class="btn btn-primary" onclick="confirmDeliveryForm('+data.OrderId+')">Konfirmasi Pengiriman</button>';
+                  stat = 'Pembayaran dikonfirmasi, menunggu pengiriman';
+                } else {
+                  stat = 'Pesanan terkirim';
 
-                  }
+                }
 
-                html1 =
-                '<tr>' +
-                '<td>'+data.OrderId+'</td>' +
-                '<td>'+data.Product+'</td>' +
-                '<td>'+data.Model+' '+data.Color+' ukuran '+data.Size+'</td>' +
-                '<td>'+data.Price+'</td>' +
-                '<td>'+data.Total+'</td>' +
-                '<td>'+deliveryDestination+'</td>' +
-                '<td>'+stat+'</td>' +
-                '<td> '+btns+'</td>' +
-                '</tr>' + html1;    
-                no++;
-            });
+              html1 =
+              '<tr>' +
+              '<td>'+data.OrderId+'</td>' +
+              '<td>'+data.Product+'</td>' +
+              '<td>'+data.Model+' '+data.Color+' ukuran '+data.Size+'</td>' +
+              '<td>'+data.Price+'</td>' +
+              '<td>'+data.Total+'</td>' +
+              '<td>'+deliveryDestination+'</td>' +
+              '<td>'+stat+'</td>' +
+              '<td> '+btns+'</td>' +
+              '</tr>' + html1;    
+              no++;
+          });
+  
+          $('#allData').html(html1);
+        },
+        error: function(result) {
+          console.log(result);
+          notify('fas fa-bell', 'Gagal', 'Terjadi masalah ketika memproses, kode error : '+result.status, 'danger');
+        }
+      });
+    }
+
+    function getSales() {
+      $.ajax({
+        type: "POST",
+        dataType : "JSON",
+        url: "getSalesReport",
+        success: function(result) {
+          console.log(result);
+          var html1= "";
+          
+          var no = 1;
+          result.forEach(function(data){
+              if(data.Status == 0){
+                btns ='<button class="btn btn-warning" onclick="confirmPayment('+data.OrderId+')">Konfirmasi Pembayaran</button>';
+                stat = 'Menunggu konfirmasi pembayaran';
+              } else if(data.Status==1){
+                btns ='<button class="btn btn-primary" onclick="confirmDeliveryForm('+data.OrderId+')">Konfirmasi Pengiriman</button>';
+                stat = 'Pembayaran dikonfirmasi, menunggu pengiriman';
+              } else {
+                stat = 'Pesanan terkirim';
     
-            $('#allData').html(html1);
-          },
-          error: function(result) {
-            console.log(result);
-            notify('fas fa-bell', 'Gagal', 'Terjadi masalah ketika memproses, kode error : '+result.status, 'danger');
-          }
-        });
-      }
+              }
+              html1 =
+              '<tr>' +
+              '<td>'+no+'</td>' +
+              '<td>'+data.Product+'</td>' +
+              '<td>'+data.Variant+'</td>' +
+              '<td>'+stat+'</td>' +
+              '<td>'+data.qty+'</td>' +
+              '<td>'+data.total+'</td>' +
+              '</tr>' + html1;    
+              no++;
+          });
+  
+          $('#salesData').html(html1);
+        },
+        error: function(result) {
+          console.log(result);
+          notify('fas fa-bell', 'Gagal', 'Terjadi masalah ketika memproses, kode error : '+result.status, 'danger');
+        }
+      });
+    }
     

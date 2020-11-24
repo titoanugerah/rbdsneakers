@@ -49,9 +49,10 @@
         <nav class="limiter-menu-desktop container">
 
           <!-- Logo desktop -->
-          <a href="<?php echo base_url(''); ?>" class="logo">
+            <h3 style="color:white;">RBDSneakers</h3>
+          <!-- <a href="<?php echo base_url(''); ?>" class="logo">
             <img src="<?php echo base_url('./assets/template/cozastore/'); ?>images/icons/logo-01.png" alt="IMG-LOGO">
-          </a>
+          </a> -->
 
           <!-- Menu desktop -->
           <div class="menu-desktop">

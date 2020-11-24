@@ -121,13 +121,27 @@ class General_model extends CI_Model
     // return json_encode($this->core_model->GetSingleData('Cart', 'CustomerId', $this->session->userdata('Id')));
   }
 
+  public function ContentInvoice($id)
+  {
+    $result['webconf'] = $this->core_model->GetWebConf();
+    $result['order'] = $this->core_model->GetSingleData('Order', 'Id', $id);
+    $result['detailOrder'] = $this->core_model->GetSomeData('ViewDetailOrder', 'OrderId', $id);
+    return $result;
+  }
+
   public function Checkout()
   {
     $webconf = $this->core_model->GetWebConf();
     $input = $this->input->post();
     $orders = "";
     $subtotal = 0;
-    $result = ($this->db->query('CALL Checkout('.$this->session->userdata('Id').',"'.$input['CustomerName'].'","'.$input['CustomerPhone'].'","'.$input['DeliveryAddress'].'")'))->result();
+    // $result = ($this->db->query('CALL Checkout('.$this->session->userdata('Id').',"'.$input['CustomerName'].'","'.$input['CustomerPhone'].'","'.$input['DeliveryAddress'].'")'))->result();
+    // foreach($result as $item){
+    //   $orders = $orders." ".$item->Product." - ".$item->Model." ".$item->Color."( ukuran".$item->Size." ) \n";
+    //   $subtotal = $subtotal + $item->Total;
+    // }
+    $query = 'SELECT  c.Name as Product, b.Model as Model, b.Color as Color, a.Size as Size, a.Qty * c.Price as Total FROM Cart as  a, Variant as b, Product as c where a.VariantId = b.Id and b.ProductId = c.Id and a.CustomerId = '.$this->session->userdata['Id'];
+    $result = ($this->db->query($query))->result();
     foreach($result as $item){
       $orders = $orders." ".$item->Product." - ".$item->Model." ".$item->Color."( ukuran".$item->Size." ) \n";
       $subtotal = $subtotal + $item->Total;

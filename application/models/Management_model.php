@@ -155,6 +155,11 @@ class Management_model extends CI_Model
     return json_encode($this->core_model->GetAllData('ViewDetailOrder1',0));
   }
 
+  public function GetSalesReport()
+  {
+    return json_encode($this->core_model->GetAllData('sumary_profit',0));
+  }
+
   public function updateProduct($input)
   {
     $this->core_model->UpdateDataBatch('Product', 'Id', $input['Id'], $input);
@@ -171,7 +176,7 @@ class Management_model extends CI_Model
     $webconf = $this->core_model->GetWebConf();
     $query = $this->db->query('Select b.Email, b.Fullname from `Order` as a, `Customer` as b where a.Id='.$this->input->post('Id').' and a.CustomerId=b.Id');
     $content = "
-    Bersamaan dengan email ini kami sampaikan bahwa pembayaran kamu sudah dikonfirmasi";
+    Bersamaan dengan email ini kami sampaikan bahwa pembayaran kamu sudah dikonfirmasi, silahkan akses ".base_url('invoice/'.$this->input->post('Id'))." untuk melihat invoice";
     $this->core_model->SentEmail($query->row('Email'),$query->row('Fullname'),"Pesanan anda sudah dikirim", $content, $webconf);
     return json_encode('OK');
   }
