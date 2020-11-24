@@ -140,17 +140,41 @@ class General_model extends CI_Model
     //   $orders = $orders." ".$item->Product." - ".$item->Model." ".$item->Color."( ukuran".$item->Size." ) \n";
     //   $subtotal = $subtotal + $item->Total;
     // }
-    $query = 'SELECT  c.Name as Product, b.Model as Model, b.Color as Color, a.Size as Size, a.Qty * c.Price as Total FROM Cart as  a, Variant as b, Product as c where a.VariantId = b.Id and b.ProductId = c.Id and a.CustomerId = '.$this->session->userdata['Id'];
+    $data = array(
+      'CustomerId' => $this->session->userdata['Id'],
+      'CustomerName' => $input['CustomerName'],
+      'CustomerPhone' => $input['CustomerPhone'],
+      'DeliveryAddress' => $input['DeliveryAddress'],
+      'Status' => 0,      
+    );
+    $this->db->insert('Order',$data);
+    $id = $this->db->insert_id();
+    $query = 'SELECT  c.Name as Product, a.Size, c.Id as ProductId, a.VariantId, b.Model as Model, b.Color as Color, a.Qty, c.Price,  a.Size as Size, a.Qty * c.Price as Total FROM Cart as  a, Variant as b, Product as c where a.VariantId = b.Id and b.ProductId = c.Id and a.CustomerId = '.$this->session->userdata['Id'];    
     $result = ($this->db->query($query))->result();
     foreach($result as $item){
       $orders = $orders." ".$item->Product." - ".$item->Model." ".$item->Color."( ukuran".$item->Size." ) \n";
       $subtotal = $subtotal + $item->Total;
+      $data = array(
+        'OrderId' => $id,
+        'ProductId' => $item->ProductId,
+        'VariantId' => $item->VariantId,
+        'Size' => $item->Size,
+        'Price' => $item->Price,
+        'Qty' => $item->Qty
+      );
+      $this->db->insert('Order',$data);
+  
     }
+
+
     $content = "
     Bersamaan dengan email ini kami sampaikan bahwa pesanan kamu di keranjang sudah berhasil checkout, antara lain : \n
     ".$orders." \n
     selanjutnya, silahkan lakukan pembayaran sebanyak Rp. ".$subtotal." ke rekening ".$webconf->bank_name." ".$webconf->bank_account." A/N s".$webconf->bank_user;
     $this->core_model->SentEmail($this->session->userdata('Email'),$this->session->userdata('Fullname'),"Pembayaran pembelian sepatu", $content, $webconf);
+    
+    $this->db->delete('Cart', array('CustomerId' => $this->input->post('Id')));
+
     return json_encode($subtotal);
     
   }
