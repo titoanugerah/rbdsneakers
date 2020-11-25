@@ -134,7 +134,6 @@ $(document).ready(function(){
               '<td>'+no+'</td>' +
               '<td>'+data.Product+'</td>' +
               '<td>'+data.Variant+'</td>' +
-              '<td>'+stat+'</td>' +
               '<td>'+data.qty+'</td>' +
               '<td>'+data.total+'</td>' +
               '</tr>' + html1;    

@@ -50,7 +50,6 @@
                 <th>ID</th>
                 <th>Produk</th>
                 <th>Model</th>
-                <th>Status</th>
                 <th>Qty</th>
                 <th>Total</th>
               </tr>
