@@ -177,7 +177,7 @@ class Management_model extends CI_Model
     $query = $this->db->query('Select b.Email, b.Fullname from `Order` as a, `Customer` as b where a.Id='.$this->input->post('Id').' and a.CustomerId=b.Id');
     $content = "
     Bersamaan dengan email ini kami sampaikan bahwa pembayaran kamu sudah dikonfirmasi, silahkan akses ".base_url('invoice/'.$this->input->post('Id'))." untuk melihat invoice";
-    $this->core_model->SentEmail($query->row('Email'),$query->row('Fullname'),"Pesanan anda sudah dikirim", $content, $webconf);
+    $this->core_model->SentEmail($query->row('Email'),$query->row('Fullname'),"Pesanan anda diproses", $content, $webconf);
     return json_encode('OK');
   }
 

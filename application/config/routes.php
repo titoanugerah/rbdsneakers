@@ -1,7 +1,7 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-$route['default_controller'] = 'general/Shop';
+$route['default_controller'] = 'general/Index';
 $route['home'] = 'general/Index';
 $route['logout'] = 'general/Logout';
 $route['about'] = 'general/About';
